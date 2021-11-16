@@ -31,7 +31,7 @@ PC_JWT=$(curl --silent \
               --url "$PC_APIURL/login" \
               --header 'Accept: application/json; charset=UTF-8' \
               --header 'Content-Type: application/json; charset=UTF-8' \
-              --data "$PC_AUTH_PAYLOAD" | jq -r '.token')
+              --data "$AUTH_PAYLOAD" | jq -r '.token')
 
 
 

@@ -110,7 +110,10 @@ pcee_api_url=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .d
 pcee_accesskey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_accesskey)
 pcee_secretkey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_secretkey)
 
-pcee_auth_payload="{\"password\": \"$pcee_secretkey\", \"username\": \"$pcee_accesskey\"}"
+pcee_auth_payload=$(cat <<EOF
+{"password": "$pcee_secretkey", "username": "$pcee_accesskey"}
+EOF
+)
 ```
 
 Now we're ready to make our first api call using curl. 
@@ -128,7 +131,10 @@ pcee_api_url=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .d
 pcee_accesskey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_accesskey)
 pcee_secretkey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_secretkey)
 
-pcee_auth_payload="{\"password\": \"${pcee_secretkey}\", \"username\": \"${pcee_accesskey}\"}"
+pcee_auth_payload=pcee_auth_payload=$(cat <<EOF
+{"password": "$pcee_secretkey", "username": "$pcee_accesskey"}
+EOF
+)
 
 # HERE'S WHAT WE COPIED FROM THE DOCUMENTATION PAGE:
 
@@ -168,8 +174,10 @@ pcee_api_url=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .d
 pcee_accesskey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_accesskey)
 pcee_secretkey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_secretkey)
 
-pcee_auth_payload="{\"password\": \"$pcee_secretkey\", \"username\": \"$pcee_accesskey\"}"
-
+pcee_auth_payload=pcee_auth_payload=$(cat <<EOF
+{"password": "$pcee_secretkey", "username": "$pcee_accesskey"}
+EOF
+)
 # HERE'S WHAT WE COPIED FROM THE DOCUMENTATION PAGE:
 
 curl --request POST \
@@ -238,7 +246,10 @@ pcee_api_url=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .d
 pcee_accesskey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_accesskey)
 pcee_secretkey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_secretkey)
 
-pcee_auth_payload="{\"password\": \"$pcee_secretkey\", \"username\": \"$pcee_accesskey\"}"
+pcee_auth_payload=$(cat <<EOF
+{"password": "$pcee_secretkey", "username": "$pcee_accesskey"}
+EOF
+)
 
 # HERE'S WHAT WE COPIED FROM THE DOCUMENTATION PAGE:
 
@@ -339,8 +350,10 @@ pcee_api_url=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .d
 pcee_accesskey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_accesskey)
 pcee_secretkey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_secretkey)
 
-pcee_auth_payload="{\"password\": \"$pcee_secretkey\", \"username\": \"$pcee_accesskey\"}"
-
+pcee_auth_payload=$(cat <<EOF
+{"password": "$pcee_secretkey", "username": "$pcee_accesskey"}
+EOF
+)
 # NOTICE THE -s I've added to this call. This quiets the command
 
 pcee_auth_token=$(curl -s --request POST \
@@ -407,7 +420,10 @@ pcee_api_url=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .d
 pcee_accesskey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_accesskey)
 pcee_secretkey=$(vault kv get -format=json secret/prisma_enterprise_env | jq -r .data.data.pcee_secretkey)
 
-pcee_auth_payload="{\"password\": \"$pcee_secretkey\", \"username\": \"$pcee_accesskey\"}"
+pcee_auth_payload=$(cat <<EOF
+{"password": "$pcee_secretkey", "username": "$pcee_accesskey"}
+EOF
+)
 
 # NOTICE THE -s I've added to this call. This quiets the command
 

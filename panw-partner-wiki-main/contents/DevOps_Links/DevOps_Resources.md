@@ -22,10 +22,8 @@ _**We will not wait** for our organizations to fall victim to mistakes and attac
 * [Prisma CI/CD Integrations](https://docs.prismacloudcompute.com/docs/integrations.html)
 * [Prisma Cloud Toolbox from Tom Kishel](https://github.com/tkishel/pc-toolbox)
 * [Prisma API Documentation and RQL](https://prisma.pan.dev/)
-* [Prisma Compute Documentation](https://docs.twistlock.com/docs/compute_edition/welcome/welcome.html)
 * [Prisma Enterprise Dev RQL & API Documentation](https://prisma.pan.dev/api/cloud/api-integration-config)
 * [MicroSegmentation Documentation](https://docs.aporeto.com/saas/apoctl/)
-* [Prisma Cloud Compute Documentation NEW](https://docs.twistlock.com/docs/)
 * [Prisma Cloud Compute Operator GitHub](https://github.com/PaloAltoNetworks/prisma-cloud-compute-operator)
 * [DevOps Security Documentation Page](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/prisma-cloud-devops-security.html)
 
@@ -37,7 +35,6 @@ _**We will not wait** for our organizations to fall victim to mistakes and attac
 * [Prisma - Azure DevOps Workshop From David Okeyode](https://github.com/davidokeyode/prismacloud-workshops-labs)
 * [Prisma Cloud Microsegmentation Lab in a Box POC GitHub](https://github.com/aporeto-se/poc-in-a-box) - Thank you Jody Scott
 * [Prisma Cloud Microsegmentation Cloud Auto Registration Tool GitHub](https://github.com/aporeto-se/aporeto-k8s-enforcerd-builder) - Thank you Jody Scott
-* [Prisma Cloud Microsegmentation DHCP Tip](https://pa-partner-wiki.ml/Prisma%20Cloud%20Microsegmentation%20and%20DHCP%20-%20Tips%20from%20Jody%20Scott.md)- Thank you Jody Scott
 
 ### Videos Demos and Walkthroughs
 

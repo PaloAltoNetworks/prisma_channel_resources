@@ -138,7 +138,6 @@ _Certification specific to Prisma_
 * [Prisma Compute API Documentation](https://cdn.twistlock.com/docs/api/twistlock_api.html)
 * [Prisma Cloud Documentation from Palo Alto--Look at the bottom of the page](https://docs.paloaltonetworks.com/prisma/prisma-cloud.html)
 * [MicroSegmentation Documentation](https://docs.aporeto.com/saas/apoctl/)
-* [Prisma Cloud Compute Documentation NEW](https://docs.twistlock.com/docs/)
 * [Prisma Cloud Compute - Admin Guide](https://docs.paloaltonetworks.com/content/dam/techdocs/en_US/pdf/prisma/prisma-cloud/prisma-cloud-admin-compute/prisma-cloud-admin-compute.pdf)
 * [Prisma Cloud - Admin Guide](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin.html)
 * [Prisma Cloud Compute Operationalize Guide](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-operationalize-compute/getting_started.html)

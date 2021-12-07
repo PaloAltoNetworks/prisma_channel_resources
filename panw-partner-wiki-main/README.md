@@ -133,6 +133,7 @@ _On-board a cloud account_
 
 ### Learning Resources
 
+* [Prisma Cloud Blast Guide](https://www.paloaltonetworks.com/content/dam/pan/en_US/partners/nextwave/enablement/prisma-cloud-blast-guide.pdf)
 * [Link for Prisma Cloud Official Partner Portal](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-sell/prisma-cloud)
 * [QWIK LABS - Securing Cloud Applications with Prisma Cloud by Palo Alto Networks](https://www.qwiklabs.com/quests/160?)
 * [PAN Digital Learning Center](https://www.paloaltonetworks.com/services/education/digital-learning#Prisma)

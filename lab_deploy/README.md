@@ -8,6 +8,11 @@ Keep in mind, deploying things declaratively has it's disadvantages, primarily f
 
 You understand that this is not a production ready deployment of Prisma Cloud Compute or any other tool in the lab. This is meant to be a local deployment on a virtualization platform like VirtualBox or VMWare Fustion/Workstation for testing and learning purposes.  
 
+### Security Suggestions
+
+* check your container the container images referenced in the docker-compose.yml prior to deployment using twistcli. See the [bash toolbox for some scripts](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/prisma_bash_toolbox-main)
+* enable the ufw on the vm after deployment. Instructions [here](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-20-04)
+
 ## Requirements
 
 Ubuntu 20.04 LTS Desktop VM
@@ -251,6 +256,8 @@ volumes:
 ```
 
 Once you commit the file to the repo you'll it'll start a build of the container on the drone runner. The full tutorial on how to create a CI pipeline for container scanning can be found [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/lab_deploy/ci_vulnerability_lab_guide.md)
+
+
 
 Enjoy!
 

@@ -19,7 +19,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 ### Event Tools from Palo Alto Networks
 
-* [Prisma Cloud UTD](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-market/campaigns/ultimate-test-drive)
+* [Prisma Cloud Ultimate Test Drive - An on-demand lab environment](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-market/campaigns/ultimate-test-drive)
 * [CTF Event Webpage](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-market/campaigns/prismacloudcapturetheflag)
 
 ### Prisma Quoting Selling Calculators and Scripts

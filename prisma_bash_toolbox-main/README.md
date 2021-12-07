@@ -25,8 +25,11 @@ This is a community toolkit and IS NOT supported nor maintained by Palo Alto Net
 * retrieve both api urls for the console 
 * `TL_CONSOLE_URL` can be found under Compute > System > Utilities as `Path to Console` or is the url you use to navigate to the self-hosted edition of the platform. 
 * `PC_CONSOLE_URL` can be found here: https://prisma.pan.dev/api/cloud/api-urls
-* edit the secrets file.
-* edit the script you'd like to run (for self-hosted versions ensure that curl is ran with `-k` if using the default deployment method)
+* edit the secrets file and assign the variables as needed. 
+
+Each Script Has it's own set of variables which need to be assigned prior to running them. 
+
+* edit the script you'd like to run (for self-hosted versions ensure that `curl` is ran with `-k` if using the default deployment method)
 * run! modify enjoy!
 
 

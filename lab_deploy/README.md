@@ -10,7 +10,7 @@ You understand that this is not a production ready deployment of Prisma Cloud Co
 
 ### Security Suggestions
 
-* check your container the container images referenced in the docker-compose.yml prior to deployment using twistcli. See the [bash toolbox for some scripts](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/prisma_bash_toolbox-main)
+* check the container images referenced in the docker-compose.yml prior to deployment using twistcli. See the [bash toolbox for some scripts](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/prisma_bash_toolbox-main)
 * enable the ufw on the vm after deployment. Instructions [here](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-20-04)
 
 ## Requirements

@@ -17,6 +17,23 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 ### [DevSecOps contents - Links](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/DevOps_Links/DevOps_Resources.md) -seperating out for easier navigation.
 
+### Event Tools from Palo Alto Networks
+
+* [Prisma Cloud UTD](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-market/campaigns/ultimate-test-drive)
+* [CTF Event Webpage](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-market/campaigns/prismacloudcapturetheflag)
+
+### Prisma Quoting Selling Calculators and Scripts
+
+* [Prisma Cloud Python Onboarding Scripts](https://github.com/PaloAltoNetworks/PrismaCFNOnboarding)
+* [Prisma Cloud Enterprise Pricing Guide](https://www.paloaltonetworks.com/resources/guides/prisma-cloud-enterprise-edition-licensing-guide)
+* [Prisma Cloud Compute Edition Pricing Guide](https://www.paloaltonetworks.com/resources/guides/prisma-cloud-compute-edition-licensing-guide)
+* [Prisma Cloud Sizing Script for Calculator](https://github.com/PaloAltoNetworks/pcs-sizing-scripts)
+* [Prisma Cloud Credit Calculator](https://www.paloaltonetworks.com/content/dam/pan/en_US/partners/products/docs/prisma/prisma-cloud-licensing-calculator.xlsx)
+
+### Environments
+
+* [Read-Only Two Day Access Prisma Cloud Enterprise](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-learn/demo-systems/prisma-cloud)
+
 ### Service Enablement
 
 * [Performance Planning for Prisma Cloud Compute](https://docs.paloaltonetworks.com/prisma/prisma-cloud/21-04/prisma-cloud-compute-edition-admin/deployment_patterns/performance_planning)
@@ -39,8 +56,6 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 * [Prisma Compute As-Built](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-compute-as-built/ta-p/403331)
 * [Prisma Cloud Enterprise As-Built](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-enterprise-as-built/ta-p/402827)
 * [Prisma Access SASE Implementations](https://live.paloaltonetworks.com/t5/sase/prisma-access-implementation-playbook-v1-7/ta-p/401780)
-
-
 
 ### Sales Presentation Materials
 
@@ -161,24 +176,6 @@ _Integrations:_
 * [Integrate with Qualys](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/configure-external-integrations-on-prisma-cloud/integrate-prisma-cloud-with-qualys.html)
 * [Integrate with Webhooks](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/configure-external-integrations-on-prisma-cloud/integrate-prisma-cloud-with-webhooks.html)
 * [Integrations - Supported Capabilities](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/configure-external-integrations-on-prisma-cloud/integrations-feature-support.html)
-
-### Event Tools from Palo Alto Networks
-
-* [Prisma Cloud UTD](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-market/campaigns/ultimate-test-drive)
-* [CTF Event Webpage](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-market/campaigns/prismacloudcapturetheflag)
-
-### Prisma Quoting Selling Calculators and Scripts
-
-* [Prisma Cloud Python Onboarding Scripts](https://github.com/PaloAltoNetworks/PrismaCFNOnboarding)
-* [Prisma Cloud Enterprise Pricing Guide](https://www.paloaltonetworks.com/resources/guides/prisma-cloud-enterprise-edition-licensing-guide)
-* [Prisma Cloud Compute Edition Pricing Guide](https://www.paloaltonetworks.com/resources/guides/prisma-cloud-compute-edition-licensing-guide)
-* [Prisma Cloud Sizing Script for Calculator](https://github.com/PaloAltoNetworks/pcs-sizing-scripts)
-* [Prisma Cloud Credit Calculator](https://www.paloaltonetworks.com/content/dam/pan/en_US/partners/products/docs/prisma/prisma-cloud-licensing-calculator.xlsx)
-
-### Environments
-
-* [Read-Only Two Day Access Prisma Cloud Enterprise](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/help-me-learn/demo-systems/prisma-cloud)
-
 
 ### Cloud Infrastructure Tutorials
 

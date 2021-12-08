@@ -45,7 +45,7 @@ _**We will not wait** for our organizations to fall victim to mistakes and attac
 
 _Terraform Providers_
 
-* [How to use the Prisma Cloud Terraform to configure Prisma Cloud Enterprise](https://github.com/PaloAltoNetworks/terraform-provider-prismacloud/blob/master/docs/resources/ExampleUsage.md)
+* [How to use the Prisma Cloud Terraform Provider to configure Prisma Cloud Enterprise](https://github.com/PaloAltoNetworks/terraform-provider-prismacloud/blob/master/docs/resources/ExampleUsage.md)
 
 _Container Security Presentations_
 

@@ -43,6 +43,10 @@ _**We will not wait** for our organizations to fall victim to mistakes and attac
 
 ### GitHub Prisma Resources
 
+_Terraform Providers_
+
+* [How to use the Prisma Cloud Terraform to configure Prisma Cloud Enterprise]](https://github.com/PaloAltoNetworks/terraform-provider-prismacloud/blob/master/docs/resources/ExampleUsage.md)
+
 _Container Security Presentations_
 
 * [Cloud Native Security From Gunjan Patel](https://github.com/gunjan5/cloud-native-security)

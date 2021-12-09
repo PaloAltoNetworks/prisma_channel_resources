@@ -76,7 +76,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 * [WildFire Prisma Cloud Blog](https://www.paloaltonetworks.com/blog/prisma-cloud/prisma-cloud-and-wildfire-integration/)
 * [Why Microsegmentation Policy as Code is Important for DevOps](https://www.paloaltonetworks.com/blog/prisma-cloud/microsegmentation/?utm_source=bambu&medium=social&campaign=advocacy)
 
-#### Data/Overview Sheets
+### Data/Overview Sheets
 
 * [IaC DataSheet](https://www.paloaltonetworks.com/resources/datasheets/infrastructure-as-code-security)
 * [DevSecOps DataSheet](https://www.paloaltonetworks.com/resources/datasheets/infrastructure-as-code-security)

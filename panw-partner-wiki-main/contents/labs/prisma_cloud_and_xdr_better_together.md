@@ -13,7 +13,10 @@ Deploying the XDR agent and the Prisma Defender on the same host machine can cre
 * Go to the compute (enterprise edition only) tab.
 * Under Defend > Runtime > Host Policy create a new policy named:  `allow XDR`
 * Under the allowed processes by path enter the following:
-** `/opt/traps/bin/pmd` `/opt/traps/bin/dypd` `/opt/traps/analyzerd/analyzerd` `/opt/traps/ltee/lted`
+* `/opt/traps/bin/pmd`
+* `/opt/traps/bin/dypd` 
+* `/opt/traps/analyzerd/analyzerd` 
+* `/opt/traps/ltee/lted`
 * Ensure scope and collections are set to ALL
 
 ## Finding #2
@@ -29,6 +32,10 @@ The Cortex XDR agent has more robust capabilities in regards to users workstatio
 ## Finding #4
 
 While Cortex XDR has some lightweight capabilities on cloud inventory, it's limited to showing you only what resources are in your cloud account, whether the resource is up and running, and the network information (internal, external ip). Whereas in Prisma Cloud you can get all that information and have visability to whether or not the resource has been configured in a way that would create vulnerabilities/violate compliance frameworks. 
+
+## Finding #5 
+
+Aporeto/MicroSegmentation in Prisma Cloud is incompatibile with the XDR agent. See the documentation listed here: https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/start/enforcer/reqs.html
 
 ## Discussions topics we're working on. 
 

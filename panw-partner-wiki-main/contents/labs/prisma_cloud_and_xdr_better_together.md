@@ -21,7 +21,7 @@ Deploying the XDR agent and the Prisma Defender on the same host machine can cre
 
 ## Finding #2
 
-The Prisma WAAS functionality is better suited to protect exposed APIs and WebApps from OWASP top 10 attacks. This is because the WAAS operates at runtime, effectively blocking malicious request bodies prior to them being processed; whereas the XDR agent looks at events that have ran and then responds. This can easily be demonstrated on the DVWA doing a SQL injection attack with the SQL Injection prevention turned on for using Prisma WAAS and an XDR agent installed on the host. 
+The Prisma WAAS functionality is better suited to protect exposed APIs and WebApps from OWASP top 10 attacks. This is because the WAAS operates at runtime, effectively blocking malicious requests prior to them being processed; whereas the XDR agent looks at events that have ran and then responds. This can easily be demonstrated on the DVWA doing a SQL injection attack with the SQL Injection prevention turned on for using Prisma WAAS and an XDR agent installed on the host. 
 
 For Command Injection where we created a reverse shell connection, we found the WAAS blocks the attack which never allows the connection to be made. XDR in contrast stops the connection after the fact. The amount of time that the connection is allowed is near nil. 
 

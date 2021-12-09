@@ -230,6 +230,10 @@ _Integrations:_
 * [2021 State of DevOps report - Puppet](https://puppet.com/resources/report/2021-state-of-devops-report/)
 * [The Life and Times of Cybersecurity Professionals 2021 Volume V - ESG & ISSA](https://www.issa.org/cybersecurity-skills-crisis-continues-for-fifth-year-perpetuated-by-lack-of-business-investment/)
 
+### Experiments and Projects
+
+* [The XDR and Prisma Cloud Better Together Experiment](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_cloud_and_xdr_better_together.md)
+
 ### MISC
 
 * [Bridgecrew Deal Referral Program for Nextwave Partners](https://www.paloaltonetworks.com/partners/nextwave-partner-portal/partner-program)

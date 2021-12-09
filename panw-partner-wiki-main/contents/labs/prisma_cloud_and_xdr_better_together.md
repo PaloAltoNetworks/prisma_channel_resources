@@ -2,7 +2,7 @@
 
 Written by Kyle Butler in collaboration with Jamie Hodge, Chris Harris, Goran Bogojevic, and John Chavanne. (FYI, if you'd like to collaborate with us, we'll add your name to this list.)
 
-I've been working with a Cortex SE to work through some of the major technical differences between the way the XDR agent works vs. the Prisma Defender, so that we can work through some of the technical nuances when installing both agents, and determine the best agent to use when the customer might be unwilling to deploy both the defender and the XDR agent. This will be a work in progress and will be updated until both the Cortex SE and myself are satisfied. 
+We've been working with a Cortex SE to work through some of the major technical differences between the way the XDR agent works vs. the Prisma Defender, so that we can work through some of the technical nuances when installing both agents, and determine the best agent to use when the customer might be unwilling to deploy both the defender and the XDR agent. This will be a work in progress and will be updated everyone collaborating on this topic is satisfied. 
 
 
 ## Finding #1

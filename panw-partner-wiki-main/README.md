@@ -67,13 +67,22 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 ### Sales Presentation Materials
 
+
 * [FedRamp PANW Marketplace](https://marketplace.fedramp.gov/#!/products?sort=productName&productNameSearch=Palo%20Alto%20Networks)
 * [Prisma FedRamp page](https://www.paloaltonetworks.com/security-for/government/fedramp)
 * [ROI for Prisma Cloud](https://www.paloaltonetworks.com/resources/whitepapers/business-case-for-cloud-threat-defense)
-* [Customer Presentation Deck](https://www.paloaltonetworks.com/content/dam/pan/en_US/partners/products/docs/prisma/prisma-cloud-customer-presentation.pptx)
+* [Customer Presentation Deck](https://www.paloaltonetworks.com/content/dam/pan/en_US/partners/products/docs/prisma/prisma-cloud-customer-presentation.pptx) - needs to be updated. Reach out to me or our team directly if you'd like a copy of the most recent presentation/golden pitch deck. 
 * [Cloud Threat Defense](https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/white-papers/business-case-for-cloud-threat-defense.pdf)
 * [WildFire Prisma Cloud Blog](https://www.paloaltonetworks.com/blog/prisma-cloud/prisma-cloud-and-wildfire-integration/)
 * [Why Microsegmentation Policy as Code is Important for DevOps](https://www.paloaltonetworks.com/blog/prisma-cloud/microsegmentation/?utm_source=bambu&medium=social&campaign=advocacy)
+
+#### Data/Overview Sheets
+
+* [IaC DataSheet](https://www.paloaltonetworks.com/resources/datasheets/infrastructure-as-code-security)
+* [DevSecOps DataSheet](https://www.paloaltonetworks.com/resources/datasheets/infrastructure-as-code-security)
+* [CWPP Datasheet](https://www.paloaltonetworks.com/resources/datasheets/cloud-workload-protection)
+* [CIEM DataSheet](https://www.paloaltonetworks.com/resources/datasheets/prisma-cloud-identity-ams)
+* [Secure Managed Kubernetes](https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/technology-solutions-briefs/securing-managed-kubernetes-with-prisma-cloud.pdf)
 * [Prisma Cloud for Azure Quick Overview Sheet](https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/datasheets/prisma-cloud-for-azure.pdf)
 * [Prisma Cloud for AWS Quick Overview Sheet](https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/datasheets/prisma-cloud-on-aws.pdf)
 * [Prisma Cloud for GCP Quick Overview Sheet](https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/datasheets/prisma-cloud-for-gcp.pdf)

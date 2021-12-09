@@ -18,7 +18,7 @@ _**We will not wait** for our organizations to fall victim to mistakes and attac
 
 * [Prisma Cloud Compute Operator Hub](https://operatorhub.io/operator/pcc-operator)
 * [FedRamp Prisma Compute Docs](https://docs.prismacloudcompute.com/docs/government/Implementation_Guides/fedramp.html)
-* [Prisma Compute Sample Code](https://github.com/twistlock/sample-code)
+* [Prisma Compute Sample Code](https://github.com/PaloAltoNetworks/prisma-cloud-compute-sample-code)
 * [Prisma CI/CD Integrations](https://docs.prismacloudcompute.com/docs/integrations.html)
 * [Prisma Cloud Toolbox from Tom Kishel](https://github.com/tkishel/pc-toolbox)
 * [Prisma API Documentation and RQL](https://prisma.pan.dev/)

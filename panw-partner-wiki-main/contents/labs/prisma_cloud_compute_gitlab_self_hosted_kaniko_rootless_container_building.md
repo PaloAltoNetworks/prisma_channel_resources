@@ -8,7 +8,10 @@ Written by Kyle Butler from PANW and Chase Christensen from Insight
 * Kaniko runs rootless and never actually runs the container being built. This ensures that nothing changes on the runner doing the build. In fact, with Kaniko it builds and pushes to a container registry (presumably a secure private one, connected and scanned on regular interval by the prisma defender of course) all in the same command.
 * Before I go too much further, I want to take a moment to blow up Chase Christensen from Insight. I can count on two hands the number of engineers who have the type of stamina and energy as Chase possess. Maybe it's all those times at Blizzard living the QA life, or his current passion for being a master SRE. How many people have their CKA, CKS, and CKAD? How many of those people still like to stay up until the late hours of the night not because they have to, but because they enjoy solving problems and ensuring the security of the people they work with? Not as many as the market needs. Thank you Chase for leading this and letting me contribute. Lots of fun. 
 * Because we had to build inside the kaniko container, it meant there was never a time where we had a plain text secret exists in a file on the runner host itself.  
+## Requires
 
+* Self-hosted instance of GitLab set up with TLS/SSL certs signed by a trusted CA.
+* A user account in GitLab with permissions which allow you to set-up ci/cd pipeline jobs, create new repositories, and grant access to those repositories. 
 
 ## What we learned putting this together
 

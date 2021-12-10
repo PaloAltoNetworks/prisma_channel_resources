@@ -1,4 +1,4 @@
-# GitLab On-Prem and Kaniko
+# Prisma Cloud, GitLab On-Prem, and Kaniko
 
 Written by Kyle Butler from PANW and Chase Christensen from Insight
 

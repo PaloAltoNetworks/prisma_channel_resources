@@ -76,7 +76,7 @@ stages:
   - scan-build
   - push-build
 
-scan-only-build:
+scan-build:
   stage: scan-build
   before_script:
     - mkdir -p /kaniko/.docker
@@ -104,7 +104,7 @@ scan-only-build:
        echo "${KANIKOCFG}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile $KANIKOPROXYBUILDARGS --no-push #builds the container without pushing to container repo
 
-push-only-build:
+push-build:
   stage: push-build
   needs:
     - scan-build # makes this stage dependent upon the stage before

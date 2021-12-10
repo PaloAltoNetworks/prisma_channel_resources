@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#Written by Kyle Butler 
+# 12.9.2021
+
 source ./secrets/secrets
 
 

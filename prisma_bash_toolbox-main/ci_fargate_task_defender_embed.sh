@@ -4,6 +4,8 @@ source ./secrets/secrets
 
 # Directory path to fargate task
 FARGATE_TASK_LOCATION="./unprotected.json"
+
+# What you want the new task to be named and where you want it go. 
 PROTECTED_DEFINITION_OUTPUT="./protected.json"
 
 # Not user defined

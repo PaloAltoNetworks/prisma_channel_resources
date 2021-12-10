@@ -35,6 +35,7 @@ _**We will not wait** for our organizations to fall victim to mistakes and attac
 * [Prisma - Azure DevOps Workshop From David Okeyode](https://github.com/davidokeyode/prismacloud-workshops-labs)
 * [Prisma Cloud Microsegmentation Lab in a Box POC GitHub](https://github.com/aporeto-se/poc-in-a-box) - Thank you Jody Scott
 * [Prisma Cloud Microsegmentation Cloud Auto Registration Tool GitHub](https://github.com/aporeto-se/aporeto-k8s-enforcerd-builder) - Thank you Jody Scott
+* [Prisma Cloud GitLab Self-Hosted, Kaniko Builders, setting up a CI Container Vulnerability Pipeline](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_cloud_compute_gitlab_self_hosted_kaniko_rootless_container_building.md)
 
 ### Videos Demos and Walkthroughs
 

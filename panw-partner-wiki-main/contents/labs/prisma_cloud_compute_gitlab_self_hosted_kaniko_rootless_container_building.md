@@ -27,10 +27,7 @@ Building containers inside the kaniko container is spartan, to say the least. Th
 
 * Ensure you have a way to get the cert package down to the runner as a .crt file which is required for Kaniko to work, recommending you either put the cert package in the repo you're working on or clone it using wget from a different repo. 
 
-your prisma-containerized-scan.txt file should look like this
-
-* Create a plain text file called `prisma-containerized-scan.txt`
-
+* Create a plain text file called `prisma-containerized-scan.txt`, then paste in the contents from the code block directly below:
 
 ```
 #Add Twistcli

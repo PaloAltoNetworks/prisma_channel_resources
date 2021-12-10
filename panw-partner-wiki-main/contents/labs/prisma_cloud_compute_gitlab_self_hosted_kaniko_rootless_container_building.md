@@ -58,8 +58,10 @@ RUN /app/twistcli images scan --containerized --details --address TL_CONSOLE --u
 
 ### See the documentation where we created this pipeline from 
 
-https://docs.gitlab.com/ee/ci/docker/using_kaniko.html 
-https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/tools/twistcli_scan_images.html
+Recommend looking them over so you're able to see what we were working with. 
+
+* https://docs.gitlab.com/ee/ci/docker/using_kaniko.html 
+* https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/tools/twistcli_scan_images.html
 
 
 ### The one issue we could think of that we left outstanding

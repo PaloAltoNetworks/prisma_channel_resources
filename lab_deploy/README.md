@@ -257,7 +257,7 @@ volumes:
 
 Once you commit the file to the repo you'll it'll start a build of the container on the drone runner. The full tutorial on how to create a CI pipeline for container scanning using Drone go [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/lab_deploy/ci_vulnerability_lab_guide.md)
 
-And if want happen to have a self-hosted production deployment of GitLab, and want to get into some more advanced stuff. You might check out this page (FYI, this will require a real deployment of GitLab) [Twistlock Scanning using Kaniko and GitLab](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_cloud_compute_gitlab_self_hosted_kaniko_rootless_container_building.md)
+And if want happen to have a self-hosted production deployment of GitLab, and want to get into some more advanced stuff. You might check out this page (FYI, this will require a real deployment of GitLab) [Prisma Cloud Compute Container Scanning using Kaniko and GitLab](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_cloud_compute_gitlab_self_hosted_kaniko_rootless_container_building.md)
 
 Enjoy!
 

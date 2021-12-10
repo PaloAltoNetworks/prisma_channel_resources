@@ -119,3 +119,4 @@ echo "Embedded Dockerfile is ready for build steps/stage"
 echo "Old Dockerfile has been renamed to Dockerfile.old"
 echo 
 echo
+exit

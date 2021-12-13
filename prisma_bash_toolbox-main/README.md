@@ -23,8 +23,8 @@ This is a community toolkit and IS NOT supported nor maintained by Palo Alto Net
 * `chmod 700 ./secrets/secrets`
 * create a set of access keys and secret keys in the prisma cloud console
 * retrieve both api urls for the console 
-* `TL_CONSOLE_URL` can be found under Compute > System > Utilities as `Path to Console` or is the url you use to navigate to the self-hosted edition of the platform. 
-* `PC_CONSOLE_URL` can be found here: https://prisma.pan.dev/api/cloud/api-urls
+* `TL_CONSOLE` can be found under Compute > System > Utilities as `Path to Console` or is the url you use to navigate to the self-hosted edition of the platform. 
+* `PC_APIURL` can be found here: https://prisma.pan.dev/api/cloud/api-urls
 * `PC_ACCESSKEY` is self explanitory
 * `PC_SECRETKEY` is self explanitory 
 * `TL_USER` is either the access key you created above or if using the self hosted version of the platform a `CI user` username.

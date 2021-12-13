@@ -129,10 +129,12 @@ Running a distributed system at scale is all about embedding the requirements in
 ### Insight Research and Innovation Hubs Kaniko Test Kitchen Experiment
 
 For those unfamiliar, the Research and Innovation Hubs can be best described as a test kitchen for new solutions and methodologies. 70% of IT professionals learn through doing, and Insight believes that you need to be in the arena with your partners (Palo Alto Networks being a major one) and develop the client journey yourself before you bring platform teams along. Hence our Kaniko build. The Data Center as Code environment is the environment, we use to build out cloud native solutions. We leverage Flux and Gitlab as our core CI/CD components.  We have 2 repositories for each “tenant”. One repository for the manifests (shared by the developers and SREs), and one for pre artifact code (the guts of the container that he API is serving up).  We are going to push code to the developer repository, the developer repository will trigger our CI file, and begin our gauntlet. Once finished, Kaniko will tag the artifact (based on our commit message) and push that artifact to our container registry. Then Flux takes over by looking for new artifacts and using a regex and some automation magic (for another collaboration post 😉) to find the “latest” release and update the shared (dev and ops) Kubernetes manifests.  Flux sees the updated manifest change and SHAZAM we have a new deployed artifact being monitored by our cluster defenders! 
-So we have 3 phases.
-1.) Kaniko-scan
-2.) Semantic Update 	
-3.) Kaniko-push
+
+So we have 3 phases:
+
+1. Kaniko-scan
+2. Semantic Update 	
+3. Kaniko-push
 
 Kaniko scan looks like this 
 ```yaml

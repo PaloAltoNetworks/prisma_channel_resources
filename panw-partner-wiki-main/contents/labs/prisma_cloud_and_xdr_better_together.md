@@ -13,10 +13,10 @@ Deploying the XDR agent and the Prisma Defender on the same host machine can cre
 * Go to the compute (enterprise edition only) tab.
 * Under Defend > Runtime > Host Policy create a new policy named:  `allow XDR`
 * Under the allowed processes by path enter the following:
-* `/opt/traps/bin/pmd`
-* `/opt/traps/bin/dypd` 
-* `/opt/traps/analyzerd/analyzerd` 
-* `/opt/traps/ltee/lted`
+1. `/opt/traps/bin/pmd`
+2. `/opt/traps/bin/dypd` 
+3. `/opt/traps/analyzerd/analyzerd` 
+4. `/opt/traps/ltee/lted`
 * Ensure scope and collections are set to ALL
 
 ## Finding #2

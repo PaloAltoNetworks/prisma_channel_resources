@@ -236,13 +236,13 @@ The semantic-update phase pulls our utility container ( a container with specifi
 
 Environment Variables You Need to Worry About:
 
-$TL_CONSOLE = Prisma console 
-$GITLAB_CRED = Token to access our kaniko project
-$GITLAB_USER = User to access our kaniko project
-$IMAGE_NAME =  Tag of the image to be created by kaniko push. This is updated by our semantic versioning script
-$PC_SECRETKEY = Prisma access token 
-$SEM_VERSION = Current application version
-$PC_ACCESSKEY = Prisma username 
+* `$TL_CONSOLE` = Path to the Prisma Cloud Compute URL found in documentatation here: https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/tools/twistcli_scan_images.html
+* `$GITLAB_CRED` = Token to access our kaniko project
+* `$GITLAB_USER` = User to access our kaniko project
+* `$IMAGE_NAME` =  Tag of the image to be created by kaniko push. This is updated by our semantic versioning script
+* `$PC_SECRETKEY` = Prisma Cloud Secret key created along with the Access Key in the console
+* `$SEM_VERSION` = Current application version
+* `$PC_ACCESSKEY` = Prisma Cloud Access key created along with the Secret Key in the console.  
 
 The other ENV variables are part of Gitlab. Check out https://docs.gitlab.com/ee/ci/variables/ for more details 🛰️.
 

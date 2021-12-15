@@ -112,7 +112,7 @@ _These labs were created or curated by Kyle Butler and are a set of labs meant t
 * [WAAS - DVWA - SQL Injection - Demo Instructions](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_SQL_Injection_Demo_Tutorial.md)
 * [Twistcli Manual Docker Image Scan](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Twistcli_Manual_Image_Scan.md)
 * [Show Security Risks of Running a Container in Privileged Mode](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Privileged_Mode_Container_Demo.md)
-* [Microsegmentation lab[(https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/panw-partner-wiki-main/contents/labs/microseg-lab)
+* [Microsegmentation lab](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/panw-partner-wiki-main/contents/labs/microseg-lab)
 
 _Official Palo Alto documentation for setting up a lab environment_
 

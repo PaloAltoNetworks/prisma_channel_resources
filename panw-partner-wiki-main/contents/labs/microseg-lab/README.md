@@ -1,4 +1,5 @@
-Rev 0.1
+Written by Kyle Butler and Goran Bogojevic
+
 # Purpose of this demo
 
 * To teach partners and internal PANW SA's how to install Aporeto enforcer agent on an on-prem environment and connect agent to Prisma Cloud console.

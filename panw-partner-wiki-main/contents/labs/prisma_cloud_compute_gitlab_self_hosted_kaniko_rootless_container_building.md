@@ -15,7 +15,7 @@ Written by Kyle Butler from PANW and Chase Christensen from Insight
 
 ## What we learned putting this together
 
-Building containers inside the kaniko container is spartan, to say the least. The primary challenges we faced were:
+Building containers inside the kaniko container is spartan to say the least. The primary challenges we faced were:
 
 * Bringing down the twistcli binary from the Prisma Cloud Compute API url (`$TL_CONSOLE`) while inside kaniko (no curl, no package managers, good thing wget was still installed)
 * Retrieving a copy of a text file from another private remote repository so we could `cat` it's contents into the cloned Dockerfile during the first Scan Only build stage. 
@@ -48,7 +48,7 @@ RUN /app/twistcli images scan --containerized --details --address TL_CONSOLE --u
 ### In the repo you're creating the pipeline
 
 * Save the access key in Gitlab secrets manager as $PC_ACCESSKEY
-* Save the secret key in Gitlab secrets manager as $PC_ACCESSKEY
+* Save the secret key in Gitlab secrets manager as $PC_SECRETKEY
 * Save the Compute API URL in Gitlab's repo secrets manager as $TL_CONSOLE
 * Copy the below codeblock into the gitlab CICD pipeline script and ensure you edit the pipeline and replace any values in `<>` specifically `<CERT_FILE_FOR_GITLAB_RUNNER_NECESSARY_FOR_GITLAB_CONSOLE>`, `<GITLAB_PROJECT_NUMBER>`, and `<FQDN_OF_GITLAB>`
 * Every other variable in this pipeline is native to GITLAB

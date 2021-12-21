@@ -1,5 +1,6 @@
 #!/bin/sh
-
+# Written by Kyle Butler
+# Turns off the runtime workload learning process. For use during CI or during staging. 
 source ./secrets/secrets
 
 #Put container image tag here

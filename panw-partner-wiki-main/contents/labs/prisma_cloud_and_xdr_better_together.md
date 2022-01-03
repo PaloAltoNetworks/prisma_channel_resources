@@ -7,7 +7,7 @@ We've been working with a Cortex SE to work through some of the major technical 
 
 ## Finding #1
 
-Deploying the XDR agent and the Prisma Defender on the same host machine can create a lot of noise in the Prisma Compute Console if a runtime policy isn't created beforehand. To solve for this: 
+Deploying the XDR agent and the Prisma Defender on the same host machine can create a lot of noise in the Prisma Compute Console if a runtime policy isn't created beforehand. To solve for this follow the documentation in the link [here](https://docs.paloaltonetworks.com/prisma/prisma-cloud/21-08/prisma-cloud-compute-edition-admin/configure/custom_feeds.html#_custom_feeds_create-a-list-of-trusted-executables) and check out the information below!
 
 * Log into the Prisma Cloud Console
 * Go to the compute (enterprise edition only) tab.

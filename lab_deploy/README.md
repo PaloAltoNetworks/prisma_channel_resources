@@ -6,7 +6,7 @@ Keep in mind, deploying things declaratively has it's disadvantages, primarily f
 
 ## Assumptions
 
-You understand that this is not a production ready deployment of Prisma Cloud Compute or any other tool in the lab. This is meant to be a local deployment on a virtualization platform like VirtualBox or VMWare Fustion/Workstation for testing and learning purposes.  
+You understand that this is not a production ready deployment of Prisma Cloud Compute or any other tool in the lab. This is meant to be a local deployment on a virtualization platform like VirtualBox or VMWare Fusion/Workstation for testing and learning purposes.  
 
 ### Security Suggestions
 

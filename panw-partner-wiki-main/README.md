@@ -44,6 +44,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 ### Service Enablement
 
+* [ProServ Prisma Cloud Enablement Workshop](https://live.paloaltonetworks.com/t5/webinars-and-workshops/prisma-cloud-compute-enterprise-workshop-details/ta-p/392852)
 * [Performance Planning for Prisma Cloud Compute](https://docs.paloaltonetworks.com/prisma/prisma-cloud/21-04/prisma-cloud-compute-edition-admin/deployment_patterns/performance_planning)
 * [Prisma Cloud Enterprise Playbook](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-enterprise-playbook/ta-p/402731)
 * [Prisma Cloud Compute Edition Playbook](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-compute-playbook/ta-p/402832)

@@ -2,12 +2,12 @@ Written by Kyle Butler and Goran Bogojevic
 
 # Purpose of this demo
 
-* To teach partners and internal PANW SA's how to install Aporeto enforcer agent on an on-prem environment and connect agent to Prisma Cloud console.
+* To teach partners and internal PANW SA's how to install the Aporeto enforcer agent in an on-prem environment and connect it to the Prisma Cloud console.
 
 
 Goals
 
- * We will install aporeto enforcer agent on linux VM and in K8s environment ([Minikube](https://minikube.sigs.k8s.io/docs/start/) is used in this lab). Also, we will create Microsegmentation namespaces for our lab environment. More info regarding the Microsegmentation namespaces can be found [here](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/concepts/namespaces.html).
+ * We will install the Aporeto enforcer agent on a linux VM and in a K8s environment ([Minikube](https://minikube.sigs.k8s.io/docs/start/) is used in this lab). Also, we will create Microsegmentation namespaces for our lab environment. More info regarding the Microsegmentation namespaces can be found [here](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/concepts/namespaces.html).
  
  * In this demo we use multiple scripts that should be ran in an order (first run script **0b_aporeto_vm_prep.sh**, then **1_aporeto_install_apoctl.sh** and so on).
 
@@ -37,9 +37,9 @@ Goals
 	*  4 virtual CPU’s
 	*  8 GBs of RAM
 	*  50 GBs of Storage
-* Once machine is up and user is created start the VM
+* Once the machine is up and the user is created start the VM
 * Open terminal
-* Download relevant script files in working directory
+* Download the relevant script files in working directory
 * Inside working directory create directory named **secrets** 
 * Create a new empty file and name it **aporeto_admin_app_credentials** (it is important to use this name because it is used in scripts) - open file with the text editor of your choice and create multiline string variable called **APORETO_CREDENTIALS** - the content of the variable should be previously downloaded Prisma Cloud Microsegmentation Credentials JSON file (see Requirements above). We are using [HereDoc](https://linuxize.com/post/bash-heredoc/) in order to pass our multi-line block of data into the variable. The content of the **aporeto_admin_app_credentials** should look like:
 
@@ -85,7 +85,7 @@ sudo systemctl stop firewalld
 ```
  
 
-### Step3: Download apoctl tool
+### Step 3: Download the apoctl tool
 
 * Run **1_aporeto_install_apoctl.sh** script to [download apoctl tool for linux](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/start/install-apoctl.html) that will be used to build up automation in later steps. 
 
@@ -101,7 +101,7 @@ sudo curl -o /usr/local/bin/apoctl \
 ```
 
 
-### Step4: Generate certificates that will be used to configure apoctl tool
+### Step 4: Generate the certificates that will be used to configure the apoctl tool
 
 * Run **2_aporeto_generate_cert.sh** script to generate certificate that will be used in the following script to configure apoctl tool to communicate with Prisma Cloud console. In this script we use credentials from **aporeto_admin_app_credentials** file. 
 
@@ -115,7 +115,7 @@ printf %s $APORETO_CREDENTIALS | jq -r '.certificateKey'| base64 -d > ./secrets/
 printf %s $APORETO_CREDENTIALS | jq -r '.certificate'| base64 -d >> ./secrets/aporeto.pem
 ```
 
-### Step5: Configure apoctl tool
+### Step 5: Configure the apoctl tool
 
 * Run **3_aporeto_configure_apoctl.sh** script to configure apoctl tool. As per [procedure - STEP5](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/start/install-apoctl.html), in order to configure **apoctl** tool, we need parent namespace, relevant URL and aporeto token. 
 
@@ -139,7 +139,7 @@ APORETO_TOKEN=$(curl --url $APORETO_APIURL/issue \
 apoctl configure -A "$APORETO_APIURL" -n "$APORETO_PARENT_NAMESPACE" -t "$APORETO_TOKEN" --force
 ```
 
-### Step6: Create child and grandchild namespace for VM and K8s environment
+### Step 6: Create the child and grandchild namespace for VM and K8s environment
 
 * Run **4b_aporeto_create_child_and_grand_child_namespace.sh** script to configure Microsegmentation namespaces. Relevant documentation how to configure namespaces with **apoctl** toool can be found [here](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/start/create-ns.html).
 
@@ -177,7 +177,7 @@ EOF
 * If you want to create just one child namespace, you can use **4a_aporeto_create_child_namespace.sh script** instead.
 
 
-### Step7: Install agent (enforcer) on linux host
+### Step 7: Install the agent (enforcer) on linux host
 
 * Run **5a_aporeto_linux_vm_enforcer_install.sh** script to install an agent on a linux host. Script is using following **apoct** command to install agent [On-premise linux host - STEP11](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/start/enforcer/linux.html#_linux_hosts__on-premise-install):
 ```
@@ -210,7 +210,7 @@ apoctl enforcer install linux \
 * Script should be run as a root user.
 
 
-### Step8: Install agent (enforcer) deamon-set in a K8s environment 
+### Step 8: Install the agent (enforcer) deamon-set in a K8s environment 
 
 * Run **5c_aporeto_k8s_enforcer_install.sh** script to install enforcer deamon-set on a K8s environment.
 

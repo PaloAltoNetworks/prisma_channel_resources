@@ -4,8 +4,7 @@ Written by Kyle Butler
 
 Tested with Powershell version 7.2.1
 
-This script will pull all the compliance sections from the framework assigned to the $COMPLIANCE_NAME variable and report back how many resources are passing and failing under each
-underlying sections of the compliance/security framework.
+This script will add a user programmatically to the Prisma Cloud Enterprise edition of the console. 
 
 In order to run you must first create a set of access keys in the Prisma Cloud Console.
 

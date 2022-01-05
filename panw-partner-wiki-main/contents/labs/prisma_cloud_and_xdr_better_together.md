@@ -48,3 +48,7 @@ Aporeto/MicroSegmentation in Prisma Cloud is incompatibile with the XDR agent. S
 * Synergies between the two tools - we're working on practical usecases for both tools and how admins might enhance their findings from one tool to the next. Because XDR is specifically designed for the SOC we have some great ideas and will update and share once we've fully flushed them out. 
 
 Stay tuned. 
+
+## Useful links
+
+https://www.gartner.com/doc/reprints?id=1-26RQNWUM&ct=210713&st=sb?utm_source=marketo&utm_medium=email&utm_campaign=Global-DA-EN-20-05-04-7010g000001JNCsAAO-P1-Prisma-2020-gartner-market-guide-cwpp

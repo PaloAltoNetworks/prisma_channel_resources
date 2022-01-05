@@ -25,7 +25,7 @@ Last, assign the variables under the USER CONFIG section below.
 # USER CONFIG SECTION
 
 # directory path to the access_key/secret_key csv. 
-$PATH_TO_ACCESSKEY_FILE = "/home/prisma-presenter/pwsh/secrets/test.csv"
+$PATH_TO_ACCESSKEY_FILE = "C:\DIR\PATH\TO\example_access_key_file.csv"
 $COMPLIANCE_NAME = "PCI DSS v3.2.1"
 $TIME_TYPE = "relative"
 $TIME_AMOUNT = "1"

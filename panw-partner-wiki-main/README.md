@@ -153,8 +153,6 @@ _On-board a cloud account_
 _Certification specific to Prisma_
 
 * [Certification Page](https://www.paloaltonetworks.com/services/education/certification)
-* [PCNSE Deep Dive](https://paloaltonetworks.hosted.panopto.com/Panopto/Pages/Viewer.aspx?)
-* [PCCSE and PCSAE Certification information](https://paloaltonetworks.hosted.panopto.com/Panopto/Pages/Viewer.aspx?)
 
 
 ### Official Palo Alto Documentation for Admins/Dev

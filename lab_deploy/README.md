@@ -86,8 +86,8 @@ We'll configure the console later
 
 ```bash
 cd $HOME
-git clone https://github.com/paloaltonetworks/prisma_partner_resources
-cd prisma_partner_resources/lab_deploy/compose_deploy/
+git clone https:://github.com/PaloAltoNetworks/prisma_channel_resources
+cd prisma_channel_resources/lab_deploy/compose_deploy/
 ```
 <br />
 

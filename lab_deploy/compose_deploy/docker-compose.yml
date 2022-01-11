@@ -17,7 +17,7 @@ services:
       - "DB_PASSWD=${DB_PASSWD}"
       - "SKIP_TLS_VERIFY=true"
       - "GITEA__metrics__ENABLED=true"
-      - "GITEA__metrics__TOKEN=${GITEA_METRICS_TOKEN}"
+      - "GITEA__metrics__TOKEN=${GITEA_METRICS_API_TOKEN}"
     restart: always
     volumes:
       - ./volumes/gitea-app:/data

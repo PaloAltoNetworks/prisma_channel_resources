@@ -321,4 +321,4 @@ And if your organization happens to have a self-hosted production deployment of 
 ### Step 9: Integrate prometheus with Prisma Cloud Compute, Drone, and Gitea. 
 
 Now it's time to start getting metrics from the Prometheus Integration for Prisma Cloud Compute and begin to combine those metrics with metrics from other systems and servers!
-
+WIP -  https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/audit/prometheus.html - official documentation as a placeholder

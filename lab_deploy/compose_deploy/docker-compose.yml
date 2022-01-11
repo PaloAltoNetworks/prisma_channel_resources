@@ -16,6 +16,8 @@ services:
       - "DB_USER=${DB_USER}"
       - "DB_PASSWD=${DB_PASSWD}"
       - "SKIP_TLS_VERIFY=true"
+      - "GITEA__metrics__ENABLED=true"
+      - "GITEA__metrics__TOKEN=${GITEA_METRICS_API_TOKEN}"
     restart: always
     volumes:
       - ./volumes/gitea-app:/data
@@ -106,7 +108,7 @@ services:
     environment:
      - "VAULT_DEV_ROOT_TOKEN_ID=${VAULT_ROOT_TOKEN}"
      - "VAULT_DEV_LISTEN_ADDRESS=${VAULT_URL}"
- 
+
   swagger:
     image: swaggerapi/petstore:latest
     restart: always
@@ -119,6 +121,26 @@ services:
     ports: 
      - "8082:8080"
 
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    container_name: prometheus
+    volumes:
+     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+     - ./prometheus_data:/prometheus
+    ports:
+     - "9091:9090"
+
+  grafana:
+    image: grafana/grafana-enterprise
+    restart: always
+    depends_on:
+     - "prometheus"
+    container_name: grafana
+    ports:
+     - "3001:3000"
+
 volumes:
-  gitea-app:
-  gitea-db:
+  gitea-app:{}
+  gitea-db:{}
+  prometheus_data:{}

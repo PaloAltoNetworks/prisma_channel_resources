@@ -97,7 +97,11 @@ cd prisma_channel_resources/lab_deploy/compose_deploy/
 nano .secrets
 ```
 
-At this stage you'll need to assign values to the following variables, I've written comments in the `.secrets` file to act as documentation. The only variables you'll need to assign for this lab are the following. NOTE: The last two variables are assigned at a later stage. Leave them empty for now. 
+At this stage you'll need to assign values to the following variables, I've written comments in the `.secrets` file to act as documentation. The only variables you'll need to assign for this lab are in the code block below. NOTE: The last two variables are assigned at a later stage. Leave them empty for now. 
+
+* You'll need to generate two different api tokens to authenticate the `/metrics api` endpoint to prometheus.
+* Use the command `openssl rand -hex 16` and assign the value it outputs to DRONE_METRICS_API_TOKEN
+* Run the command again `openssl rand -hex 16` and assign the value it outputs to the GITEA_METRICS_API_TOKEN
 
 ```bash
 # Shared secret between drone runner and drone server - should be a password with reasonable complexity
@@ -107,13 +111,68 @@ DRONE_RPC_SECRET=""
 DRONE_UI_USERNAME=""
 DRONE_UI_PASSWORD=""
 
+# Generate using the command: openssl rand -hex 16
+# Copy the value into this file and the prometheus.yml file 
+DRONE_METRICS_API_TOKEN=""
+
+# Generate using the command: openssl rand -hex 16
+# Copy the value into this file and the prometheus.yml file
+GITEA_METRICS_API_TOKEN=""
+
 # Vault root token - should be a password with reasonable complexity
 VAULT_ROOT_TOKEN=""
 
-# DON'T ASSIGN THESE VARIABLES TO ANYTHING YET.....
+
+# DON'T ASSIGN THESE VARIABLES UNTIL AFTER DEPLOYING GITEA and GITEA-DB
 DRONE_GITEA_CLIENT_ID=""
 DRONE_GITEA_CLIENT_SECRET=""
 ```
+
+Once you finished assigning values to the variables (if using nano as your editor) hit `ctl + x`, `y`, then `enter` 
+<br />
+
+Then edit the `prometheus.yml` file
+
+```bash
+nano ./prometheus.yml
+```
+In this file you'll need to replace the values in the `<>` angle brackets.
+* For `<PRISMA_USER>` replace this with the username you want to use to sign into the console. (In a real deployment this would be user with the Auditor permissions)
+* For `<PRISMA_PASSWORD>` replace this with the password you'll use to sign into the console. (In a real deployment you might use an auth token associated with the User mentioned above)
+* For `<DRONE_METRICS_API_TOKEN>` use the same value you assigned to the `DRONE_METRICS_API_TOKEN` in your `.secrets` file.
+* For `<GITEA_METRICS_API_TOKEN>` use the same value you assigned to the `GITEA_METRICS_API_TOKEN` in your `.secrets` file. 
+
+The below code block shows what the file looks like:
+
+```bash
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+# Prisma Cloud scrape configuration.
+scrape_configs:
+
+  - job_name: 'twistlock'
+    static_configs:
+    - targets: ['twistlock_console:8083']
+    metrics_path: /api/v1/metrics
+    basic_auth:
+      username: '<PRISMA_USER>'
+      password: '<PRISMA_PASSWORD>'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+
+  - job_name: 'drone'
+    bearer_token: <DRONE_METRICS_API_TOKEN>
+    static_configs:
+    - targets: ['drone:8000']
+    
+  - job_name: 'gitea'
+    bearer_token: <GITEA_METRICS_API_TOKEN>
+    static_configs:
+    - targets: ['gitea:3000']
+ ```
 
 Once you finished assigning values to the variables (if using nano as your editor) hit `ctl + x`, `y`, then `enter` 
 <br />
@@ -124,13 +183,13 @@ Once you finished assigning values to the variables (if using nano as your edito
 sudo nano /etc/hosts/
 ```
 
-* Add `gitea drone swagger` next to your local IP address `127.0.0.1`
+* Add `gitea drone swagger prometheus grafana` next to your local IP address `127.0.0.1`
 * Add `prisma-compute-lab` next to your other local IP address `127.0.1.1`
 
 * Your hosts file should look like the below code block once you've finished
 
 ```bash
-127.0.0.1       localhost gitea drone swagger
+127.0.0.1       localhost gitea drone swagger prometheus grafana
 127.0.1.1       prisma-compute-lab
 
 # The following lines are desirable for IPv6 capable hosts
@@ -146,7 +205,7 @@ ff02::2 ip6-allrouters
 
 ### Step 6: Deploy the ecosystem lab
 
-* You should still be in the lab deployment folder. `$HOME/prisma_partner_resources/lab_deploy/compose_deploy/` if you're not `cd $HOME/prisma_partner_resources/lab_deploy/compose_deploy/`
+* You should still be in the lab deployment folder. `$HOME/prisma_channel_resources/lab_deploy/compose_deploy/` if you're not `cd $HOME/prisma_channel_resources/lab_deploy/compose_deploy/`
 
 * Once you're in the deployment folder, we'll temporarily deploy gitea and it's database to generate an Oauth token. After running the below command keep terminal open and allow everything to run. 
 
@@ -257,7 +316,9 @@ volumes:
 
 Once you commit the file to the repo you'll it'll start a build of the container on the drone runner. The full tutorial on how to create a CI pipeline for container scanning using Drone go [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/lab_deploy/ci_vulnerability_lab_guide.md)
 
-And if want happen to have a self-hosted production deployment of GitLab, and want to get into some more advanced stuff. You might check out this page (FYI, this will require a real deployment of GitLab) [Prisma Cloud Compute Container Scanning using Kaniko and GitLab](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_cloud_compute_gitlab_self_hosted_kaniko_rootless_container_building.md)
+And if your organization happens to have a self-hosted production deployment of GitLab, and want to get into some more advanced stuff. You might check out this page (FYI, this will require a real deployment of GitLab) [Prisma Cloud Compute Container Scanning using Kaniko and GitLab](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_cloud_compute_gitlab_self_hosted_kaniko_rootless_container_building.md)
 
-Enjoy!
+### Step 9: Integrate prometheus with Prisma Cloud Compute, Drone, and Gitea. 
+
+Now it's time to start getting metrics from the Prometheus Integration for Prisma Cloud Compute and begin to combine those metrics with metrics from other systems and servers!
 

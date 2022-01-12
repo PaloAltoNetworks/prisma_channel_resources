@@ -221,7 +221,8 @@ After running the above command open firefox and navigate to `http://gitea:3000`
 * Click save once you've finished. 
 
 Now you'll deploy the rest of the services. In your terminal session stop docker compose by hitting `ctrl + c` on your keyboard. 
-Wait for the services to stop, then run:
+Wait for the services to stop, then:
+* edit the `.secrets` file again using the command `nano ./secrets` and fill in the last two variables under the basic configuration options: `DRONE_GITEA_CLIENT_ID` and `DRONE_GITEA_CLIENT_SECRET`. You'll use the Client ID & Client Secret you generated in Gitea. 
 * `docker-compose --env-file .secrets -p gitea-drone up -d`
 * This above command will start everything in detached mode so you won't see any logging. 
 * Navigate to gitea in your firefox browser and create a new repository named `ci-vuln-scan`. Select a license and check add a READ_ME.md file. 

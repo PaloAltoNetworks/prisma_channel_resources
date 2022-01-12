@@ -236,8 +236,8 @@ Wait for the services to stop, then:
 
 * In firefox navigate to `https://prisma-compute-lab:8083` and create the admin user and password.
 * Sign in and input your license information. 
-* Open terminal and run `docker network connect compose_deploy_default twistlock`
-* Then run `docker network inspect compose_deploy_default | grep -A 3 "twistlock_console"`
+* Open terminal and run `docker network connect gitea-drone_default twistlock_console`
+* Then run `docker network inspect gitea-drone_default | grep -A 3 "twistlock_console"`
 * Copy the IP Address without the CIDR range that is assigned to the Prisma Cloud Console. 
 * Sign in to the Prisma Cloud Console and go to `Manage > Defenders` 
 * On the defenders page click the `Names` tab in the top middle of the page and add the IP address you copied down to the SAN list. 

@@ -127,7 +127,6 @@ services:
     container_name: prometheus
     volumes:
      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-     - ./prometheus_data:/prometheus
     ports:
      - "9091:9090"
 
@@ -143,4 +142,3 @@ services:
 volumes:
   gitea-app:
   gitea-db:
-  prometheus:

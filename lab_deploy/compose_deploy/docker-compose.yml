@@ -141,6 +141,6 @@ services:
      - "3001:3000"
 
 volumes:
-  gitea-app:{}
-  gitea-db:{}
-  prometheus_data:{}
+  gitea-app:
+  gitea-db:
+  prometheus:

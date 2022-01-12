@@ -183,13 +183,13 @@ Once you finished assigning values to the variables (if using nano as your edito
 sudo nano /etc/hosts/
 ```
 
-* Add `gitea drone swagger prometheus grafana` next to your local IP address `127.0.0.1`
+* Add `gitea drone swagger prometheus grafana vault dvwa` next to your local IP address `127.0.0.1`
 * Add `prisma-compute-lab` next to your other local IP address `127.0.1.1`
 
 * Your hosts file should look like the below code block once you've finished
 
 ```bash
-127.0.0.1       localhost gitea drone swagger prometheus grafana
+127.0.0.1       localhost gitea drone swagger prometheus grafana vault dvwa
 127.0.1.1       prisma-compute-lab
 
 # The following lines are desirable for IPv6 capable hosts

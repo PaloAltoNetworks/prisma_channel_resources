@@ -41,6 +41,11 @@ Sets the proper permissions on the $USER . files
 ```bash
 chmod 700 $HOME/.*
 ```
+Sets the proper permissions on the $USER $HOME directory
+
+```bash
+chmod 750 $HOME
+```
 
 Update and upgrade
 ```bash

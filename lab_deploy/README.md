@@ -39,7 +39,7 @@ sudo passwd $USER
 Sets the proper permissions on the $USER . files
 
 ```bash
-chomd 700 $HOME/.*
+chmod 700 $HOME/.*
 ```
 
 Update and upgrade

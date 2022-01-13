@@ -36,6 +36,12 @@ Sets the account password
 ```bash
 sudo passwd $USER
 ```
+Sets the proper permissions on the $USER . files
+
+```bash
+cd $HOME
+chomd 700 .*
+```
 
 Update and upgrade
 ```bash

@@ -47,8 +47,8 @@ chmod 750 $HOME
 
 Ensure permissions on bootloader config are configured
 ```bash
-chown root:root /boot/grub/grub.cfg
-chmod og-rwx /boot/grub/grub.cfg
+sudo chown root:root /boot/grub/grub.cfg
+sudo chmod og-rwx /boot/grub/grub.cfg
 ```
 
 

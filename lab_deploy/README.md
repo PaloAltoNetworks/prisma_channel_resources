@@ -44,13 +44,18 @@ Sets the proper permissions on the $USER $HOME directory
 ```bash
 chmod 750 $HOME
 ```
-
 Ensure permissions on bootloader config are configured
 ```bash
 sudo chown root:root /boot/grub/grub.cfg
 sudo chmod og-rwx /boot/grub/grub.cfg
 ```
-
+Disable CUPS ---unlesss for some reason you need to print to local and/or network printers from this vm. 
+```bash
+sudo systemctl stop cups
+sudo systemctl stop cups-browsed
+sudo systemctl disable cups
+sudo systemctl disable cups-browsed
+```
 
 Update and upgrade
 ```bash

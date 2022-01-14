@@ -2,7 +2,7 @@
 
 # Written by Kyle Butler
 # Will pull down a vulnerability report for all deployed images visable to the prisma cloud compute platform
-# Ensure that $TL_USER, $TL_PASSWORD, and $TL_CONSOLE variables are assigned in ./secrets/secrts file. 
+# Ensure that $TL_USER, $TL_PASSWORD, and $TL_CONSOLE variables are assigned in ./secrets/secrets file. 
 
 
 # No user configuration required. Expectations are you'd schedule this with cron
@@ -27,7 +27,6 @@ TL_JWT=$(curl --silent \
 
 
 # add -k to curl if using self-hosted version with a self-signed cert
-
 curl -H "Authorization: Bearer $TL_JWT" \
      -H 'Content-Type: application/json' \
      -X GET \

@@ -166,6 +166,7 @@ _Certification specific to Prisma_
 * [Prisma Cloud Compute - Admin Guide](https://docs.paloaltonetworks.com/content/dam/techdocs/en_US/pdf/prisma/prisma-cloud/prisma-cloud-admin-compute/prisma-cloud-admin-compute.pdf)
 * [Prisma Cloud - Admin Guide](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin.html)
 * [Prisma Cloud Compute Operationalize Guide](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-operationalize-compute/getting_started.html)
+* [Prisma Cloud Data Processing, Privacy, & Retention](https://www.paloaltonetworks.com/apps/pan/public/downloadResource?pagePath=/content/pan/en_US/resources/datasheets/prisma-cloud-privacy)
 
 _Integrations:_
 

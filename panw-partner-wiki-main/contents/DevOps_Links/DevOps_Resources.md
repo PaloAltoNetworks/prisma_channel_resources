@@ -2,13 +2,13 @@
 
 ## Manifesto
 
-_**Through Security as Code**, we have and will learn that there is simply **a better way for security practitioners**, like us, to operate and contribute **value with less friction**. We know **we must adapt** our ways quickly and **foster innovation** to ensure data security and privacy issues are not left behind because **we were too slow to change**._
+>_**Through Security as Code**, we have and will learn that there is simply **a better way for security practitioners**, like us, to operate and contribute **value with less friction**. We know **we must adapt** our ways quickly and **foster innovation** to ensure data security and privacy issues are not left behind because **we were too slow to change**._
 
-_By developing security as code, we will strive to create awesome products and services, provide insights directly to developers, and generally **favor iteration** over trying to always come up with the best answer before a deployment. **We will operate like developers to make security and compliance available to be consumed as services.** We will unlock and unblock new paths to help others see their ideas become a reality._
+>_By developing security as code, we will strive to create awesome products and services, provide insights directly to developers, and generally **favor iteration** over trying to always come up with the best answer before a deployment. **We will operate like developers to make security and compliance available to be consumed as services.** We will unlock and unblock new paths to help others see their ideas become a reality._
 
-_**We won't simply rely on scanners and reports** to make code better. We will attack products and services like an outsider to help you defend what you've created. We will learn the loopholes, look for weaknesses, and we will work with you to provide **remediation actions** instead of **long lists of problems for you to solve on your own**._
+>_**We won't simply rely on scanners and reports** to make code better. We will attack products and services like an outsider to help you defend what you've created. We will learn the loopholes, look for weaknesses, and we will work with you to provide **remediation actions** instead of **long lists of problems for you to solve on your own**._
 
-_**We will not wait** for our organizations to fall victim to mistakes and attackers. **We will not settle** for finding what is already known; instead, we will look for anomalies yet to be detected. **We will strive to be a better partner** by valuing what you value..._
+>_**We will not wait** for our organizations to fall victim to mistakes and attackers. **We will not settle** for finding what is already known; instead, we will look for anomalies yet to be detected. **We will strive to be a better partner** by valuing what you value..._
 
 [From the DEVSECOPS MANIFESTO](https://www.devsecops.org/)
 

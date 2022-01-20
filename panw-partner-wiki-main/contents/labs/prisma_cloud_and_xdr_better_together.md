@@ -51,7 +51,6 @@ Stay tuned.
 
 ## Useful links
 
-[Gartner Report on Endpoint Protection vs CWPP](https://www.gartner.com/doc/reprints?id=1-26RQNWUM&ct=210713&st=sb?utm_source=marketo&utm_medium=email&utm_campaign=Global-DA-EN-20-05-04-7010g000001JNCsAAO-P1-Prisma-2020-gartner-market-guide-cwpp)
-
-[Support matrix for Prisma Cloud Defenders](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/system_requirements.html)
-[Support matrix for XDR Agent](https://docs.paloaltonetworks.com/compatibility-matrix/cortex-xdr/where-can-i-install-the-cortex-xdr-agent) 
+* [Gartner Report on Endpoint Protection vs CWPP](https://www.gartner.com/doc/reprints?id=1-26RQNWUM&ct=210713&st=sb?utm_source=marketo&utm_medium=email&utm_campaign=Global-DA-EN-20-05-04-7010g000001JNCsAAO-P1-Prisma-2020-gartner-market-guide-cwpp)
+* [Support matrix for Prisma Cloud Defenders](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/system_requirements.html)
+* [Support matrix for XDR Agent](https://docs.paloaltonetworks.com/compatibility-matrix/cortex-xdr/where-can-i-install-the-cortex-xdr-agent) 

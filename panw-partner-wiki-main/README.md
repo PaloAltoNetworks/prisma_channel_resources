@@ -65,7 +65,8 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 * [Live Community Prisma Global SASE and Prisma Cloud](https://live.paloaltonetworks.com/t5/prisma/ct-p/PSDL_Prisma)
 * [Prisma Compute As-Built](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-compute-as-built/ta-p/403331)
 * [Prisma Cloud Enterprise As-Built](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-enterprise-as-built/ta-p/402827)
-* [Set up agentless VM Image Scanning](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/vulnerability_management/vm_image_scanning.html)
+* [Set up VM Image Scanning](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/vulnerability_management/vm_image_scanning.html)
+* [Set up Agentless Scanning](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/vulnerability_management/agentless_scanning.html)
 
 ### Sales Presentation Materials
 

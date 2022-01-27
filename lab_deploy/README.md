@@ -93,7 +93,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 ```bash
 cd $HOME
 mkdir prisma_compute_deploy
-wget https://cdn.twistlock.com/releases/TK751Bfc/prisma_cloud_compute_edition_21_08_525.tar.gz
+wget https://cdn.twistlock.com/releases/snpWBgcM/prisma_cloud_compute_edition_22_01_840.tar.gz
 tar -xvzf prisma_cloud_compute_edition_21_08_525.tar.gz -C $HOME/prisma_compute_deploy/
 sudo cp $HOME/prisma_compute_deploy/linux/twistcli /usr/local/bin/
 sudo $HOME/prisma_compute_deploy/twistlock.sh -s onebox

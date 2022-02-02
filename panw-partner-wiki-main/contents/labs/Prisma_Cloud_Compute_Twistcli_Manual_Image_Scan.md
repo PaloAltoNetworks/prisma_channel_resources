@@ -9,7 +9,7 @@
 * Compute Edition 
     * Go to Manage
     * Authentication 
-    * Click the '+ Add user' button 
+    * Click the '+ Add credential' button 
     * Provide a username ---recommending something like cliadmin
     * Set password
     * change role to CI user

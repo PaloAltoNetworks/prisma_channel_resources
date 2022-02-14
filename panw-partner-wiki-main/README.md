@@ -21,8 +21,8 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 * [NextWave Deal Registration Form](https://identity.paloaltonetworks.com/idp/startSSO.ping?PartnerSpId=https%3A%2F%2Fsaml.salesforce.com.prodpc&InErrorResource=http%3A%2F%2Fwww.paloaltonetworks.com%2Ferrors%2Fpartner-login-error.html&TargetResource=https%3A%2F%2Fpaloaltonetworkssupport.force.com%2FNextWavePartnerProgram%2Fs%2Fnewdealregistration)
 * [Prisma Terraform Provider](https://registry.terraform.io/providers/PaloAltoNetworks/prismacloud/latest/docs/data-sources/ExampleUsage)
-* [Prisma PCA API Report Script](https://github.com/Kyle9021/pcee_lunchbox_pov_api_cspm)
-* [Prisma Simple Resource Type Inventory Script](https://github.com/Kyle9021/prisma_resource_type_simple_inventory)
+* [Prisma PCA API Report Script](https://github.com/PaloAltoNetworks/prisma_channel_resources/pca)
+* [Prisma Simple Resource Type Inventory Script](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/prisma_bash_toolbox-main/resource_type_inventory.sh)
 * [Prisma Cloud Sales Kit](https://www.paloaltonetworks.com/content/dam/pan/en_US/partners/nextwave/sales-enablement/prisma-cloud-kit.pdf)
 
 ### Event Tools from Palo Alto Networks

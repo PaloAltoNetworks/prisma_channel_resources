@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   gitea:
-    image: gitea/gitea:1.15.9
+    image: gitea/gitea:1.16.1
     hostname: gitea
     container_name: gitea
     environment:
@@ -28,7 +28,7 @@ services:
       - 3000:3000
 
   gitea-db:
-    image: postgres:bullseye
+    image: postgres:13.6-bullseye
     hostname: postgres
     container_name: gitea-db
     ports:
@@ -42,7 +42,7 @@ services:
       - "POSTGRES_DB=${POSTGRES_DB}"
 
   drone:
-    image: drone/drone:2.8
+    image: drone/drone:2.9.1
     hostname: drone
     container_name: drone
     ports:
@@ -97,7 +97,7 @@ services:
      - "9090:80"
 
   vault:
-    image: vault:1.9.2
+    image: vault:1.9.3
     restart: always
     hostname: vault
     container_name: vault
@@ -122,7 +122,7 @@ services:
      - "8082:8080"
 
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:main
     restart: always
     container_name: prometheus
     volumes:
@@ -138,6 +138,18 @@ services:
     container_name: grafana
     ports:
      - "3001:3000"
+
+  splunk:
+    image: splunk/splunk:latest
+    restart: always
+    hostname: splunk
+    container_name: splunk
+    environment:
+     - "SPLUNK_PASSWORD=${SPLUNK_PASSWORD}"
+     - "SPLUNK_START_ARGS=--accept-license"
+     - "SPLUNK_LICENSE_URI=Free"
+    ports:
+     - "8020:8000"
 
 volumes:
   gitea-app:

@@ -76,8 +76,8 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt update
 apt-cache policy docker-ce
 sudo apt install docker-ce
-sudo usermod -aG docker ${USER}
-su - ${USER}
+sudo usermod -aG docker $USER
+su $USER
 ```
 
 Install [Docker-Compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)

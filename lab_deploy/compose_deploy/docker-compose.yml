@@ -18,6 +18,7 @@ services:
       - "SKIP_TLS_VERIFY=true"
       - "GITEA__metrics__ENABLED=true"
       - "GITEA__metrics__TOKEN=${GITEA_METRICS_API_TOKEN}"
+      - "GITEA__webhook__ALLOWED_HOST_LIST=${GITEA_WEBHOOK_ALLOWED_HOST_LIST}"
     restart: always
     volumes:
       - ./volumes/gitea-app:/data

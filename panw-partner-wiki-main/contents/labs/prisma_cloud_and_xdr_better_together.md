@@ -37,6 +37,50 @@ While Cortex XDR has some lightweight capabilities on cloud inventory, it's limi
 
 Aporeto/MicroSegmentation in Prisma Cloud is incompatibile with the XDR agent. See the documentation listed here: https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-microsegmentation/start/enforcer/reqs.html
 
+## Finding #6 
+
+We were able to successfully integrate Prisma Cloud and XDR. Both solutions now have the ability to easily integrate with one another within a matter of minutes. 
+
+In XDR:
+
+* Go to Settings
+* Click Configurations
+* Under the Collection menu, click collection integrations
+* Select the Prisma Cloud Compute integration
+* Provide a name, save and generate token. Copy Token username and Password. 
+
+In Prisma Cloud: 
+
+* Click Manage
+* Click Alerts
+* Click Add Profile
+* Put a name in like `XDR`
+* For provider choose Cortex
+* Under Application XDR 
+* Grab the webhook URL provided by Cortex XDR
+* Click add credentials and put in the username and token generated earlier. 
+* Choose your alert triggers
+* Click send test alert. 
+
+
+## Finding #7
+
+Customers which have XDR installed on end user devices can quickly export network lists to enhance Prisma Cloud Compute and the Enterprise editions functionality. Quickly able to update trusted IP's and define network objects outside of the workloads with defenders on them. 
+
+In XDR: 
+
+* Click endpoints list 
+* Click All endpoints
+
+Or in the Query section in XDR use this: 
+
+```
+dataset = endpoints
+| fields endpoint_name, ip_address as IP
+```
+
+I'll write up a sample API script and post it here in a bit. 
+
 ## Discussions topics we're working on. 
 
 * Runners --- my feelings are the XDR agent may be more appropriate here. The reason being is that the runtime protection is based off of runtime modeling. Something like a runner would be difficult to model because it could argueably need to be made to do lots of things, and nearly impossible to set a baseline for. The important part about a runner is that no build should be able to change the runner or permissions on the runner itself. XDR in report only mode might be a better fit. 

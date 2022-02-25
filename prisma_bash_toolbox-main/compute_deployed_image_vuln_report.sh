@@ -11,6 +11,17 @@ source ./secrets/secrets
 
 
 REPORT_DATE=$(date  +%m_%d_%y)
+
+function quick_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+    exit
+  fi
+}
+
 TL_API_LIMIT=50
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$TL_USER", "password": "$TL_PASSWORD"}
@@ -24,7 +35,7 @@ TL_JWT=$(curl --silent \
               --header 'Content-Type: application/json' \
               --data "$AUTH_PAYLOAD" | jq -r '.token' )
 
-
+quick_check "/api/v1/authenticate"
 
 # add -k to curl if using self-hosted version with a self-signed cert
 curl -H "Authorization: Bearer $TL_JWT" \
@@ -32,3 +43,4 @@ curl -H "Authorization: Bearer $TL_JWT" \
      -X GET \
      --url "$TL_CONSOLE/api/v1/images/download?" > ./deployed_images_report_$REPORT_DATE.csv
 
+quick_check "/api/v1/images/download"

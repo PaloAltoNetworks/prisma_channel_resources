@@ -19,6 +19,17 @@ PC_USER_KEY_EXPIRATION="false"
 PC_USERNAME="$PC_USER_EMAIL"
 
 
+#### NO EDITS NEEDED BELOW
+
+function quick_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+    exit
+  fi
+}
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}
@@ -26,16 +37,24 @@ EOF
 )
 
 
-PC_JWT=$(curl --request POST \
-              --url "$PC_APIURL/login" \
-              --header 'Accept: application/json; charset=UTF-8' \
-              --header 'Content-Type: application/json; charset=UTF-8' \
-              --data "${AUTH_PAYLOAD}" | jq -r '.token')
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+quick_check "/login"
+
+
+PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
+
 
 
 PC_USER_ROLES=$(curl --request GET \
-	             --url "$PC_APIURL/user/role" \
+                     --url "$PC_APIURL/user/role" \
                      --header "x-redlock-auth: ${PC_JWT}")
+
+quick_check "/user/role"
 
 PC_USER_ROLE_ID=$(printf %s "${PC_USER_ROLES}" | jq '.[] | {id: .id, name: .name}' | jq -r '.name, .id'| awk "/""${PC_USER_ROLE}""/{getline;print}")
 
@@ -66,6 +85,6 @@ curl --request POST \
      --header "x-redlock-auth: $PC_JWT" \
      --data-raw "$PC_ROLE_PAYLOAD"
 
-
+quick_check "/v2/user"
 
 exit

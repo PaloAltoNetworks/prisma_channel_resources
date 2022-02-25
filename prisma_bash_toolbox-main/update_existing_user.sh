@@ -17,23 +17,45 @@ KEYS_ALLOWED="<true_or_false>"
 # Adjust timezone as you see fit. 
 TIME_ZONE="America/Los_Angeles"
 
+
+
+
+
+#### NO EDITS NEEDED BELOW
+
+function quick_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+    exit
+  fi
+}
+
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}
 EOF
 )
 
-PC_JWT=$(curl --request POST \
-              --url "$PC_APIURL/login" \
-              --header 'Accept: application/json; charset=UTF-8' \
-              --header 'Content-Type: application/json; charset=UTF-8' \
-              --data "$AUTH_PAYLOAD" | jq -r '.token')
+
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+quick_check "/login"
+
+
+PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
+
 
 ROLE_JSON=$(curl --request GET \
                        --url "$PC_APIURL/v2/user/{$USER_EMAIL}" \
                        --header "x-redlock-auth: $PC_JWT")
 
 DEFAULT_ROLE_ID=$(printf %s $ROLE_JSON | jq -r '.defaultRoleId')
-
 
 declare -a ROLE_ID_ARRAY=$(printf %s $ROLE_JSON | jq -r '.roleIds[]' )
 
@@ -58,9 +80,11 @@ EOF
 
 
 curl --request PUT \
-  --url "$PC_APIURL/v2/user/{$CTF_USER}" \
-  --header 'content-type: application/json' \
-  --header "x-redlock-auth: $PC_JWT" \
-  --data "$USER_PAYLOAD"
+     --url "$PC_APIURL/v2/user/{$CTF_USER}" \
+     --header 'content-type: application/json' \
+     --header "x-redlock-auth: $PC_JWT" \
+     --data "$USER_PAYLOAD"
+
+quick_check "/v2/user/{$CTF_USER}"
 
 exit

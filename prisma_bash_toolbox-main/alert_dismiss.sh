@@ -24,6 +24,18 @@ POLICY_NAME="AWS Default Security Group does not restrict all traffic" # policy 
 TIMEUNIT="year" # minute, hour, day, week, month, year
 TIMEAMOUNT="1" # integer value
 
+### NO EDITS BELOW
+
+
+function quick_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+    exit
+  fi
+}
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}
@@ -31,15 +43,17 @@ EOF
 )
 
 
-##### NO EDITS BELOW THIS NEEDED #######
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+quick_check "/login"
 
 
-PC_JWT=$(curl --silent \
-              --request POST \
-              --url "$PC_APIURL/login" \
-              --header 'Accept: application/json; charset=UTF-8' \
-              --header 'Content-Type: application/json; charset=UTF-8' \
-              --data "$AUTH_PAYLOAD" | jq -r '.token')
+PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
+
 
 
 
@@ -103,5 +117,6 @@ curl --request POST \
      --header 'Content-Type: application/json' \
      --data "$ALERT_PAYLOAD"
 
+quick_check "/alert/dismiss"
 
 exit

@@ -19,19 +19,40 @@ source ./secrets/secrets
 TIMEUNIT="month"
 TIMEAMOUNT="1"
 
-# formats above json correctly for the call below:
+
+
+#### NO EDITS BELOW
+
+
+function quick_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+    exit
+  fi
+}
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}
 EOF
 )
 
-PC_JWT=$(curl --silent \
-              --request POST \
-              --url "$PC_APIURL/login" \
-              --header 'Accept: application/json; charset=UTF-8' \
-              --header 'Content-Type: application/json; charset=UTF-8' \
-              --data "$AUTH_PAYLOAD" | jq -r '.token')
+
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+quick_check "/login"
+
+
+PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
+
+
+
 
 
 
@@ -39,15 +60,19 @@ OVERALL_SUMMARY=$(curl --request GET \
                        --url "$PC_APIURL/v2/inventory?timeType=relative&timeAmount=$TIMEAMOUNT&timeUnit=$TIMEUNIT" \
                        --header "x-redlock-auth: $PC_JWT" | jq -r '[{summary: "all_accounts",total_number_of_resources: .summary.totalResources, resources_passing: .summary.passedResources, resources_failing: .summary.failedResources, high_severity_issues: .summary.highSeverityFailedResources, medium_severity_issues: .summary.mediumSeverityFailedResources, low_severity_issues: .summary.lowSeverityFailedResources}]')
 
+quick_check "/v2/inventory"
 
 COMPLIANCE_SUMMARY=$(curl --request GET \
                           --header "x-redlock-auth: $PC_JWT" \
                           --url "$PC_APIURL/compliance/posture?timeType=relative&timeAmount=1&timeUnit=month" | jq '[.complianceDetails[] | {framework_name: .name, number_of_policy_checks: .assignedPolicies, high_severity_issues: .highSeverityFailedResources, medium_severity_issues: .mediumSeverityFailedResources, low_severity_issues: .lowSeverityFailedResources, total_number_of_resources: .totalResources}]')
 
+quick_check "/compliance/posture"
 
 SERVICE_SUMMARY=$(curl --request GET \
                        --url "$PC_APIURL/v2/inventory?timeType=relative&timeAmount=1&timeUnit=month&groupBy=cloud.service&scan.status=all" \
                        --header "x-redlock-auth: $PC_JWT" | jq '[.groupedAggregates[]]' | jq 'group_by(.cloudTypeName)[] | {(.[0].cloudTypeName): [.[] | {service_name: .serviceName, high_severity_issues: .highSeverityFailedResources, medium_severity_issues: .mediumSeverityFailedResources, low_severity_issues: .lowSeverityFailedResources, total_number_of_resources: .totalResources}]}')
+
+quick_check "/v2/inventory"
 
 REPORT_DATE=$(date  +%m_%d_%y)
 

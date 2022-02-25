@@ -54,10 +54,34 @@ IAC_FILE_TO_SCAN=""
 IAC_FOLDER_TO_SCAN=""
 
 
+#### NO EDITS NEEDED BELOW
+
+function quick_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+    exit
+  fi
+}
+
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}
 EOF
 )
+
+
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+quick_check "/login"
+
+
+PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
 
 
 IAC_PAYLOAD=$(cat <<EOF
@@ -119,12 +143,6 @@ EOF
 
 
 
-PC_JWT=$(curl --silent \
-	      --request POST \
-	      --url "$PC_APIURL/login" \
-	      --header 'Accept: application/json' \
-	      --header 'Content-Type: application/json' \
-	      --data "$AUTH_PAYLOAD" | jq -r '.token' )
 
 PC_SCAN=$(curl --silent \
                --request POST \
@@ -132,6 +150,8 @@ PC_SCAN=$(curl --silent \
                --header "x-redlock-auth: $PC_JWT" \
                --header 'Content-Type: application/vnd.api+json' \
                --data-raw "$IAC_PAYLOAD")
+
+quick_check "/iac/v2/scans"
 
 PC_SCAN_ID=$(printf %s "$PC_SCAN" | jq -r '.[].id')
 
@@ -161,6 +181,7 @@ curl -X PUT \
      --url "$PC_UPLOAD_URL" \
      -T "$IAC_FILE_TO_SCAN"
 
+quick_check "$PC_UPLOAD_URL"
 
 curl -s \
      --request POST \
@@ -169,20 +190,21 @@ curl -s \
      --url "$PC_APIURL/iac/v2/scans/$PC_SCAN_ID" \
      --data-raw "$IAC_CONFIG"
 
-PC_SCAN_STATUS=$(curl -s \
-                      --request GET "$PC_APIURL/iac/v2/scans/$PC_SCAN_ID/status" \
-                      --header "x-redlock-auth: $PC_JWT" \
-                      --header 'Content-Type: application/vnd.api+json' | jq -r '.[].attributes.status')
+quick_check "/iac/v2/scans/$PC_SCAN_ID"
 
 processing_wait(){
  sleep 10;
-         pcee_scan_status=$(curl -s --request GET "$PC_APIURL/iac/v2/scans/$PC_SCAN_ID/status" \
-                        --header "x-redlock-auth: $PC_JWT" \
-                        --header 'Content-Type: application/vnd.api+json' | jq -r '.[].attributes.status');
+         PC_SCAN_STATUS_RESPONSE=$(curl -s --request GET "$PC_APIURL/iac/v2/scans/$PC_SCAN_ID/status" \
+                                           --header "x-redlock-auth: $PC_JWT" \
+                                           --header 'Content-Type: application/vnd.api+json')
+         quick_check "/iac/v2/scans/$PC_SCAN_ID/status"
+         PC_SCAN_STATUS=$(printf %s "$PC_SCAN_STATUS_RESPONSE" | jq -r '.[].attributes.status')
 }
 
+processing_wait
+
 if [[ "$PC_SCAN_STATUS" == "processing" ]]; then
-	processing_wait
+        processing_wait
 fi
 if [[ "$PC_SCAN_STATUS" == "processing" ]]; then
         processing_wait
@@ -219,6 +241,7 @@ IAC_RESULTS=$(curl --silent \
                    --header "Content-Type: application/json" \
                    --header "x-redlock-auth: $PC_JWT" )
 
+quick_check "/iac/v2/scans/$PC_SCAN_ID/results/sarif"
 SCAN_DATE=$(date +%m_%d_%y_%S)
 
 echo "On today's date: $SCAN_DATE"

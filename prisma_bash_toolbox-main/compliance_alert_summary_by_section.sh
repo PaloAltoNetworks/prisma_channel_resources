@@ -23,37 +23,79 @@ TIME_UNIT="month"
 
 
 
+#### NO EDITS BELOW
+
+
+function quick_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+    exit
+  fi
+}
+
+
+function loop_response_check {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res"
+  fi
+}
+
+
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}
 EOF
 )
+
+
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+quick_check "/login"
+
+
+PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
+
+
 REPORT_DATE=$(date  +%m_%d_%y)
 
-PC_JWT=$(curl --silent \
-              --request POST \
-              --url "$PC_APIURL/login" \
-              --header 'Accept: application/json; charset=UTF-8' \
-              --header 'Content-Type: application/json; charset=UTF-8' \
-              --data "$AUTH_PAYLOAD" | jq -r '.token')
 
 
-COMPLIANCE_ID=$(curl --request GET \
-                     --url "$PC_APIURL/compliance" \
-                     --header "x-redlock-auth: $PC_JWT" | jq -r --arg COMPLIANCE_NAME "$COMPLIANCE_NAME" '.[] | select(.name == $COMPLIANCE_NAME) | .id')
+COMPLIANCE_ID_RESPONSE=$(curl --request GET \
+                              --url "$PC_APIURL/compliance" \
+                              --header "x-redlock-auth: $PC_JWT" )
+
+quick_check "/compliance"
+
+COMPLIANCE_ID=$(printf %s "$COMPLIANCE_ID_RESPONSE" | jq -r --arg COMPLIANCE_NAME "$COMPLIANCE_NAME" '.[] | select(.name == $COMPLIANCE_NAME) | .id')
 
 
-REQUIREMENT_IDS=$(curl --request GET \
-                  --url "$PC_APIURL/compliance/{$COMPLIANCE_ID}/requirement" \
-                  --header "x-redlock-auth: $PC_JWT" | jq -r '.[].id')
+REQUIREMENT_IDS_RESPONSE=$(curl --request GET \
+                                --url "$PC_APIURL/compliance/{$COMPLIANCE_ID}/requirement" \
+                                --header "x-redlock-auth: $PC_JWT" )
+
+quick_check "/compliance/{$COMPLICE_ID}/requirement"
+
+REQUIREMENT_IDS=$(printf %s "$REQUIREMENT_IDS_RESPONSE" | jq -r '.[].id')
 
 declare -a REQUIREMENT_ID_ARRAY=($(printf %s "$REQUIREMENT_IDS"))
 
 echo -e "sectionName, description, assignedPolicies, failedResources, passedResources, totalResources, HighSeverityFailedResources, mediumSeverityFailedResources, lowSeverityFailedResources \n" > ./compliance_section_summary_data_$REPORT_DATE.csv
 
 for REQUIREMENT_ID in ${REQUIREMENT_ID_ARRAY[@]}; do
-        curl --request GET \
-             --url "$PC_APIURL/compliance/posture/{$COMPLIANCE_ID}/{$REQUIREMENT_ID}?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT" \
-             --header "x-redlock-auth: $PC_JWT" | jq '.complianceDetails[] | {sectionName: .name, description: .description, assignedPolicies: .assignedPolicies, failedResources: .failedResources, passedResources: .passedResources, totalResources: .totalResources, HighSeverityFailedResources: .highSeverityFailedResources, mediumSeverityFailedResources: .mediumSeverityFailedResources, lowSeverityFailedResources: .lowSeverityFailedResources}'| jq -r '[.] | map({sectionName, description, assignedPolicies, failedResources, passedResources, totalResources, HighSeverityFailedResources, mediumSeverityFailedResources, lowSeverityFailedResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./compliance_section_summary_data_$REPORT_DATE.csv
+        COMPLIANCE_POSTURE_RESPONSE=$(curl --request GET \
+                                           --url "$PC_APIURL/compliance/posture/{$COMPLIANCE_ID}/{$REQUIREMENT_ID}?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT" \
+                                           --header "x-redlock-auth: $PC_JWT" )
+        loop_response_check "/compliance/posture/{$COMPLIANCE_ID}/{$REQUIREMENT_ID}?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT"
+        printf %s "$COMPLIANCE_POSTURE_RESPONSE" | jq '.complianceDetails[] | {sectionName: .name, description: .description, assignedPolicies: .assignedPolicies, failedResources: .failedResources, passedResources: .passedResources, totalResources: .totalResources, HighSeverityFailedResources: .highSeverityFailedResources, mediumSeverityFailedResources: .mediumSeverityFailedResources, lowSeverityFailedResources: .lowSeverityFailedResources}'| jq -r '[.] | map({sectionName, description, assignedPolicies, failedResources, passedResources, totalResources, HighSeverityFailedResources, mediumSeverityFailedResources, lowSeverityFailedResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./compliance_section_summary_data_$REPORT_DATE.csv
 
 done
 

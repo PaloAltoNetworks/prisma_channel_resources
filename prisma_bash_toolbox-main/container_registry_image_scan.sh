@@ -78,7 +78,7 @@ do
 		shift
 		;;
 	--image-repository)
-		$IMAGE_REPOSITORY="$2"
+		IMAGE_REPOSITORY="$2"
 		;;
   --image-tag)
     IMAGE_TAG="$2"

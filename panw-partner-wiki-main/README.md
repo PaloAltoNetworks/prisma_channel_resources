@@ -102,7 +102,9 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 * [Insight Sourced Article on the challenges of Kubernetes - Thank you Chase](https://blog.dave.tf/post/new-kubernetes/)
 * [Insight Sourced Podcast on Kubernetes - Thank you Chase](https://kubernetespodcast.com/episode/155-software-supply-chain-security/)
 
-### Walkthroughs and Tutorials for Demo Environments/Pre-Sales Beginner CWPP Labs
+### Walkthroughs and Tutorials for Demo Environments/Pre-Sales Beginner CWPP Labs:
+
+[Link to the Self Paced Learniong (requires a Prisma Cloud License)](https://www.paloaltonetworks.com/services/education/digital-learning#Prisma)
 
 _These labs were created or curated by Kyle Butler and are a set of labs meant to be done in order to learn different aspects of the technology and gain familiarity with the Prisma platform:_
 

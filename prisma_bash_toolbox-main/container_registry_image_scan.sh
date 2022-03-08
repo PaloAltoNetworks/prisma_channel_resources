@@ -20,7 +20,7 @@ IMAGE_TAG="1.21.5"
 IMAGE_DIGEST=""
 
 # int value time in seconds. How many seconds to wait for scan to complete. 
-SCAN_TIME_WAIT="30"
+SCAN_WAIT_TIME="30"
 
 
 
@@ -84,7 +84,7 @@ do
     IMAGE_TAG="$2"
     ;;
 	--scan-time)
-    SCAN_TIME_WAIT="$2"
+    SCAN_WAIT_TIME="$2"
     ;;
   --image-digest)
     IMAGE_DIGEST="$2"

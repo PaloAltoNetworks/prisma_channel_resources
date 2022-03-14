@@ -83,7 +83,7 @@ COMPLIANCE_SECTION_RESPONSE=$(for SECTION_ID in "${SECTION_ID_ARRAY[@]}"; do
                                          --url $PC_APIURL/compliance/{$SECTION_ID}/section \
                                          --header "x-redlock-auth: $PC_JWT" | jq '.[]';
                               done)
-
+quick_check "compliance section array population"
 
 POLICY_ID_ARRAY=($(printf %s "$COMPLIANCE_SECTION_RESPONSE" | jq -r '.associatedPolicyIds[]'))
 

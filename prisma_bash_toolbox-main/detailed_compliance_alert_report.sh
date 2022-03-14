@@ -87,7 +87,7 @@ COMPLIANCE_SECTION_RESPONSE=$(for SECTION_ID in "${SECTION_ID_ARRAY[@]}"; do
 
 POLICY_ID_ARRAY=($(printf %s "$COMPLIANCE_SECTION_RESPONSE" | jq -r '.associatedPolicyIds[]'))
 
-printf '%s\n' "policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceArn, standardName, requirementName, sectionId, sectionDescription" >  "./detailed_compliance_alert_report_$COMPLIANCE_NAME-$REPORT_DATE.csv"
+printf '%s\n' "policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceId, standardName, requirementName, sectionId, sectionDescription" >  "./detailed_compliance_alert_report_$COMPLIANCE_NAME-$REPORT_DATE.csv"
 
 for POLICY_ID in ${POLICY_ID_ARRAY[@]}; do
   POLICY_RESPONSE=$(curl --request GET \

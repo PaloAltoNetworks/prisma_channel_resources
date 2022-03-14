@@ -14,7 +14,7 @@
 
 source ./secrets/secrets
 
-### Warning #### This report will take a while to run. Ensure you're using a machine that has plenty of HDD space, CPU, and RAM to process all the data that will be returned. 
+### USE WHEN THERE ARE MORE THAN 10000 resources in scope for the report
 
 #### This will pull all the alerts by the policy ids associated to the compliance framework and export everything as a CSV. 
 
@@ -87,14 +87,14 @@ COMPLIANCE_SECTION_RESPONSE=$(for SECTION_ID in "${SECTION_ID_ARRAY[@]}"; do
 
 POLICY_ID_ARRAY=($(printf %s "$COMPLIANCE_SECTION_RESPONSE" | jq -r '.associatedPolicyIds[]'))
 
-echo -e "standardName, requirementId, sectionId, account, resourceName, resourceType, url, tagKey, tagValue, policyName, policyDescription \n" >  ./detailed_compliance_alert_report_$REPORT_DATE.csv
+printf '%s\n' "policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceArn, standardName, requirementName, sectionId, sectionDescription" >  "./detailed_compliance_alert_report_$COMPLIANCE_NAME-$REPORT_DATE.csv"
 
 for POLICY_ID in ${POLICY_ID_ARRAY[@]}; do
   POLICY_RESPONSE=$(curl --request GET \
                          --url "$PC_APIURL/v2/alert?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT&detailed=true&policy.id=$POLICY_ID&status=$STATUS" \
                          --header "x-redlock-auth: $PC_JWT")
   quick_check "/v2/alert?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT&detailed=true&policy.id=$POLICY_ID&status=$STATUS"
-  printf %s "$POLICY_RESPONSE" | jq --arg COMPLIANCE_NAME "$COMPLIANCE_NAME" '.items[] | select(.status == "open") | {standardName: .policy.complianceMetadata[].standardName, requirementId: .policy.complianceMetadata[].requirementId, sectionId: .policy.complianceMetadata[].sectionId, account: .resource.account, resourceName: .resource.name, resourceType: .resource.resourceType, url: .resource.url, tagKey: .resource.data.tags[].key, tagValue: .resource.data.tags[].value, policyName: .policy.name, policyDescription: .policy.description} | select(.standardName == $COMPLIANCE_NAME)' | jq -r '[.] | map({standardName, requirementId, sectionId, account, resourceName, resourceType, url, tagKey, tagValue, policyName, policyDescription}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./detailed_compliance_alert_report_$REPORT_DATE.csv
+  printf '%s' "$POLICY_RESPONSE" | jq -r --arg COMPLIANCE_NAME "$COMPLIANCE_NAME" '.items[] | select(.status == "open") | {policyName: .policy.name, policyDescription: .policy.description, policySeverity: .policy.severity, policyType: .policy.policyType, policyRecommendation: .policy.recommendation, account: .resource.account, resourceName: .resource.name, resourceType: .resource.resourceType, resourceArn: .resource.rrn, complianceInfo: [.policy.complianceMetadata[] | select(.standardName == $COMPLIANCE_NAME )] | select(length > 0)} | select(length > 0) | {policyName: .policyName, policyDescription: .policyDescription, policySeverity: .policySeverity, policyType: .policyType, policyRecommendation: .policyRecommendation, account: .account, resourceName: .resourceName, resourceType: .resourceType, resourceArn: .resourceArn, standardName: .complianceInfo[].standardName, requirementName: .complianceInfo[].requirementName, sectionId: .complianceInfo[].sectionId, sectionDescription: .complianceInfo[].sectionDescription} | [.] | map({policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceArn, standardName, requirementName, sectionId, sectionDescription}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'  >> "./detailed_compliance_alert_report_$COMPLIANCE_NAME-$REPORT_DATE.csv"
 done 
 
 exit

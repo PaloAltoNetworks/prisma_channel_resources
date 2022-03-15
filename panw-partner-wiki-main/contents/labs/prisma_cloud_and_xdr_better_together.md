@@ -89,12 +89,9 @@ So here's the scenario. In the default Host policy runtime rules under networkin
 * Create custom runtime rule inder Defend > Runtime in the Prisma Compute console. 
 * Name Allow ncat to be executed by XDR agent
 * Message: `%proc.name is used, it's parent is %proc.pname`
-* Rule should be: `proc.name = "ncat" and (proc.pname = "dash")
+* Rule should be: `proc.name = "ncat" and (proc.pname = "dash")`
 
 What this does is it allows the XDR agent access to the `ncat` tool and will ensure there's no alert generated when it uses the binary. However if a user were to attempt to use it then the alert or prevententive behavior would still occur. 
-
-
-
 
 ## Discussions topics we're working on. 
 

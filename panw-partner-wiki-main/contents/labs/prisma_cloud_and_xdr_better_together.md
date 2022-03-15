@@ -1,6 +1,6 @@
 # Prisma Cloud and XDR Better together Story
 
-Written by Kyle Butler in collaboration with Jamie Hodge, Chris Harris, Goran Bogojevic, David Maclean, Nana-Ampofo, Calvin Mangubat, and John Chavanne. (FYI, if you'd like to collaborate with us, we'll add your name to this list.)
+Written by Kyle Butler in collaboration with Jamie Hodge, Chris Harris, Goran Bogojevic, David Maclean, Nana-Ampofo, Calvin Mangubat, Steven de Boer, and John Chavanne. (FYI, if you'd like to collaborate with us, we'll add your name to this list.)
 
 We've been working with a Cortex SE to work through some of the major technical differences between the way the XDR agent works vs. the Prisma Defender, so that we can work through some of the technical nuances when installing both agents, and determine the best agent to use when the customer might be unwilling to deploy both the defender and the XDR agent. This will be a work in progress and will be updated everyone collaborating on this topic is satisfied. 
 
@@ -80,6 +80,21 @@ dataset = endpoints
 ```
 
 I'll write up a sample API script and post it here in a bit. 
+
+
+## Finding #8 - Thank you Steven de Boer!!! - Ability to allow XDR agent access to tools which are considered malicous by default Prisma Runtime Rules. 
+
+So here's the scenario. In the default Host policy runtime rules under networking and spoofing ncat comes up as a tool that could be used for these purposes. However, the XDR utilizes ncat for forensic analysis. Steven de Boer was asked to come up with a custom rule that would allow the XDR agent to use the ncat tool but not create an alert in the Prisma Console. Here's how he did it!
+
+* Create custom runtime rule inder Defend > Runtime in the Prisma Compute console. 
+* Name Allow ncat to be executed by XDR agent
+* Message: `%proc.name is used, it's parent is %proc.pname`
+* Rule should be: `proc.name = "ncat" and (proc.pname = "dash")
+
+What this does is it allows the XDR agent access to the `ncat` tool and will ensure there's no alert generated when it uses the binary. However if a user were to attempt to use it then the alert or prevententive behavior would still occur. 
+
+
+
 
 ## Discussions topics we're working on. 
 

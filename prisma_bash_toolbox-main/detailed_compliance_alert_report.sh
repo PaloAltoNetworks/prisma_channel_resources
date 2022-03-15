@@ -19,7 +19,7 @@ source ./secrets/secrets
 #### This will pull all the alerts by the policy ids associated to the compliance framework and export everything as a CSV. 
 
 # comes from the console
-COMPLIANCE_NAME="CIS v1.4.0 (AWS)"
+COMPLIANCE_STD_NAME="CIS v1.4.0 (AWS)"
 TIME_TYPE="relative"
 TIME_UNIT="month"
 TIME_AMOUNT="1"

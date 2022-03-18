@@ -9,3 +9,10 @@ A collection of resources for engineers who work with Prisma Cloud. The reposito
 * [Prisma Cloud Compute Local Lab Set-up](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/lab_deploy) - Instructions on how to deploy Prisma Cloud the self-hosted version of the platform, along with other tools and ecosystem technologies. Not for production, uses docker and docker-compose. Deploys the Iverson update 2 release, drone, gitea, the dvwa, a swagger petstore app, prometheus, grafana, and vault.  
 
 Please take the time to review the [support policy](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/SUPPORT.md), [license](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/LICENSE), and other related content. Thank you for visiting!
+
+# Prisma Cloud Dev Community Highlights
+
+* [Python CLI Tool - Thank you Steven de Boer](https://pypi.org/project/prismacloud-cli/)
+* [Prisma Cloud Postman Collection - Thank you Sean Sullivan](https://github.com/PaloAltoNetworks/pcs-postman)
+* [Prisma Cloud Golang SDK](https://github.com/PaloAltoNetworks/prisma-cloud-go)
+* [Prisma Cloud Python Toolbox - Thank you Tom Kishel](https://github.com/PaloAltoNetworks/pcs-toolbox)

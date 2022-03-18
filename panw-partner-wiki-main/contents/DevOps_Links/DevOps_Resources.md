@@ -58,6 +58,7 @@ _Container Security Presentations_
 
 _Reporting/API Scripts_
 
+* [Prisma Cloud Python CLI tool - Thank you Steven de Boer](https://pypi.org/project/prismacloud-cli/)
 * [Lunchbox pov api kpi report: Pulls high level KPIs from the Prisma Cloud Console for Lunchbox POV](https://github.com/Kyle9021/pcee_lunchbox_pov_api_cspm)
 * [Containerized Python API Report Script: Pull high level KPIs from the Prisma Cloud Enterprise](https://github.com/Kyle9021/PCEE_PYTHON_DOCKERFILE_PCS_INSPECT)
 * [Perform any RQL Query from API](https://github.com/Kyle9021/Generic_PCEE_API_SCRIPT)

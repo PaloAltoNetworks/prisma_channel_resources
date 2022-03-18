@@ -10,9 +10,17 @@ A collection of resources for engineers who work with Prisma Cloud. The reposito
 
 Please take the time to review the [support policy](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/SUPPORT.md), [license](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/LICENSE), and other related content. Thank you for visiting!
 
+
+
+
+
+
+
 ### Prisma Cloud Dev Community Highlights
 
 * [Python CLI Tool - Thank you Steven de Boer](https://pypi.org/project/prismacloud-cli/)
 * [Prisma Cloud Postman Collection - Thank you Sean Sullivan](https://github.com/PaloAltoNetworks/pcs-postman)
 * [Prisma Cloud Golang SDK](https://github.com/PaloAltoNetworks/prisma-cloud-go)
 * [Prisma Cloud Python Toolbox - Thank you Tom Kishel](https://github.com/PaloAltoNetworks/pcs-toolbox)
+* [Prisma Cloud Commmunity Operator - Thank you Wyatt Gill](https://github.com/PaloAltoNetworks/prisma-cloud-compute-operator)
+* [Prisma Cloud Compute Sample Code - Thank you Stephen Gordon and Wyatt Gill](https://github.com/PaloAltoNetworks/prisma-cloud-compute-sample-code)

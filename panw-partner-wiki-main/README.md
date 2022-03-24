@@ -116,6 +116,7 @@ _These labs were created or curated by Kyle Butler and are a set of labs meant t
 * [AWS ECR (Elastic Container Repository) Deployment](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_AWS_ECR_Set-up.md)
 * [Runtime defense - WAAS - Command Injection - Demo](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Command_Injection_WAAS_Demo.md)
 * [WAAS - DVWA - SQL Injection - Demo Instructions](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_SQL_Injection_Demo_Tutorial.md)
+* [Defending Against Kernel Vulnerabilities Like Dirty Pipe Using Custom Compliance Checks](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/custom_compliance_checks_tutorial.md)
 * [Twistcli Manual Docker Image Scan](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Twistcli_Manual_Image_Scan.md)
 * [Show Security Risks of Running a Container in Privileged Mode](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Privileged_Mode_Container_Demo.md)
 * [Microsegmentation lab](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/panw-partner-wiki-main/contents/labs/microseg-lab)

@@ -1,4 +1,4 @@
-# Custom Compliance/Configuration checks to detect kernel vulnerabilites like Dirty Pipe
+# Using custom Compliance/Configuration checks to detect kernel vulnerabilites like Dirty Pipe
 
 Okay, so here's the reason I wrote this lab. Essentially it has to do with a linux kernel vulnerablity called Dirty Pipe. You can read a more official write-up on the vulnerability [here](https://dirtypipe.cm4all.com/). 
 It's a pretty big deal because it can lead to a nasty privilage escalation essentially allowing an unprivileged process to inject code into a root process. 
@@ -13,7 +13,7 @@ One of the challenges I had with this particular vulnerability was that it would
 
 An example, what if my developers are using Debian 11. How can I check to ensure they have the patched version of the kernel on their machines...if I can't see the vulnerability show up under the vulnerability scans?
 
-### Enter Custom Compliance Checks and the world of bash scripting
+## Enter Custom Compliance Checks and the world of bash scripting
                                                 
 With Prisma Cloud Compute we call configuration checks compliance checks; because those configuration checks are mapped back to compliance frameworks. 
 
@@ -27,7 +27,7 @@ Here's my assumptions:
 * You're either using a Prisma Cloud Defender or the twistcli tool (shifthing left). 
 
 
-### How to set-up if using a defender
+## How to set-up if using a defender
 
 There's a few configurations you need to do if you're using the defender to detect this. 
 
@@ -71,7 +71,7 @@ Set the action to "Alert" then hit save
 
 That's it!
 
-### Testing
+## Testing
 
 Okay so now you have done your configuration time to do some scanning with a defender and twistcli. 
 

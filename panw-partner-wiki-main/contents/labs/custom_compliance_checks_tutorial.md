@@ -87,7 +87,7 @@ Then I ran the command `sudo ./twistcli hosts scan --address <ADDRESS_TO_COMPUTE
 
 And boom it showed up! 
 
-Next I wanted to ensure it'd show up with a defender. (Spoiler worked with both container defenders and host defenders). So I deployed both types of defenders and then went to Compute > Monitor > Compliance and clicked the "Hosts" tab. Showed up there too. 
+Next I wanted to ensure it'd show up with a defender. (Spoiler worked with both container and host defenders). So I deployed both types of defenders and then went to Compute > Monitor > Compliance and clicked the "Hosts" tab. Showed up there too. 
 
 So now I feel confident I know where to send my alerts so that our team can patch the machines which have vulnerable kernels to this nasty exploit. 
 

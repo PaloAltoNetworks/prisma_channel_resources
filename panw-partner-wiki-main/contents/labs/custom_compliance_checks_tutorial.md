@@ -17,7 +17,7 @@ An example, what if my developers are using Debian 11. How can I check to ensure
                                                 
 With Prisma Cloud Compute we call configuration checks compliance checks; because those configuration checks are mapped back to compliance frameworks. 
 
-What's nice about the compliance checks is that they're completely customizable and really only limited to one's imagination and creativity. 
+What's nice about the compliance checks is they're completely customizable and really only limited to one's imagination and creativity. 
 
 Essentially if you can write a script you can perform a configuration check. 
 

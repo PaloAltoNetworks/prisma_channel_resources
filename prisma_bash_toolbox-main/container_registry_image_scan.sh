@@ -7,7 +7,7 @@ source ./secrets/secrets
 
 # USER ASSIGNED VARIABLES
 
-# Container registry
+# Container registry without HTTPS:// 
 IMAGE_REGISTRY="<BASE_ADDRESS_FOR_CONTAINER_REGISTRY>"
 
 # image name (ie nginx or alpine)
@@ -16,7 +16,7 @@ IMAGE_REPOSITORY="<OWNER/IMAGE>"
 # image tag version (ie latest or 1.21.5)
 IMAGE_TAG="1.21.5"
 
-# okay to leave blank
+# okay to leave blank used to verify the custody of from the build step. 
 IMAGE_DIGEST=""
 
 # int value time in seconds. How many seconds to wait for scan to complete. 

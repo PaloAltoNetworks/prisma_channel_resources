@@ -176,7 +176,7 @@ quick_check "/api/v1/registry/names"
 
 
 # Ensures there's a scan entry in the Prisma Compute Console under registries
-IMAGE_SCAN_CHECK=$(printf %s $GET_ALL_IMAGES | jq | grep "$FULL_IMAGE_ID")
+IMAGE_SCAN_CHECK=$(printf %s $GET_ALL_IMAGES | jq -r '.[]'| grep "$FULL_IMAGE_ID")
 
 # If there is no entry wait the amount of time in seconds specified by the user and check again. If it fails a second time exit the script.
 if [ -z "$IMAGE_SCAN_CHECK" ]
@@ -187,7 +187,7 @@ then echo "scan result not available yet, waiting $SCAN_WAIT_TIME seconds" & sle
                             $TL_CONSOLE/api/v1/registry/names)
 
     quick_check "/api/v1/registry/names"
-    IMAGE_SCAN_CHECK=$(printf %s $GET_ALL_IMAGES | jq | grep "$FULL_IMAGE_ID")
+    IMAGE_SCAN_CHECK=$(printf %s $GET_ALL_IMAGES | jq -r '.[]' | grep "$FULL_IMAGE_ID")
       if [ -z "$IMAGE_SCAN_CHECK" ]
         then echo "Image scan report not available yet. Try later" & exit
       fi

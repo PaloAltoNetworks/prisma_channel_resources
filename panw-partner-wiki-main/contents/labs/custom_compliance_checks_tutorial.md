@@ -19,12 +19,13 @@ With Prisma Cloud Compute we call configuration checks compliance checks; becaus
 
 What's nice about the compliance checks is they're completely customizable and really only limited to one's imagination and creativity. 
 
-Essentially if you can write a script you can perform a configuration check. 
+Essentially if you can write a script, then you can perform a configuration check. 
 
 Here's my assumptions:
 
 * Every linux box you'd like to check has the `bash` shell available. 
 * You're either using a Prisma Cloud Defender or the twistcli tool (shifthing left). 
+* You know the version where the vulnerability was introduced for the distrobution you're working with (easily googled; hint it started with linux kernel 5.8 and was fixed in Linux versions 5.10.102, 5.16.11, and 5.15.25) 
 
 
 ## How to set-up if using a defender

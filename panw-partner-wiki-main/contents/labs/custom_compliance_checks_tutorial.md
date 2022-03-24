@@ -7,11 +7,11 @@ Imagine being able to execute a binary that would allow you change the usernames
 
 ## What is the problem? 
 
-One of the challenges I had with this particular vulnerability was that it wouldn't always show up in every linux distro; Prisma Cloud supports all the mainstream linux distributions and their LTS flavors because that's what customers typically use in production environments...but because this vulnerability is so easy to do and easy to exploit I thought it might be important for Prisma Cloud Customers to know how to detect and eliminate this vulnerability. 
+One of the challenges I had with this particular vulnerability was that it wouldn't always show up in every linux distro; Prisma Cloud supports all the mainstream linux distributions and their LTS flavors because that's what customers typically use in production environments...but because this vulnerability is so easy perform using self-compiled code which may delay malware detection and because it was so easy to  perform the exploit I thought it might be important for Prisma Cloud Customers to know how to detect and eliminate this vulnerability. 
 
 * [Link to our supported Operating systems](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/system_requirements.html)
 
-An example, what if my developers are using Debian 11. How can I check to ensure they have the patched version of the kernel on their machines...if I can't see the vulnerability show up under the vulnerability scans?
+Here's a usecase, what if my developers are using Unsupported linux OS XYZ. How can I check to ensure they have the patched version of the kernel on their machines...if I can't see the vulnerability show up under the vulnerability scans?
 
 ## Enter Custom Compliance Checks and the world of bash scripting
                                                 

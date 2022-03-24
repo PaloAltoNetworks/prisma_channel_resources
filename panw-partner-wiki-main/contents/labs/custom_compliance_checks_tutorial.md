@@ -35,7 +35,7 @@ First go to Compute > Manage > Defenders and click "Advanced settings"
 
 You'll need to ensure that custom compliance checks for hosts is set to on. If this was set to off you'll need to redeploy defenders to any machines you'd like to check. 
 
-### Rest of the configuration explained
+## Rest of the configuration explained
 
 Go to Compute > Defend > Compliance
 

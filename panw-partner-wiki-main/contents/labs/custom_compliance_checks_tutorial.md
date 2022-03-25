@@ -52,8 +52,8 @@ Copy the script below into the rule and ensure you have the right versions assig
 
 # The first kernel version where the vulnerability was discovered
 min=5.8
-# The last kernel version where the vulnerability exists
-max=5.10.101
+# The last kernel version where the vulnerability exists the one below is for Ubuntu 20.04 LTS
+max=5.13.0.35.43 
 
 
 if [[ $(printf '%s\n%s\n' $min $(uname -r) | sort -V | head -n1) == $min && $(printf '%s\n%s\n' $max $(uname -r) | sort -rV | head -n1) == $max ]]; then

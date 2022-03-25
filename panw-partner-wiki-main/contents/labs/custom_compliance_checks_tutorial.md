@@ -111,8 +111,8 @@ Here's an example request body you might use:
     "name": "dirty-pipe kernel vuln",
     "previousName": "",
     "_id": 9000,
-    "title": "Host Kernel is vulnerable to Dirty-Pipe",
-    "script": "#!/bin/bash\n\n\nmin=5.8\nmax=5.14\n\n\n\n\nif [[ $(printf '%s\\n%s\\n' \"$min\" \"$(uname -r)\" | sort -V | head -n1) = $min && $(printf '%s\\n%s\\n' \"$max\" \"$(uname -r)\" | sort -rV | head -n1) = $max ]]; then\n  echo \"kernel is vulnerable\" & exit 1;\nelse echo \"kernel isn't vulnerable\" & exit 0;\nfi\n",
+    "title": "Host Kernel is vulnerable to Dirty-Pipe, please update the kernel",
+    "script": "#!/bin/bash\n\n\nmin=5.8\nmax=5.14\n\n\n\n\nif [[ $(printf '%s\\n%s\\n' \"$min\" \"$(uname -r)\" | sort -V | head -n1) = $min && $(printf '%s\\n%s\\n' \"$max\" \"$(uname -r)\" | sort -rV | head -n1) = $max ]]; then\n  echo \"kernel version $(uname -r) is vulnerable to dirty-pipe vulnerability; please update the kernel\" & exit 1;\nelse echo \"kernel isn't vulnerable\" & exit 0;\nfi\n",
     "severity": "critical"
   }
 ]

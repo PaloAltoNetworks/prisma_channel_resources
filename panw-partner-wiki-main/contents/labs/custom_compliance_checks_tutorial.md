@@ -97,4 +97,23 @@ And because of the flexability of "scope" and "collections" I can easily route m
 Plus, I can now incorporate this test into my VM image config pipeline so I can eliminate issues like this going forward using a shift-left DevSecOps mentality. 
 
 
+## Wrap-up
 
+If you're wondering if you could do this all in some automated fashion through a RESTful API; the answer is sure! Here's the [link to the api documentation](https://prisma.pan.dev/api/cloud/cwpp/custom-compliance#operation/put-custom-compliance)
+
+Here's an example request body you might use:
+
+```json
+[
+  {
+    "modified": "2022-03-24T22:18:31.685Z",
+    "owner": "prisma-presenter",
+    "name": "dirty-pipe kernel vuln",
+    "previousName": "",
+    "_id": 9000,
+    "title": "Host Kernel is vulnerable to Dirty-Pipe",
+    "script": "#!/bin/bash\n\n\nmin=5.8\nmax=5.14\n\n\n\n\nif [[ $(printf '%s\\n%s\\n' \"$min\" \"$(uname -r)\" | sort -V | head -n1) = $min && $(printf '%s\\n%s\\n' \"$max\" \"$(uname -r)\" | sort -rV | head -n1) = $max ]]; then\n  echo \"kernel is vulnerable\" & exit 1;\nelse echo \"kernel isn't vulnerable\" & exit 0;\nfi\n",
+    "severity": "critical"
+  }
+]
+```

@@ -46,8 +46,6 @@ $PATH_TO_ACCESSKEY_FILE = "C:\DIR\PATH\TO\example_access_key_file.csv"
 
 ### END OF REQUIRED USER USER CONFIGURATION
 
-
-
 # Reads the access_key/secret_key csv file and pulls the values from the second column of the table/sheet
 $KEY_ARRAY = foreach($line in [System.IO.File]::ReadLines("$PATH_TO_ACCESSKEY_FILE")){
         $line.Split(",")[1]

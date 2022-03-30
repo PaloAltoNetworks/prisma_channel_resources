@@ -13,7 +13,7 @@ In order to run you must first create a set of access keys in the Prisma Cloud C
 You'll need to download them as a csv. In the third row of the sheet in the second column add the API url which corresponds to the app url for prisma cloud.
 
 See this page for documentation https://prisma.pan.dev/api/cloud/api-urls
-If you're using the compute functionality in the Enterprise addition, copy the access key and paste it in cell B4 and the
+If you're using the compute functionality in the Enterprise Edition, copy the access key and paste it in cell B4 and the
 secret key to cell B5 in the csv. You'll also need to copy the Compute API url from the console under: Compute > Manage > System > Utilities > Path to console and place the URL in cell B6
 
 For documentation on where to find this URL see this page https://prisma.pan.dev/api/cloud/cwpp/how-to-eval-console

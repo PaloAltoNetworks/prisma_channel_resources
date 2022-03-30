@@ -34,6 +34,8 @@ $TIME_UNIT = "month"
 
 # END OF USER CONFIG SECTION
 
+# allows for self-signed certs
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }
 
 
 # Reads the access_key/secret_key csv file and pulls the values from the second column of the table/sheet

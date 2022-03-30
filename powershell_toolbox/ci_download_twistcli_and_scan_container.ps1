@@ -66,6 +66,7 @@ $AUTH_PAYLOAD = @{
 
 $AUTH_PAYLOAD = $AUTH_PAYLOAD | ConvertTo-Json
 
+# Authenticates to the console and retrieves token
 $TL_AUTH_RESPONSE = Invoke-RestMethod `
     -Uri $("$TL_CONSOLE" + "/api/v1/authenticate") `
     -body $AUTH_PAYLOAD `

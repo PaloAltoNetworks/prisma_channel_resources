@@ -27,10 +27,10 @@ Last, assign the variables under the USER CONFIG section below.
 # USER CONFIG
 
 # The location you want the twistcli binary to be downloaded to. Must end with twistcli.exe
-$TWISTCLI_OUTFILE_LOCATION = "C:\twistcli.exe"
+$TWISTCLI_OUTFILE_LOCATION = "C:\Users\<USERNAME>\twistcli.exe"
 
 # The location you want the scan report to be
-$TL_SCAN_REPORT_LOCATION = "C:\Users\KB\Desktop\report.txt"
+$TL_SCAN_REPORT_LOCATION = "C:\Users\<USERNAME>\Desktop\report.txt"
 
 
 # Only part you should change assuming the docker engine is running on localhost is the port number if using a non-standard docker port

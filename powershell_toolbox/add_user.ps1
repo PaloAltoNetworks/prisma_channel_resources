@@ -39,6 +39,10 @@ $PC_USER_KEY_EXPIRATION = "false"
 
 
 # END OF USER CONFIG SECTION
+
+# Allows for self signed certs
+[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }
+
 $PC_USERNAME = "$PC_USER_EMAIL"
 $PC_USER_ACCESSKEY_NAME = "$PC_USER_FIRSTNAME accesskey"
 

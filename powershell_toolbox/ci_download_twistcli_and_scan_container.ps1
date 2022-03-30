@@ -38,12 +38,13 @@ $env:DOCKER_HOST = "tcp://localhost:2375"
 # Image must be locally available: To verify run docker images before running the script
 $CONTAINER_IMAGE = "mcr.microsoft.com/windows/servercore:1607-amd64"
 
+# Directory path to the access_key/secret_key csv. 
+$PATH_TO_ACCESSKEY_FILE = "C:\DIR\PATH\TO\example_access_key_file.csv"
 
 
 ### END OF REQUIRED USER USER CONFIGURATION
 
-# Directory path to the access_key/secret_key csv. 
-$PATH_TO_ACCESSKEY_FILE = "C:\DIR\PATH\TO\example_access_key_file.csv"
+
 
 # Reads the access_key/secret_key csv file and pulls the values from the second column of the table/sheet
 $KEY_ARRAY = foreach($line in [System.IO.File]::ReadLines("$PATH_TO_ACCESSKEY_FILE")){

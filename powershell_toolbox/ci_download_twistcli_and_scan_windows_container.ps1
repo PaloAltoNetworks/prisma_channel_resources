@@ -4,6 +4,8 @@ Written by Kyle Butler
 Tested with Powershell version 5.1.14393.1884
 On Windows Server 2016 with docker installed: https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/set-up-environment
 
+Ensure user has permissions to the docker engine or run with elevated "Admin: privileges
+
 For usage in Azure DevOps see: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/powershell
 
 This script will pull down the windows twistcli binary and run an image scan on windows containers which are locally available. 

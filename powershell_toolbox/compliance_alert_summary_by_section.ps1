@@ -37,6 +37,9 @@ $TIME_UNIT = "month"
 # allows for self-signed certs
 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }
 
+# default powershell uses tls version 1.0 this forces tls 1.2
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 
 # Reads the access_key/secret_key csv file and pulls the values from the second column of the table/sheet
 $KEY_ARRAY = foreach($line in [System.IO.File]::ReadLines("$PATH_TO_ACCESSKEY_FILE")){

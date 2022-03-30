@@ -93,4 +93,4 @@ Invoke-RestMethod `
 Start-Process `
   -FilePath "$TWISTCLI_OUTFILE_LOCATION" `
   -ArgumentList "images ","scan ","--address $TL_CONSOLE ","-u $TL_USER ","-p $TL_PASSWORD ","--details ","$CONTAINER_IMAGE" `
-  -RedirectStandardOutput $TL_SCAN_REPORT_LOCATION
+  -RedirectStandardOutput "$TL_SCAN_REPORT_LOCATION"

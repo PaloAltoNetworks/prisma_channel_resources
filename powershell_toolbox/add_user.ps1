@@ -43,6 +43,9 @@ $PC_USER_KEY_EXPIRATION = "false"
 # Allows for self signed certs
 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }
 
+# default powershell uses tls 1.0. This forces tls 1.2
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 $PC_USERNAME = "$PC_USER_EMAIL"
 $PC_USER_ACCESSKEY_NAME = "$PC_USER_FIRSTNAME accesskey"
 

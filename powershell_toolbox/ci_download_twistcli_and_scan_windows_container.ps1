@@ -51,8 +51,9 @@ $PATH_TO_ACCESSKEY_FILE = "C:\DIR\PATH\TO\example_access_key_file.csv"
 # allows for self-signed certs
 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }
 
-# default powershell Invoke-web request uses tls 1.0 this forces Tls12
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+# default powershell Invoke-web request uses tls 1.0 this forces Tls12, see https://docs.microsoft.com/en-us/azure/databox-online/azure-stack-edge-gpu-configure-tls-settings
+$TLS12Protocol = [System.Net.SecurityProtocolType] 'Ssl3 , Tls12'
+[System.Net.ServicePointManager]::SecurityProtocol = $TLS12Protocol
 
 # Reads the access_key/secret_key csv file and pulls the values from the second column of the table/sheet
 $KEY_ARRAY = foreach($line in [System.IO.File]::ReadLines("$PATH_TO_ACCESSKEY_FILE")){

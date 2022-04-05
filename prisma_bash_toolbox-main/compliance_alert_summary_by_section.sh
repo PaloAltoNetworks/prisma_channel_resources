@@ -31,8 +31,8 @@ function quick_check {
   if [ $res -eq 0 ]; then
     echo "$1 request succeeded"
   else
-    echo "$1 request failed error code: $res"
-    exit
+    echo "$1 request failed error code: $res" >&2
+    exit 1
   fi
 }
 
@@ -42,7 +42,7 @@ function loop_response_check {
   if [ $res -eq 0 ]; then
     echo "$1 request succeeded"
   else
-    echo "$1 request failed error code: $res"
+    echo "$1 request failed error code: $res" >&2
   fi
 }
 

@@ -316,6 +316,8 @@ steps:
       from_secret: pcc_user
     PCC_PASSWORD:
       from_secret: pcc_password
+    PCC_CONSOLE_IP:
+      from_secret: pcc_console_ip
   volumes:
   - name: dockersock
     path: /var/run

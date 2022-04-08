@@ -29,6 +29,13 @@ If you do not also follow one of the below options, and try to click the link in
 1) Determine what App Stack this new tenant is assigned to.  You can do this by clicking the link in the email you received and look for one of the following app stacks under Step 1 of [Access Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/get-started-with-prisma-cloud/access-prisma-cloud) 
 2) Add `/auth/signin` to end of the url. For example:   
 `https://app2.prismacloud.io/auth/signin`
+3) This should bring up a login screen like this:
+
+<img src="https://user-images.githubusercontent.com/31355989/162478211-b840b544-cb15-4a4c-8f50-6f003ab00fc2.png" width="300">
+
+4) Click the 'Reset Password'
+5) Type in email and new password
+6) Sign into tenant.  If you have access to mutiple tenants on this stack, choose the customer tenant you want to login into from the drop down list.
 
 
 ## Accessing Prisma Cloud - Option #2 - Add Users in CSP Account

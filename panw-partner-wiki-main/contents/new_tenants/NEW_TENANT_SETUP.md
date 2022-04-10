@@ -1,7 +1,6 @@
-# Setting up a new customer tenant
+# Setting Up a New Customer Tenant
 
-These are a set of intstructions for partners and SAs that have customers setting up new tenants that the partner or SA will need access to.
-Access to a customer tenant is needed most often for running new Evals & POVs.
+Instructions for assisting customer in setting up new tenant.
 
 ## Objectives
 1) Have customer obtain access to their Prisma Cloud tenant

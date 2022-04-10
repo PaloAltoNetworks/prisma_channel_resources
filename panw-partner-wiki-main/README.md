@@ -28,8 +28,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 ### New Customer Tenant Setup
 
-* Forthcoming - New Eval tenant process
-* Forthcoming - How to access new customer tenant
+* [Setting Up a New Customer Tenant](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/new_tenants/NEW_TENANT_SETUP.md)
 
 ### Event Tools from Palo Alto Networks
 

@@ -5,13 +5,15 @@ Instructions for setting up new customer tenant where you need access to assist 
 ## Assumptions and things to know:
 1) This use case assumes the customer owns the tenant.
 2) The customer who was listed in the Deal Registration in Salesforce should be the one assigned as the owner of the tenant.
-3) The Eval/Tenant request was approved and customer has received email(s) for access.  The welcome email the customer receives from Palo Alto Networks (noreply@prismacloud.paloaltonetworks.com) includes a link to where you can access your instance of Prisma Cloud.     
+3) The Eval/Tenant request was approved and customer has received email(s) for access.  The welcome email the customer receives from Palo Alto Networks (noreply@prismacloud.paloaltonetworks.com) includes a link to where they can access their instance of Prisma Cloud.
+4) There are **TWO (2)** layers of Access Required - **Customer Support Portal (CSP)** and **Prisma Cloud**  
 **VERY IMPORTANT TO UNDERSTAND:** 
     - **IF you are the first registered user**, a Palo Alto Networks Customer Support Portal (CSP) account is created for you and you can log in to Prisma Cloud to start securing your cloud deployments.
     - **For all other Prisma Cloud users**, when your Prisma Cloud system administrator adds you to the tenant, you receive two emails. Use the Welcome to Palo Alto Networks Support email to activate the CSP account and set a password to access the Palo Alto Networks Support portal before you click Get Started in the Welcome to Prisma Cloud email to log in to your Prisma Cloud instance.
-4) This user will be the ONLY one initially who can grant access to others and is by default both:
-    - the **Super User** of their Palo Alto Networks Customer Support Portal Account
-    - granted **System Admin** access to their new Prisma Cloud tenant.
+5) In order for additional users to obtain access to the customer tenant, 
+    - the **Super User** of the customer Palo Alto Networks Customer Support Portal Account will need to add users to their account.
+    - the owner of the Prisma Cloud tenant is the only one initially who can add users to their new Prisma Cloud tenant.
+    - If the customer you are working with is the first registered user, then they will be both.  
 
 ## Steps 
 1) Confirm customer can obtain access to their Prisma Cloud tenant. 

@@ -31,9 +31,9 @@ IMPORTANT NOTE: THIS ALONE WILL NOT GRANT YOU ACCESS TO THE USERS TENANT.  Ensur
     - Refer to [Cloud Account Onboarding](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/connect-your-cloud-platform-to-prisma-cloud/cloud-account-onboarding)
 
 
-### Troubleshooting and Additional References:
+## Troubleshooting and Additional References:
 
-## Alternative Method to Accessing Prisma Cloud - Legacy/Auth Signin Method - This eventually will be deprecated. Use only if needed.
+### Alternative Method to Accessing Prisma Cloud - Legacy/Auth Signin Method - This eventually will be deprecated. Use only if needed.
 
 1) Determine what App Stack this new tenant is assigned to.  You can do this by clicking the link in the email you received and look for one of the following app stacks under Step 1 of [Access Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/get-started-with-prisma-cloud/access-prisma-cloud) 
 2) Add `/auth/signin` to end of the url. For example:   

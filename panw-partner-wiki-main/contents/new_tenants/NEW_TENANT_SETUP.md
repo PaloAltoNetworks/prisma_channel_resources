@@ -24,12 +24,12 @@ Instructions for setting up new customer tenant where you need access to assist 
     - With the customer logged into their Prisma Cloud tenant, add new users: [Add Administrative Users On Prisma Cloud](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/manage-prisma-cloud-administrators/add-prisma-cloud-users)
     - After clicking **Add User** have them fill in the form with your Name, Email, Assign 'System Admin' Role, and click Save and Close.    
     - This will automatically and immediately send an email to you, however:
-IMPORTANT NOTE: As mentioned in the Assumptions and Things to Know section above, THIS ALONE WILL NOT GRANT YOU ACCESS TO THE USERS TENANT.  Ensure the Customer also already added you to their Customer Support Portal Account (Step 2 above).  If not, you most likely will be redirected to your Hub account but NOT able to see the new customer tenant in your list of accounts.  You need to be given access to BOTH the Customer's CSP Account and Prisma Cloud tenant.
+**IMPORTANT NOTE:** As mentioned in the *Assumptions and Things to Know* section above, **THIS ALONE WILL NOT GRANT YOU ACCESS TO THE USERS TENANT.**  Ensure the Customer also already added you to their Customer Support Portal Account (Step 2 above).  If not, you most likely will be redirected to your Hub account but NOT able to see the new customer tenant in your list of accounts.  You need to be given access to **BOTH** the **Customer's CSP Account** and **Prisma Cloud tenant.**
 4) Verify your own access to customer's account via Hub/Apps account page - https://apps.paloaltonetworks.com/apps
     - Click top right drop down and select the customer's account.
 5) Verify your own access to customer's Prisma Cloud tenant.
     - From the **Welcome to Prisma Cloud** email you received, click the **Get Started** button.
-    - OR if already on the Hub Account, Select the Prisma Cloud App to access the tenant.
+    - OR if already on the Hub Account with the Customer Account selected, Select the Prisma Cloud App to access the customer tenant.
 6) Enable initial configuration settings, including default policies
     - Navigate to **Settings > Enterprise Settings > Enable all Severity levels of Default Policies**
 7) Enable additional Modules as agreed with the customer

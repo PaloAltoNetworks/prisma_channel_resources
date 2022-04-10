@@ -5,7 +5,10 @@ Instructions for setting up new customer tenant where you need access to assist 
 ## Assumptions and things to know:
 1) This use case assumes the customer owns the tenant.
 2) The customer who was listed in the Deal Registration in Salesforce should be the one assigned as the owner of the tenant.
-3) The Eval/Tenant request was approved and customer has received 2 emails.  ***More detail to be provided here.***
+3) The Eval/Tenant request was approved and customer has received email(s) for access.  The welcome email the customer receives from Palo Alto Networks (noreply@prismacloud.paloaltonetworks.com) includes a link to where you can access your instance of Prisma Cloud.     
+**VERY IMPORTANT TO UNDERSTAND:** 
+    - **IF you are the first registered user**, a Palo Alto Networks Customer Support Portal (CSP) account is created for you and you can log in to Prisma Cloud to start securing your cloud deployments.
+    - **For all other Prisma Cloud users**, when your Prisma Cloud system administrator adds you to the tenant, you receive two emails. Use the Welcome to Palo Alto Networks Support email to activate the CSP account and set a password to access the Palo Alto Networks Support portal before you click Get Started in the Welcome to Prisma Cloud email to log in to your Prisma Cloud instance.
 4) This user will be the ONLY one initially who can grant access to others and is by default both:
     - the **Super User** of their Palo Alto Networks Customer Support Portal Account
     - granted **System Admin** access to their new Prisma Cloud tenant.

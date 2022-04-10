@@ -9,7 +9,7 @@ Instructions for setting up new customer tenant where you need access to assist 
 4) There are **TWO (2)** layers of Access Required - **Customer Support Portal (CSP)** and **Prisma Cloud**  
 **VERY IMPORTANT TO UNDERSTAND:** 
     - **IF you are the first registered user**, a Palo Alto Networks Customer Support Portal (CSP) account is created for you and you can log in to Prisma Cloud to start securing your cloud deployments.
-    - **For all other Prisma Cloud users**, when your Prisma Cloud system administrator adds you to the tenant, you receive two emails. Use the Welcome to Palo Alto Networks Support email to activate the CSP account and set a password to access the Palo Alto Networks Support portal before you click Get Started in the Welcome to Prisma Cloud email to log in to your Prisma Cloud instance.
+    - **For all other Prisma Cloud users**, when your Prisma Cloud system administrator adds you to the tenant, you receive two emails. Use the *Welcome to Palo Alto Networks Support* email to activate the **CSP account** and set a password to access the Palo Alto Networks Support portal **before** you click *Get Started* in the *Welcome to Prisma Cloud* email to log in to your Prisma Cloud instance.
 5) In order for additional users who already have a separate CSP account (i.e. a PANW SA or Partner Engineer's company's account) to obtain access to the customer tenant: 
     - the **Super User** of the customer Palo Alto Networks Customer Support Portal Account will need to manually add users to their account.
     - the **Owner/System Admin** of the Prisma Cloud tenant will need to manually add users to their new Prisma Cloud tenant.

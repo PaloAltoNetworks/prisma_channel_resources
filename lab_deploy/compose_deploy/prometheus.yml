@@ -20,7 +20,7 @@ scrape_configs:
     bearer_token: <DRONE_METRICS_API_TOKEN>
     static_configs:
     - targets: ['drone:8000']
-    
+
   - job_name: 'gitea'
     bearer_token: <GITEA_METRICS_API_TOKEN>
     static_configs:

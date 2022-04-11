@@ -1,5 +1,5 @@
 # Prisma Bash Tool Box
-[![CodeFactor](https://www.codefactor.io/repository/github/kyle9021/prisma_bash_toolbox/badge)](https://www.codefactor.io/repository/github/kyle9021/prisma_bash_toolbox)
+[![CodeFactor](https://www.codefactor.io/repository/github/kyle9021/prisma_channel_resources/badge)](https://www.codefactor.io/repository/github/kyle9021/prisma_channel_resources)
 
 
 ## A collection of bash scripts/tools to assist engineers with the day-to-day maintenance and reporting for Prisma Cloud. 

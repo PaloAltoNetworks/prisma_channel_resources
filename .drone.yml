@@ -1,0 +1,10 @@
+---
+kind: pipeline
+type: docker
+name: test_bash_scripts
+
+steps:
+  - name: shellcheck
+    image: koalaman/shellcheck-alpine:stable
+    commands:
+      - "find . -name *.sh -exec shellcheck {} +"

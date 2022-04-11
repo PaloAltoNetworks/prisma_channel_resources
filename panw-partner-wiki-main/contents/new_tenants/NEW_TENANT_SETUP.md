@@ -31,7 +31,9 @@ Instructions for setting up new customer tenant where you need access to assist 
     - From the **Welcome to Prisma Cloud** email you received, click the **Get Started** button.
     - OR if already on the Hub Account with the Customer Account selected, Select the Prisma Cloud App to access the customer tenant.
 6) Enable initial configuration settings, including default policies
-    - Navigate to **Settings > Enterprise Settings > Enable all Severity levels of Default Policies**
+    - Navigate to **Settings > Enterprise Settings > Enable all Severity levels of Default Policies & Click Apply to existing policies**
+    - <img src="images/default-policies.jpg" width="400">
+    - Click **Save Settings**
 7) Enable additional Modules as agreed with the customer
     - Click the 'Person/Profile Icon' from the very bottom left of the Console > **Subscription > Enable desired Modules**
 8) Assist Customer with setting up Cloud Account(s)

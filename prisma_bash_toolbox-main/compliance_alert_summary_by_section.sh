@@ -37,7 +37,7 @@ quick_check () {
 }
 
 
-function loop_response_check {
+loop_response_check () {
   res=$?
   if [ $res -eq 0 ]; then
     echo "$1 request succeeded"

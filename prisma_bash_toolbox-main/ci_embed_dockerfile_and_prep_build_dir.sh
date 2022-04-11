@@ -35,7 +35,7 @@ DATA_FOLDER="/twistlock/"
 quick_check () {
   res=$?
   if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
+    echo "$1 step succeeded"
   else
     echo "$1 step failed error code: $res" >&2
     exit 1

@@ -14,7 +14,7 @@ EOF
 )
 
 
-function quick_check {
+quick_check () {
   res=$?
   if [ $res -eq 0 ]; then
     echo "$1 request succeeded"

@@ -12,7 +12,7 @@ source ./secrets/secrets
 
 REPORT_DATE=$(date  +%m_%d_%y)
 
-function quick_check {
+quick_check () {
   res=$?
   if [ $res -eq 0 ]; then
     echo "$1 request succeeded"

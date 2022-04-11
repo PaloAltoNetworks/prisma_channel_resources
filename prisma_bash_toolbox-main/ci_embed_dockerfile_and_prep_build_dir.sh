@@ -32,21 +32,20 @@ UNZIP_DIR="./app_embedded_Dockerfile_dir/"
 # Where to store the defender files on the container
 DATA_FOLDER="/twistlock/"
 
-
+quick_check () {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 step failed error code: $res" >&2
+    exit 1
+  fi
+}
 
 # Check to ensure unzip is installed and available
 unzip -v
 
-if [ $? -ne 0 ]; then
-        >&2 echo 
-        echo
-        echo
-        echo "unzip must be installed prior to running"
-        echo
-        echo
-        echo
-        exit
-fi
+quick_check "unzip must be installed prior to running"
 
 
 # Checks to ensure the Dockerfile ends with an entrypoint or CMD
@@ -54,16 +53,7 @@ tail -3 $PATH_TO_DOCKERFILE | grep -P "(ENTRYPOINT \[|CMD \[)"
     
 
 # Dockerfile must include either a CMD or ENTRYPOINT see documentation: https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_defender/install_rasp_defender.html
-if [ $? -ne 0 ]; then
-        >&2  echo
-             echo
-             echo
-             echo "An entrypoint must be created in order to do the embedding process"
-             echo
-             echo
-             echo
-        exit
-fi
+quick_check "an entrypoint must be included in your docker file to do the embedding."
 
 echo
 echo
@@ -93,10 +83,8 @@ chmod a+x ./twistcli
 			      $(basename -a $PATH_TO_DOCKERFILE)
 
 
-if [ $? -ne 0  ]; then
-	>&2 echo "App Embedded twistcli command failed, read last output to troubleshoot."
-	exit
-fi
+quick_check "App Embedded twistcli command failed."
+
 
 # Unzips the package app embedded defender package along with the modified Dockerfile
 unzip "./$OUTPUT_FILE_NAME" -d "$UNZIP_DIR"

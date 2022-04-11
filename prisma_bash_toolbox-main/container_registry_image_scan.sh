@@ -131,7 +131,7 @@ EOF
 )
 
 # Checks the response of api request outputs the error code for curl if the request fails and exits
-function quick_check {
+quick_check () {
   res=$?
   if [ $res -eq 0 ]; then
     echo "$1 request succeeded"

@@ -197,6 +197,7 @@ _Integrations:_
 * [Integrate with Qualys](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/configure-external-integrations-on-prisma-cloud/integrate-prisma-cloud-with-qualys.html)
 * [Integrate with Webhooks](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/configure-external-integrations-on-prisma-cloud/integrate-prisma-cloud-with-webhooks.html)
 * [Integrations - Supported Capabilities](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/configure-external-integrations-on-prisma-cloud/integrations-feature-support.html)
+* [Prisma Cloud Compute Data Dog Integration](https://docs.datadoghq.com/integrations/twistlock/?tab=host)
 
 ### Cloud Infrastructure Tutorials
 

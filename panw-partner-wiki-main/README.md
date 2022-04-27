@@ -135,8 +135,6 @@ _Official Palo Alto documentation for setting up a lab environment_
 * [Prisma - Cloud Bees Integration with Kubernetes](https://docs.paloaltonetworks.com/prisma/prisma-cloud/21-04/prisma-cloud-compute-edition-admin/continuous_integration/cloudbees_core_pipeline_k8s)
 * [AWS ECR (How to set-up registry scanning in Prisma)](https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-12/prisma-cloud-compute-edition-admin/vulnerability_management/registry_scanning0/scan_ecr.html)
 * [Prisma Cloud Compute System Requirements](https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-12/prisma-cloud-compute-edition-admin/install/system_requirements.html)
-* [Visual Studio Code Extension](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/prisma-cloud-devops-security/use-the-prisma-cloud-extension-for-vs-code.html)
-* [Prisma Cloud Configuration File for IaC](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/prisma-cloud-devops-security/set-up-your-prisma-cloud-configuration-file-for-iac-scan.html)
 * [Add a New Compliance Report](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/prisma-cloud-compliance/add-a-new-compliance-report.html)
 * [Create Custom Compliance Standard](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/prisma-cloud-compliance/create-a-custom-compliance-standard)
 * [Prisma Cloud RQL](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-rql-reference/rql-reference/rql.html)

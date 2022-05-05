@@ -1,17 +1,20 @@
 # Lab for simulating SpringShell (Spring4Shell) Attack on AWS and Protecting with Prisma Cloud
 
 These set of instructions are written to incorporate several components.  Namely:
-- Discuss how we offer Agentless and the Pros & Cons of Agentless only
-- The recent Critical Vulnerabilities such as Log4Shell & Spring4Shell and noting there are always yet to be discovered ones
-- Why any public facing workloads need Agents & Deploying a Container Defender
+- Discuss how Prisma Cloud offers both Agent & Agentless, the benfits of each, but most importantly the need for Agents for all critical workloads.
+- The recent Critical Vulnerabilities such as Log4Shell & SpringShell, their risks, acclearting of vulnerabilities, and how attackers often have significant amount of time on average to exploit these types of vulnerabilities before cusomters can fix them.
+- Why Runtime Defense & Deploying a Container Defender
 - Why WAAS & enabling it
+- Why shifting left with Prisma Cloud and setting up security gates through the entire application lifecycle process adds additional layers of defense to block vulnerable and non-compliant images from being built and deployed.
 
 ## Prerequisites - ADD TO THIS
 
 ## Things to Know
 Some important points to understand with the current lab scripts and setup.
 
-1. It will deploy 2 host machines and a container on one of the vulnerable machine.
+**This current set of instructions refers to documentation and automation scripts currently held internally to Palo Alto Networks. Because of this, any non-PANW employee may need to build some of the setup on their own until we can create a public facing setup.  With that said, the setup is fairly basic, only requiring 2 EC2 instances, the vulnerable image to build a container, and the exploit script.  More details to come.**
+
+1. It will deploy 2 host machines (attacker and vulnerable machine) and a container running on the vulnerable machine.
 2. When running the attack, different events and incidents will occur on both the vulnerable host and the container.
 3. Because of this, it helps to understand the layers of the attack and commands that you will run.
 4. It also helps to understand what rules you are setting and the particular parts of the attack that each rule alerts/prevents.
@@ -59,7 +62,7 @@ ssh -i temp-lab/spring4shell_cloud_breach/terraform/panw ubuntu@<spring4shell-ub
 NOTE: For performing the demo, suggest to **'Disable'** the alert temporarily, under **Actions** and clicking the 3 dots. and Allow Prisma Cloud to Discover the Vulnerable Host and Container in the Radars view after installing the defender during the demo and that it shows that it is an Unprotected Web App.**. 
 
 ## Setup Runtime Rule(s)
-1. Go to **Compute > Defend > Runtime > Container Policy
+1. Go to **Compute > Defend > Runtime > Container Policy**
 2. Click **+ Add rule** 
 3. Enter a rule name such as: **Block reverse shell**
 4. Click in the **Scope** field

@@ -110,7 +110,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 [Link to the Self Paced Learning (requires a Prisma Cloud License)](https://www.paloaltonetworks.com/services/education/digital-learning#Prisma)
 
-_These labs were created or curated by Kyle Butler and are a set of labs meant to be done in order to learn different aspects of the technology and gain familiarity with the Prisma platform:_
+_These labs were created or curated by Kyle Butler, John Chavanne, and Goran Bogojevic in order to learn different aspects of the technology and gain familiarity with the Prisma platform:_
 
 * [Minikube VM Prisma Cloud Compute Deployment - self-hosted mini lab - DVWA - Docker - Kubernetes - App Embedded Defenders](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Minikube_Lab.md)
 * [Prisma Cloud Compute OneBox on K3S for demo lab environment - Maintains State after reboot](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_k3s_Lab_Build.md)
@@ -119,6 +119,7 @@ _These labs were created or curated by Kyle Butler and are a set of labs meant t
 * [Prisma Cloud Compute - Docker Role Based Access Control Tutorial](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Docker_RBAC_Tutorial.md)
 * [AWS ECR (Elastic Container Repository) Deployment](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_AWS_ECR_Set-up.md)
 * [Runtime defense - WAAS - Command Injection - Demo](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Command_Injection_WAAS_Demo.md)
+* [Runtime defense - WAAS - SpringShell Attack on AWS](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/springshell/panw-partner-wiki-main/contents/labs/SpringShell_Attack_%26_Protect.md)
 * [WAAS - DVWA - SQL Injection - Demo Instructions](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_SQL_Injection_Demo_Tutorial.md)
 * [Defending Against Kernel Vulnerabilities Like Dirty Pipe Using Custom Compliance Checks](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/custom_compliance_checks_tutorial.md)
 * [Twistcli Manual Docker Image Scan](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Twistcli_Manual_Image_Scan.md)

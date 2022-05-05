@@ -1,5 +1,7 @@
 # Lab for simulating SpringShell (Spring4Shell) Attack on AWS and Protecting with Prisma Cloud
-
+    
+Written by John Chavanne   
+    
 These set of instructions are written to incorporate several components.  Namely:
 - Discuss how Prisma Cloud offers both Agent & Agentless, the benfits of each, but most importantly the need for Agents for all critical workloads.
 - The recent Critical Vulnerabilities such as Log4Shell & SpringShell, their risks, acclearting of vulnerabilities, and how attackers often have significant amount of time on average to exploit these types of vulnerabilities before cusomters can fix them.
@@ -7,7 +9,9 @@ These set of instructions are written to incorporate several components.  Namely
 - Why WAAS & enabling it
 - Why shifting left with Prisma Cloud and setting up security gates through the entire application lifecycle process adds additional layers of defense to block vulnerable and non-compliant images from being built and deployed.
 
-## Prerequisites - ADD TO THIS
+## Prerequisites 
+- AWS account with permissions to create EC2 instances, VPCs, security groups, etc. to setup the lab environment
+- Access to Prisma Cloud SaaS tenant
 
 ## Things to Know
 Some important points to understand with the current lab scripts and setup.

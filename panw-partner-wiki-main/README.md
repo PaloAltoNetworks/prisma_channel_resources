@@ -126,7 +126,7 @@ _These labs were created or curated by Kyle Butler, John Chavanne, and Goran Bog
     - [Prisma Cloud CSPM RESTFUL API Tutorial with Hashicorp Vault](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Enterprise_API_Tutorial.md)
     - [AWS ECR (Elastic Container Repository) Deployment](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_AWS_ECR_Set-up.md)
     - [Install Defenders in Public Cloud](./contents/labs/Install_Defenders_in_Public_Cloud.md)
-    - [Runtime Defense & WAAS - SpringShell Attack & Protect on AWS](./contents/labs/SpringShell_Attack_%26_Protect.md)
+    - [Runtime Defense & WAAS - SpringShell Attack & Protect on AWS with optional Shift-Left capabilities](./contents/labs/SpringShell_Attack_%26_Protect.md)
     - [Microsegmentation lab](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/panw-partner-wiki-main/contents/labs/microseg-lab)
   
 - **Labs for either Enterprise or Compute** - written to be agnostic and should be able to use with either version

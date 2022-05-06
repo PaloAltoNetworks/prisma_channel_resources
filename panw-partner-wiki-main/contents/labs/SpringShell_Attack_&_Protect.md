@@ -93,7 +93,14 @@ NOTE: For performing the demo, suggest to **'Disable'** the alert temporarily, u
 ## Setup Compliance Rule
 1. TODO - Add Detail here.
 
-## Setup Trusted Images Rule - OPTIONAL & Requires integration with a registry (TODO - Add more detail here)
+## Setup Trusted Images Rule - OPTIONAL & Requires integration with a registry:
+Before creating a rule, ensure you have setup an ECR repo and registry scanning with Prisma Cloud.  Follow these Docs:
+- [Getting started with Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html)
+- [Configure registry scans](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/vulnerability_management/registry_scanning)
+- [Scan Amazon EC2 Container Registry (ECR)](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/vulnerability_management/registry_scanning0/scan_ecr)
+- [Setup Credentials store](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/authentication/credentials_store)
+    
+Assuming you have successfuly setup an ECR repo and scanning, create the following:
 1. Go to **Compute > Defend > Compliance > Trusted Images > Trust Groups**
 2. Click **+ Add group**
 3. Create new trust group - see [Trusted images docs](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/compliance/trusted_images)
@@ -171,7 +178,7 @@ NOTE: For performing the demo, suggest to **'Disable'** the alert temporarily, u
 
 
 ## Additional Bonus - Integrate Demo with Shift Left Capabilities
-1. If you prepared to pull iamges from a registry, run a `docker pull` command to pull down an image from a trusted registry
+1. If you prepared to pull images from a registry, run a `docker pull` command to pull down an image from a trusted registry
 2. Run the container `docker run --rm -p 80:8080 <registry/image>`
 3. Highlight this container is considered safe to run as compared to the others.
 4. Then navigate to your registry, repos and show the scan results and how Prisma Cloud further extends it's capabilities into the developers areas and how we can setup these mutiple security gates to further ensure only compliant and safe images are allowed to be run through CI/CD pipelines and DevOps workflows and deployed to cloud (both on-prem and public) environments.

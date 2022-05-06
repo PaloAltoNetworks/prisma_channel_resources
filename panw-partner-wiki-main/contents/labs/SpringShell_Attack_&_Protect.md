@@ -4,7 +4,7 @@ Written by John Chavanne
     
 These set of instructions are written to incorporate several components.  Namely:
 - Discuss how Prisma Cloud offers both Agent & Agentless, the benfits of each, but most importantly the need for Agents for all critical workloads.
-- The recent Critical Vulnerabilities such as Log4Shell & SpringShell, their risks, acclearting of vulnerabilities, and how attackers often have significant amount of time on average to exploit these types of vulnerabilities before cusomters can fix them.
+- The recent Critical Vulnerabilities such as Log4Shell & SpringShell, their risks, accelerating rate of vulnerabilities, and how attackers often have significant amount of time on average to exploit these types of vulnerabilities before customers can fix them.
 - Why Runtime Defense & Deploying a Container Defender
 - Why WAAS & enabling it
 - Why shifting left with Prisma Cloud and setting up security gates through the entire application lifecycle process adds additional layers of defense to block vulnerable and non-compliant images from being built and deployed.
@@ -43,7 +43,7 @@ Key ID, and Secret Access Key
 ```
 ssh -i temp-lab/spring4shell_cloud_breach/terraform/panw ubuntu@<spring4shell-ubuntu-lab IP>
 ```
-2. Refer to [Install Defenders](https://github.com/jjchavanne/cheat-sheets/blob/main/prisma-cloud/Install_Defenders.md) instructions and
+2. Refer to [Install Defenders](./Install_Defenders_in_Public_Cloud.md) instructions and
     - install twistci
     - export variables
     - install a container defender
@@ -94,7 +94,7 @@ NOTE: For performing the demo, suggest to **'Disable'** the alert temporarily, u
 1. TODO - Add Detail here.
 
 ## Setup Trusted Images Rule - OPTIONAL & Requires integration with a registry (TODO - Add more detail here)
-1. Go to **Compute > Defend > Compliance > Trusted Images > Trust Groups
+1. Go to **Compute > Defend > Compliance > Trusted Images > Trust Groups**
 2. Click **+ Add group**
 3. Create new trust group - see [Trusted images docs](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/compliance/trusted_images)
 4. Go to the **Policy** tab under Trusted Images and if not already, click switch next to **Trusted images rules** to enable.
@@ -166,7 +166,8 @@ NOTE: For performing the demo, suggest to **'Disable'** the alert temporarily, u
 - Defense in Depth
 - Agentless may be fine for non-public facing workloads, however Agents are a must for any applications you care to protect.
 - We learned we can not only protect about known vulnerabilities, but also Prisma Cloud protects against malicious and anomolous behavior and processes such as reverse shells and recognized laternal movements as only a few examples we demonstrated today.
-- TODO - IMPROVE THIS STATEMENT/DETAIL - Given the statistics (referring to the NIST NVD slide stats), on avg. attackers know an explooit ## of days in advance of companies being able to actually patch against a particaulr threat.
+- Given the statistics (referring to the NIST NVD slide stats - TODO share this slide info here), on avg. attackers have approx. 83.3 days (60.3 days average to patch after CVE is public + an exploit on average is published 23 days before the CVE is published) to exploit a vulnerability in advance of companies being able to actually patch against a particular threat.
+    - Ref: [25+ cyber security vulnerability statistics and facts of 2021](https://www.comparitech.com/blog/information-security/cybersecurity-vulnerability-statistics/)
 
 
 ## Additional Bonus - Integrate Demo with Shift Left Capabilities
@@ -185,3 +186,4 @@ NOTE: For performing the demo, suggest to **'Disable'** the alert temporarily, u
 ## Other Notes
 There are some additional improvements. Such as:
 - Editing the output messages in the exploit script to not echo if being blocked.  As of now it prints the message regardless.
+- Fixing exploit script to allow mutiple exploit attempts.  It seems to cause some errors when run mutiple times.  

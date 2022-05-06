@@ -112,21 +112,29 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 _These labs were created or curated by Kyle Butler, John Chavanne, and Goran Bogojevic in order to learn different aspects of the technology and gain familiarity with the Prisma platform:_
 
-* [Minikube VM Prisma Cloud Compute Deployment - self-hosted mini lab - DVWA - Docker - Kubernetes - App Embedded Defenders](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Minikube_Lab.md)
-* [Prisma Cloud Compute OneBox on K3S for demo lab environment - Maintains State after reboot](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_k3s_Lab_Build.md)
-* [Prisma Cloud Compute - Lab Set-up Docker Compose Tutorial](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Ecosystem_Deploy_Docker_Compose.md)
-* [Prisma Cloud CSPM RESTFUL API Tutorial with Hashicorp Vault](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Enterprise_API_Tutorial.md)
-* [Prisma Cloud Compute - Docker Role Based Access Control Tutorial](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Docker_RBAC_Tutorial.md)
-* [AWS ECR (Elastic Container Repository) Deployment](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_AWS_ECR_Set-up.md)
-* [Runtime defense - WAAS - Command Injection - Demo](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Command_Injection_WAAS_Demo.md)
-* [Runtime defense - WAAS - SpringShell Attack on AWS](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/springshell/panw-partner-wiki-main/contents/labs/SpringShell_Attack_%26_Protect.md)
-* [WAAS - DVWA - SQL Injection - Demo Instructions](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_SQL_Injection_Demo_Tutorial.md)
-* [Defending Against Kernel Vulnerabilities Like Dirty Pipe Using Custom Compliance Checks](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/custom_compliance_checks_tutorial.md)
-* [Twistcli Manual Docker Image Scan](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Twistcli_Manual_Image_Scan.md)
-* [Show Security Risks of Running a Container in Privileged Mode](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Privileged_Mode_Container_Demo.md)
-* [Build a CI Pipline test to scan containers for vulnerabilities and configuration issues](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/lab_deploy/ci_vulnerability_lab_guide.md) - requires the lab set-up referenced [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/lab_deploy) or the ova Prisma Compute Lab
-* [Build a CI Pipeline test to scan IaC Templates](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_code_security_on_prem_vcs_ci_pipeline.md) - requires the lab set-up referenced [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/lab_deploy) or the ova Prisma Compute Lab
-* [Microsegmentation lab](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/panw-partner-wiki-main/contents/labs/microseg-lab)
+- **Labs for Self-Hosted Compute (note: some require access to our OVA where some components are already pre-built)**
+    * [Minikube VM Prisma Cloud Compute Deployment - self-hosted mini lab - DVWA - Docker - Kubernetes - App Embedded Defenders](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Minikube_Lab.md)
+    * [Prisma Cloud Compute OneBox on K3S for demo lab environment - Maintains State after reboot](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_k3s_Lab_Build.md)
+    * [Prisma Cloud Compute - Lab Set-up Docker Compose Tutorial](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Ecosystem_Deploy_Docker_Compose.md)
+    * [WAAS - DVWA - SQL Injection - Demo Instructions](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_SQL_Injection_Demo_Tutorial.md)
+    * [Prisma Cloud Compute - Docker Role Based Access Control Tutorial](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Docker_RBAC_Tutorial.md)
+    * [Runtime defense - WAAS - Command Injection - Demo](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Command_Injection_WAAS_Demo.md)
+    * [Build a CI Pipline test to scan containers for vulnerabilities and configuration issues](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/lab_deploy/ci_vulnerability_lab_guide.md) - requires the lab set-up referenced [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/lab_deploy) or the ova Prisma Compute Lab
+    * [Build a CI Pipeline test to scan IaC Templates](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_code_security_on_prem_vcs_ci_pipeline.md) - requires the lab set-up referenced [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/lab_deploy) or the ova Prisma Compute Lab
+    
+- **Labs for Prisma Cloud Enterprise** - requires access to an Enterprise license
+    - [Prisma Cloud CSPM RESTFUL API Tutorial with Hashicorp Vault](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Enterprise_API_Tutorial.md)
+    - [AWS ECR (Elastic Container Repository) Deployment](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_AWS_ECR_Set-up.md)
+    - [Install Defenders in Public Cloud](./contents/labs/Install_Defenders_in_Public_Cloud.md)
+    - [Runtime Defense & WAAS - SpringShell Attack & Protect on AWS](./contents/labs/SpringShell_Attack_%26_Protect.md)
+    - [Microsegmentation lab](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/panw-partner-wiki-main/contents/labs/microseg-lab)
+  
+- **Labs for either Enterprise or Compute** - written to be agnostic and should be able to use with either version
+    * [Defending Against Kernel Vulnerabilities Like Dirty Pipe Using Custom Compliance Checks](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/custom_compliance_checks_tutorial.md)
+    * [Twistcli Manual Docker Image Scan](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Twistcli_Manual_Image_Scan.md)
+
+- **Labs not requiring Prisma Cloud license**
+    - [Show Security Risks of Running a Container in Privileged Mode](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Compute_Privileged_Mode_Container_Demo.md)
 
 _Official Palo Alto documentation for setting up a lab environment_
 

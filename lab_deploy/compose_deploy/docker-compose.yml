@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   gitea:
-    image: gitea/gitea:1.16.1
+    image: gitea/gitea:1.16.5
     hostname: gitea
     container_name: gitea
     environment:
@@ -25,11 +25,11 @@ services:
     depends_on:
       - gitea-db
     ports:
-      - 22:22
-      - 3000:3000
+      - "4070:22"
+      - "3000:3000"
 
   gitea-db:
-    image: postgres:13.6-bullseye
+    image: postgres:alpine3.15
     hostname: postgres
     container_name: gitea-db
     ports:
@@ -38,12 +38,11 @@ services:
     volumes:
       - ./volumes/gitea-db:/var/lib/postgresql/data
     environment:
-      - "POSTGRES_USER=${POSTGRES_USER}"
       - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
       - "POSTGRES_DB=${POSTGRES_DB}"
 
   drone:
-    image: drone/drone:2.9.1
+    image: drone/drone:2.11.1
     hostname: drone
     container_name: drone
     ports:
@@ -69,12 +68,14 @@ services:
       - "DRONE_USER_CREATE=${DRONE_USER_CREATE}"
 
   drone-runner-docker:
-    image: drone/drone-runner-docker:1.8
+    image: drone/drone-runner-docker:linux-amd64
     hostname: drone-runner
     container_name: drone-runner
     restart: always
+    depends_on:
+      - drone
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - '/var/run/docker.sock:/var/run/docker.sock'
     depends_on:
       - drone
       - gitea
@@ -96,7 +97,7 @@ services:
      - "9090:80"
 
   vault:
-    image: vault:1.9.3
+    image: vault:1.9.4
     restart: always
     hostname: vault
     container_name: vault
@@ -125,7 +126,8 @@ services:
     restart: always
     container_name: prometheus
     volumes:
-     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+     - './volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
+     - 'prometheus-storage:/prometheus'
     ports:
      - "9091:9090"
 
@@ -137,6 +139,10 @@ services:
     container_name: grafana
     ports:
      - "3001:3000"
+    volumes:
+    - './volumes/grafana/provisioning:/etc/grafana/provisioning'
+    - './volumes/grafana/dashboards:/var/lib/grafana/dashboards'
+    - 'grafana-storage:/var/lib/grafana'
 
   splunk:
     image: splunk/splunk:latest
@@ -153,3 +159,5 @@ services:
 volumes:
   gitea-app:
   gitea-db:
+  grafana-storage:
+  prometheus-storage:

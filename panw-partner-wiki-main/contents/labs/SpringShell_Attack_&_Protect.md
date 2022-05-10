@@ -28,8 +28,10 @@ Some important points to understand with the current lab scripts and setup.
 Do all of the following steps in advance of the demo
 
 ## Lab Setup
-Refer to Internal Spring4Shell Docs at this time until can rewrite for sharing. 
-
+Refer to Internal Spring4Shell Docs at this time until can rewrite for sharing.     
+    
+**IMPORTANT NOTE: The current exploit script may only work once per demo.  There is currently an issue with the script.  ALWAYS plan to destroy and re-create the attack lab portion each time you run this demo**.   
+    
 - Complete all initial setup steps and Steps 1 & 2 of the 'Perform Attack Steps' and before runing the exploit script in Step 3.
     - Run `bash start-lab.sh` script and a select choice 3 "Spring4Shell Lab" and provide Access
 Key ID, and Secret Access Key
@@ -82,18 +84,27 @@ NOTE: For performing the demo, suggest to **'Disable'** the alert temporarily, u
 
 ## Setup Vulnerability Rule
 1. Go to **Compute > Defend > Vulnerabilities > Images > Deployed** and Click **+ Add Rule**
-2. Enter a name such as: Block Containers with Critical Vulnerabilities
+2. Enter a name such as: 'Block Containers with Critical Vulnerabilities'
 3. In the **Block threshold** section, change to Block on **Critical**
 4. Then click in the **'Scope'** field
 5. Create a rule specific for this vulnerable Container app.
     - Step 5a: Select your container selection (if already created) or Click **'Add Collection'**, type in a name, Click in the **Image** field, type in `vuln_app_app`, select it and click **'Save'**
     - Step 5b: Ensure you have your desired collection box checked and click **'Select collections'**
-6. For performing the demo, **'Disable'** the alert temporarily, under **Actions** and clicking the 3 dots.
+6. For performing the demo, **'Disable'** the rule temporarily, under **Actions** and clicking the 3 dots.
 
 ## Setup Compliance Rule
-1. TODO - Add Detail here.
+1. Go to **Compute > Defend > Compliance > Containers and Images > Deployed** and Click **+ Add Rule**
+2. Enter a name such as: 'Block image running as non-root user'
+3. In the **Block threshold** section, change to Block on **Image should be created with a non-root user**
+4. Then click in the **'Scope'** field
+5. Create a rule specific for this vulnerable Container app.
+    - Step 5a: Select your container selection (if already created) or Click **'Add Collection'**, type in a name, Click in the **Image** field, type in `vuln_app_app`, select it and click **'Save'**
+    - Step 5b: Ensure you have your desired collection box checked and click **'Select collections'**
+6. For performing the demo, **'Disable'** the rule temporarily, under **Actions** and clicking the 3 dots.
 
-## Setup Trusted Images Rule - OPTIONAL & Requires integration with a registry:
+## OPTIONAL - Setup Trusted Images Rule - Requires integration with a registry, AWS & Docker credentails setup on the EC2 instance:
+***NOTE: This section will be separated out into a separate lab as there are several components required to run effectively and the below instructions are not complete at this time.  It is not neccesary to add this section to your demo***.   
+     
 Before creating a rule, ensure you have setup an ECR repo and registry scanning with Prisma Cloud.  Follow these Docs:
 - [Getting started with Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html)
 - [Configure registry scans](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/vulnerability_management/registry_scanning)

@@ -1,0 +1,47 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+# Prisma Cloud scrape configuration.
+scrape_configs:
+
+  - job_name: 'twistlock'
+    static_configs:
+    - targets: ['twistlock_console:8083']
+    metrics_path: /api/v1/metrics
+    basic_auth:
+      username: '<USER_OR_ACCESSKEY>'
+      password: '<PASSWORD_OR_SECRETKEY>'
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+
+  - job_name: 'drone'
+    bearer_token: <AUTH_TOKEN_FOR_DRONE>
+    static_configs:
+    - targets: ['drone:8000']
+    
+  - job_name: 'gitea'
+    bearer_token: <AUTH_TOKEN_FOR_GITEA>
+    static_configs:
+    - targets: ['gitea:3000']
+
+
+# Grafana monitoring 
+- job_name: grafana
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - grafana:3001
+
+# Prometheus self-monitoring
+- job_name: prometheus  
+  honor_timestamps: true 
+  metrics_path: /metrics
+  scheme: http
+  follow_redirects: true
+  enable_http2: true
+  static_configs:
+  - targets:
+    - localhost:9090

@@ -20,14 +20,14 @@ scrape_configs:
     bearer_token: <AUTH_TOKEN_FOR_DRONE>
     static_configs:
     - targets: ['drone:8000']
-    
+
   - job_name: 'gitea'
     bearer_token: <AUTH_TOKEN_FOR_GITEA>
     static_configs:
     - targets: ['gitea:3000']
 
 
-# Grafana monitoring 
+# Grafana monitoring
 - job_name: grafana
   metrics_path: /metrics
   scheme: http
@@ -36,8 +36,8 @@ scrape_configs:
     - grafana:3001
 
 # Prometheus self-monitoring
-- job_name: prometheus  
-  honor_timestamps: true 
+- job_name: prometheus
+  honor_timestamps: true
   metrics_path: /metrics
   scheme: http
   follow_redirects: true

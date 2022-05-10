@@ -135,7 +135,7 @@ services:
     image: grafana/grafana-oss:main
     restart: always
     depends_on:
-     - "prometheus"
+     - prometheus
     container_name: grafana
     ports:
      - "3001:3000"

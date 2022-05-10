@@ -183,7 +183,7 @@ scrape_configs:
     - targets: ['twistlock_console:8083']
     metrics_path: /api/v1/metrics
     basic_auth:
-      username: '<USER_OR_ACCESSKEY>'
+      username: '<USERNAME_OR_ACCESSKEY>'
       password: '<PASSWORD_OR_SECRETKEY>'
     scheme: https
     tls_config:
@@ -201,7 +201,7 @@ scrape_configs:
 
 # NO need to edit below this line 
 
-# Grafana monitoring 
+# Grafana monitoring
 - job_name: grafana
   metrics_path: /metrics
   scheme: http
@@ -210,8 +210,8 @@ scrape_configs:
     - grafana:3001
 
 # Prometheus self-monitoring
-- job_name: prometheus  
-  honor_timestamps: true 
+- job_name: prometheus
+  honor_timestamps: true
   metrics_path: /metrics
   scheme: http
   follow_redirects: true

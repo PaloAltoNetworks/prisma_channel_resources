@@ -1,4 +1,5 @@
 # Docker Compose Prisma Cloud Compute Ecosystem Deployment
+Written by Kyle Butler in collaboration with Sean Sullivan
 
 After imperetively deploying everything in the earlier tutorials I wrote. It's only natural to want to automate a lot of the configuration steps. Below you'll find an easy way to replicate the necessary apps to complete a prisma cloud compute demo lab. I'd encourage you to do it the imperative way first so you understand how things are put together, but if you're in a rush to stand-up a local Prisma Cloud Compute lab then this may be the best tutorial for you.  
 

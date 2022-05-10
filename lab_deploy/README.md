@@ -154,7 +154,9 @@ DRONE_GITEA_CLIENT_SECRET=""
 Once you finished assigning values to the variables (if using nano as your editor) hit `ctl + x`, `y`, then `enter` 
 <br />
 
-Then edit the `prometheus.yml` file
+* Huge shoutout to Sean Sullivan for his assistance on the Prometheus Grafana Deployment. 
+
+Then edit the file in `./volumes/prometheus/` called `prometheus.yml`. First, `cd ./volumes/prometheus/`
 
 ```bash
 nano ./prometheus.yml
@@ -180,21 +182,42 @@ scrape_configs:
     - targets: ['twistlock_console:8083']
     metrics_path: /api/v1/metrics
     basic_auth:
-      username: '<PRISMA_USER>'
-      password: '<PRISMA_PASSWORD>'
+      username: '<USER_OR_ACCESSKEY>'
+      password: '<PASSWORD_OR_SECRETKEY>'
     scheme: https
     tls_config:
       insecure_skip_verify: true
 
   - job_name: 'drone'
-    bearer_token: <DRONE_METRICS_API_TOKEN>
+    bearer_token: <AUTH_TOKEN_FOR_DRONE>
     static_configs:
     - targets: ['drone:8000']
     
   - job_name: 'gitea'
-    bearer_token: <GITEA_METRICS_API_TOKEN>
+    bearer_token: <AUTH_TOKEN_FOR_GITEA>
     static_configs:
     - targets: ['gitea:3000']
+
+# NO need to edit below this line 
+
+# Grafana monitoring 
+- job_name: grafana
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - grafana:3001
+
+# Prometheus self-monitoring
+- job_name: prometheus  
+  honor_timestamps: true 
+  metrics_path: /metrics
+  scheme: http
+  follow_redirects: true
+  enable_http2: true
+  static_configs:
+  - targets:
+    - localhost:9090
  ```
 
 Once you finished assigning values to the variables (if using nano as your editor) hit `ctl + x`, `y`, then `enter` 

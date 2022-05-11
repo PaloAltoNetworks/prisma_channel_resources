@@ -28,14 +28,13 @@ Some important points to understand with the current lab scripts and setup.
 Do all of the following steps in advance of the demo
 
 ## Lab Setup
-Refer to Internal Spring4Shell Docs at this time until can rewrite for sharing.     
+Refer to Internal **Spring Shell RCE Attack Lab** Doc at this time until can rewrite for sharing.     
     
 **IMPORTANT NOTE: The current exploit script may only work once per demo.  There is currently an issue with the script.  ALWAYS plan to destroy and re-create the attack lab portion each time you run this demo**.   
     
-- Complete all initial setup steps and Steps 1 & 2 of the 'Perform Attack Steps' and before runing the exploit script in Step 3.
-    - Run `bash start-lab.sh` script and a select choice 3 "Spring4Shell Lab" and provide Access
-Key ID, and Secret Access Key
-- Copy all the commands in the following steps in a notepad and pre-enter the Target-IP address.  This will save time in demo.
+- Following the internal lab doc, complete all initial **Lab Setup** steps including running `bash start-lab.sh` script and a select choice 3 "Spring4Shell Lab" and provide your AWS Access Key ID and Secret Access Key
+- Complete Step 1 (step 2 is optional) of the 'Perform Attack Steps' and before running the exploit script in Step 3.
+- After the script finishes, copy and paste the IP addresses from the output and all the commands in the following steps in a notepad and pre-enter the Target-IP address into those commands.  This will save time in demo.
 - Login to Prisma Cloud and Initiate both:
     - (Optional, noting that we only scan Hosts at this time, so will only get results for the Host and see error for container) Agentless Scan - Monitor > Vulnerabilities > Host > Scan Agentless
     - (Optional) Cloud Discovery on AWS - Monitor > Compliance > Cloud Discovery > Click on your account/EC2 service line.  Verify the new instances are shown here and as not defended.

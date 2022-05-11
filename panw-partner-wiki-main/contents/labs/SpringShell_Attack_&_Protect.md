@@ -43,8 +43,9 @@ Refer to Internal **Spring Shell RCE Attack Lab** Doc at this time until can rew
 ## Install Defender
 1. SSH to your spring4shell instance (not Kali), inserting your instance's IP address
 ```
-ssh -i temp-lab/spring4shell_cloud_breach/terraform/panw ubuntu@<spring4shell-ubuntu-lab IP>
+ssh -o IdentitiesOnly=yes -i temp-lab/spring4shell_cloud_breach/terraform/panw ubuntu@<spring4shell-ubuntu-lab IP>
 ```
+- In some cases when performing ssh, you may get an error.  Adding the additional flag and parameter may help `-o IdentitiesOnly=yes`
 2. Refer to [Install Defenders](./Install_Defenders_in_Public_Cloud.md) instructions and
     - install twistci
     - export variables

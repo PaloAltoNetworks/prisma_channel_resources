@@ -185,15 +185,29 @@ Assuming you have successfuly setup an ECR repo and scanning, create the followi
 - Defense in Depth
 - Agentless may be fine for non-public facing workloads, however Agents are a must for any applications you care to protect.
 - We learned we can not only protect about known vulnerabilities, but also Prisma Cloud protects against malicious and anomolous behavior and processes such as reverse shells and recognized laternal movements as only a few examples we demonstrated today.
-- Given the statistics (referring to the NIST NVD slide stats - TODO share this slide info here), on avg. attackers have approx. 83.3 days (60.3 days average to patch after CVE is public + an exploit on average is published 23 days before the CVE is published) to exploit a vulnerability in advance of companies being able to actually patch against a particular threat.
+- Given the [NIST NVD yearly vulnerability stats](https://nvd.nist.gov/vuln/search/statistics?form_type=Basic&results_type=statistics&search_type=all&isCpeNameSearch=false) - TODO additionally share slide info here), we can see that the number of vulnearbilities are only increasing every year.  Additionally, on avg. attackers have approx. 83.3 days (60.3 days average to patch after CVE is public + an exploit on average is published 23 days before the CVE is published) to exploit a vulnerability in advance of companies being able to actually patch against a particular threat.
     - Ref: [25+ cyber security vulnerability statistics and facts of 2021](https://www.comparitech.com/blog/information-security/cybersecurity-vulnerability-statistics/)
 
 
 ## Additional Bonus - Integrate Demo with Shift Left Capabilities
-1. If you prepared to pull images from a registry, run a `docker pull` command to pull down an image from a trusted registry
-2. Run the container `docker run --rm -p 80:8080 <registry/image>`
-3. Highlight this container is considered safe to run as compared to the others.
-4. Then navigate to your registry, repos and show the scan results and how Prisma Cloud further extends it's capabilities into the developers areas and how we can setup these mutiple security gates to further ensure only compliant and safe images are allowed to be run through CI/CD pipelines and DevOps workflows and deployed to cloud (both on-prem and public) environments.
+The point of this section is to highlight our integrations with registries, version control systems, CI tools and showing how Prisma Cloud further extends it's capabilities into the developers areas and how we can setup these mutiple security gates to further ensure only compliant and safe images are allowed to be run through CI/CD pipelines and DevOps workflows and deployed to cloud (both on-prem and public) environments.
+    
+I've created 2 GitHub repositories and ECR repos to further highlight Prisma Cloud integration into DevOps workflows.  Feel free to clone/fork these repos and set up for yourself. 
+- A complete copy of the vuln_app container image and code: https://github.com/jjchavanne/vuln-spring-app-demo
+- A secured/fixed version of the same container image and code: https://github.com/jjchavanne/secure-spring-app-demo 
+    
+In each of the repos above, I've created 2 GitHub Actions and a branch protection rule - TODO add reference to documentation in how to set these up.
+- Github Action 1 - Prisma Cloud Scan with rules in Prisma Cloud to block the same Critical Vulnerabilties and Compliance checks in CI Image scans.
+- Github Action 2 - Automatically push merged PRs to main to a ECR repo.
+- Branch Protection rule - Set to enforce the following
+    - Require a pull request before merging
+    - Require status checks to pass before merging - Build and scan image
+       
+1. For demoing, you will need to create a new branch in each repo, make a small change (i.e. Add a line to the README.md file), commit and push the change to your repo and create a Pull Request to kickoff the automatic scans.  You can then talk over the different results between the two repos and highlight how Prisma Cloud integrates here and can setup security gates to block vulnerable, non-compliant images from moving forward in our workflow.
+2. If you prepared to pull images from a registry, swtiching back to the Springshell instance, and run a `docker pull` command to pull down an image from a trusted registry.
+3. Run the container `docker run --rm -p 80:8080 <registry/image>`
+4. Highlight this container is considered safe to run as compared to the others.
+
 
 ## Cleanup
 1. Disable your new Host WAAS rule

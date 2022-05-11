@@ -49,6 +49,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 ### Service Enablement
 
 * [Enable Access to the Prisma Cloud Console -allow communication](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/get-started-with-prisma-cloud/enable-access-prisma-cloud-console.html#id7cb1c15c-a2fa-4072-b074-063158eeec08_idcb6d3cd4-d1bf-450a-b0ec-41c23a4d4280)
+* [How to avoid alert fatigue in Prisma Cloud](https://live.paloaltonetworks.com/t5/blogs/tips-for-avoiding-alert-fatigue-in-the-cloud/ba-p/430152)
 * [ProServ Prisma Cloud Enablement Workshop](https://live.paloaltonetworks.com/t5/webinars-and-workshops/prisma-cloud-compute-enterprise-workshop-details/ta-p/392852)
 * [Performance Planning for Prisma Cloud Compute](https://docs.paloaltonetworks.com/prisma/prisma-cloud/21-04/prisma-cloud-compute-edition-admin/deployment_patterns/performance_planning)
 * [Prisma Cloud Enterprise Playbook](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-enterprise-playbook/ta-p/402731)

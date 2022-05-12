@@ -155,9 +155,10 @@ DRONE_GITEA_CLIENT_SECRET=""
 Once you finished assigning values to the variables (if using nano as your editor) hit `ctl + x`, `y`, then `enter` 
 <br />
 
-* Huge shoutout to Sean Sullivan for his assistance on the Prometheus Grafana Deployment. 
+* Huge shoutout to Sean Sullivan for his assistance on the Prometheus Grafana Deployment. See his repo [PaloAltoNetworks/pcs-metrics-monitoring](https://github.com/PaloAltoNetworks/pcs-metrics-monitoring)
 
 Then edit the file in `./volumes/prometheus/` called `prometheus.yml`. First, `cd ./volumes/prometheus/`
+
 
 ```bash
 nano ./prometheus.yml
@@ -190,12 +191,12 @@ scrape_configs:
       insecure_skip_verify: true
 
   - job_name: 'drone'
-    bearer_token: <AUTH_TOKEN_FOR_DRONE>
+    bearer_token: <DRONE_METRICS_API_TOKEN>
     static_configs:
     - targets: ['drone:8000']
     
   - job_name: 'gitea'
-    bearer_token: <AUTH_TOKEN_FOR_GITEA>
+    bearer_token: <GITEA_METRICS_API_TOKEN>
     static_configs:
     - targets: ['gitea:3000']
 

@@ -97,7 +97,7 @@ What this does is it allows the XDR agent access to the `ncat` tool and will ens
 
 * Runners --- my feelings are the XDR agent may be more appropriate here. The reason being is that the runtime protection is based off of runtime modeling. Something like a runner would be difficult to model because it could argueably need to be made to do lots of things, and nearly impossible to set a baseline for. The important part about a runner is that no build should be able to change the runner or permissions on the runner itself. XDR in report only mode might be a better fit. 
 
-* GitOps feasability with the XDR Agent - right now you have the option to deploy the XDR agent as a daemonset to a k8s cluster via a k8s manifest. This is great if you're doing manual deployments. Less useful if you're using a tool like Flux or ArgoCD to do deployments. A helm chart would need to be made from the manifest. 
+* GitOps feasability with the XDR Agent - Update. Helm Chart has been created for XDR agent see the repo [here](https://github.com/PaloAltoNetworks/cortex-helm)
 
 * Linux vs Windows machines - both agents support a number of operating systems. We're exploring the differences and will report back accordingly.
 

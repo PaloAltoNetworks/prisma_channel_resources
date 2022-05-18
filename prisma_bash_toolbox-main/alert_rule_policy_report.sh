@@ -50,6 +50,7 @@ POLICY_JSON=$(printf %s "$POLICY_INFO_RESPONSE" | jq '.[] | {policyId: .policyId
 printf %s "$POLICY_JSON" > ./policy_temp.json
 
 
-printf %s "$ALERT_RULE_RESPONSE" | jq '[.[] |{name: .name, enabled: .enabled, policies: .policies[]}] | map({name, enabled, policies, policyName: (.policies as $policyId | $policydata |..|select(.name? and .policyId==$policyId))})' --slurpfile policydata ./policy_temp.json | jq '[.[] |{name: .name, enabled: .enabled, policyId: .policies, policyName: .policyName.name}]' | jq -r 'map({name, enabled, policyId, policyName}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > ./alert_rule_policy_rep
-ort.csv
+printf %s "$ALERT_RULE_RESPONSE" | jq '[.[] |{name: .name, enabled: .enabled, policies: .policies[]}] | map({name, enabled, policies, policyName: (.policies as $policyId | $policydata |..|select(.name? and .policyId==$policyId))})' --slurpfile policydata ./policy_temp.json \
+| jq '[.[] |{name: .name, enabled: .enabled, policyId: .policies, policyName: .policyName.name}]' \
+| jq -r 'map({name, enabled, policyId, policyName}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > ./alert_rule_policy_report.csv
 

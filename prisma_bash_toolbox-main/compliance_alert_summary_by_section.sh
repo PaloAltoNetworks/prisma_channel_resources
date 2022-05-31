@@ -13,6 +13,7 @@
 
 
 source ./secrets/secrets
+source ./func/var_check_func.sh
 
 
 
@@ -45,6 +46,8 @@ loop_response_check () {
     echo "$1 request failed error code: $res" >&2
   fi
 }
+
+pce-var-check
 
 
 AUTH_PAYLOAD=$(cat <<EOF

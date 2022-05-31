@@ -13,6 +13,7 @@
 # SECURITY RECOMMENDATIONS:
 
 source ./secrets/secrets
+source ./func/func.sh
 
 ### THIS SCRIPT IS USABLE WHEN THERE ARE LESS THAN 10,000 resources in scope for the report. Use the detailed_compliance_alert_report.sh when there are more than 10,000 resources
 #### This will pull all the alerts by the policy ids associated to the compliance framework and export everything as a CSV. 
@@ -28,17 +29,7 @@ STATUS="open"
 
 
 #### NO EDITS NEEDED BELOW
-
-
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

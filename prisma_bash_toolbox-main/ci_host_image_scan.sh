@@ -5,9 +5,11 @@
 # Ideally done before using the image in production
 # Add twistcli to runner prior to executing script
 
-source ./secrets/secrets  
+source ./secrets/secrets
+source ./func/func.sh
 
+tl-var-check
 # must be run as root user
-./twistcli hosts scan --address $TL_CONSOLE -u $PC_ACCESSKEY -p $PC_SECRETKEY --details --skip-docker
+./twistcli hosts scan --address $TL_CONSOLE -u $TL_USER -p $TL_PASSWORD --details --skip-docker
 
 exit

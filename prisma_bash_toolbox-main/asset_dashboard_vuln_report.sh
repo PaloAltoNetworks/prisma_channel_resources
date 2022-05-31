@@ -13,7 +13,7 @@
 # SECURITY RECOMMENDATIONS:
 
 source ./secrets/secrets
-source ./func/var_check_func.sh
+source ./func/func.sh
 
 
 # adjust the below variables TIMEUNIT and TIMEAMOUNT as necessary. By default will pull the last 1 month of data
@@ -25,15 +25,6 @@ TIMEAMOUNT="1"
 #### NO EDITS BELOW
 
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
 pce-var-check
 
 

@@ -4,6 +4,7 @@
 # shows all the policies mapped to alert rules in the Prisma Cloud Enterprise edition console for alert rule troubleshooting and routing
 
 source ./secrets/secrets
+source ./func/var_check_func.sh
 
 quick_check () {
   res=$?
@@ -15,6 +16,7 @@ quick_check () {
   fi
 }
 
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

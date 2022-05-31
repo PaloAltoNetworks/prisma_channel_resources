@@ -13,7 +13,7 @@
 
 
 source ./secrets/secrets
-source ./func/var_check_func.sh
+source ./func/func.sh
 
 
 
@@ -25,27 +25,6 @@ TIME_UNIT="month"
 
 
 #### NO EDITS BELOW
-
-
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
-
-
-loop_response_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-  fi
-}
 
 pce-var-check
 

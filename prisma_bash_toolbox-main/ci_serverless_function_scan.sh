@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Written by Kyle Butler
 # Use to surface the apis and permissions for serverless functions during CI. Recommending to use the CI_local_repo_scan.sh script along with this one to get vulnerability information about the workload. 
 # ZIPS ALL THE FILES IN THE CURRENT WORKING DIRECTORY TO SCAN will output a temp zip file.
@@ -11,9 +11,10 @@ TEMP_ZIP_NAME="./temp.zip"
 
 
 source ./secrets/secrets
+source ./func/func.sh
 
 
-
+tl-var-check
 # Checks to ensure zip is installed and available to the runner
 if ! type "zip" > /dev/null; then
   echo "zip not installed or not in execution path, zip is required for this script; please add zip to the runner prior to executing this script in the workflow";

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Written by Kyle Butler
 # Will pull down a vulnerability report for all deployed images visable to the prisma cloud compute platform
@@ -8,34 +8,29 @@
 # No user configuration required. Expectations are you'd schedule this with cron
 
 source ./secrets/secrets
-
+source ./func/func.sh
 
 REPORT_DATE=$(date  +%m_%d_%y)
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
+tl-var-check
 
 TL_API_LIMIT=50
+
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$TL_USER", "password": "$TL_PASSWORD"}
 EOF
 )
 
 # add -k to curl if using self-hosted version with a self-signed cert
-TL_JWT=$(curl --silent \
-              --request POST \
-              --url "$TL_CONSOLE/api/v1/authenticate" \
-              --header 'Content-Type: application/json' \
-              --data "$AUTH_PAYLOAD" | jq -r '.token' )
+TL_JWT_RESPONSE=$(curl --silent \
+                       --request POST \
+                       --url "$TL_CONSOLE/api/v1/authenticate" \
+                       --header 'Content-Type: application/json' \
+                       --data "$AUTH_PAYLOAD")
 
 quick_check "/api/v1/authenticate"
+
+TL_JWT=$(printf %s "$TL_JWT_RESPONSE" | jq -r '.token' )
 
 # add -k to curl if using self-hosted version with a self-signed cert
 curl -H "Authorization: Bearer $TL_JWT" \

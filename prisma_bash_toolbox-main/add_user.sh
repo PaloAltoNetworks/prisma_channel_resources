@@ -4,7 +4,7 @@
 
 
 source ./secrets/secrets
-source ./func/var_check_func.sh
+source ./func/func.sh
 
 
 # Username information. The goal here is to pull this information and assign to a these variables using a different api call. 
@@ -21,16 +21,6 @@ PC_USERNAME="$PC_USER_EMAIL"
 
 
 #### NO EDITS NEEDED BELOW
-
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
 
 pce-var-check
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #Written by Kyle Butler 
 # 12.9.2021

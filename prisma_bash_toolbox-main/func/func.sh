@@ -51,3 +51,25 @@ if [ -z "$TL_PASSWORD" ]
     exit 1
 fi
 }
+
+# function to check api request
+quick_check () {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res" >&2
+    exit 1
+  fi
+}
+
+# function to check api request in for loop
+loop_response_check () {
+  res=$?
+  if [ $res -eq 0 ]; then
+    echo "$1 request succeeded"
+  else
+    echo "$1 request failed error code: $res" >&2
+  fi
+}
+

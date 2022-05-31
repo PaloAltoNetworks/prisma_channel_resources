@@ -14,15 +14,7 @@ EOF
 )
 
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
+tl-var-check
 
 
 # Retrieves the IMAGE PROFILE ID from the compute console

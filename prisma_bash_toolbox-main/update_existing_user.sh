@@ -3,6 +3,7 @@
 # Author Kyle Butler
 
 source ./secrets/secrets
+source ./func/func.sh
 
 # This will update an existing user. Can be used to unlock an account, change name, timezone, allow access keys, or disable an existing user from the Prisma Cloud Console. 
 
@@ -23,15 +24,7 @@ TIME_ZONE="America/Los_Angeles"
 
 #### NO EDITS NEEDED BELOW
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

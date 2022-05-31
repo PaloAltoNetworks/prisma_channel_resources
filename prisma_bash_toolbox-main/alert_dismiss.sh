@@ -16,6 +16,7 @@
 
 
 source ./secrets/secrets
+source ./func/var_check_func.sh
 
 
 DISMISS_NOTE="dismissal note here" # your custom note to dismiss
@@ -36,6 +37,7 @@ quick_check () {
     exit 1
   fi
 }
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

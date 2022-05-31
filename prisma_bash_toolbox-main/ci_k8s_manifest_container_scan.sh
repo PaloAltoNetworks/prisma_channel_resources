@@ -5,9 +5,12 @@
 # Add twistcli and bash to runner prior to executing script
 
 source ./secrets/secrets
+source ./func/func.sh
 
 K8S_MANIFEST_LOCATION="./dir/path/to/manifest.yml"
 
+
+tl-var-check
 declare -a IMAGE_ARRAY=($(cat $K8S_MANIFEST_LOCATION | awk -F "image:" '/image/ {print $2}'))
 
 

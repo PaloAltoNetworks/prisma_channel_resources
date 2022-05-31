@@ -14,6 +14,7 @@
 # install requirement jq
 
 source ./secrets/secrets
+source ./func/func.sh
 
 # adjust as needed default is to look back 3 months
 TIMEUNIT="month" # could be day, month, year
@@ -21,16 +22,7 @@ TIMEAMOUNT="3" # integer value
 
 ####### No edits needed below this line
 
-
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

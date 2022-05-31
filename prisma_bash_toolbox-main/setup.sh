@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# written by Kyle Butler
 
 
 source ./func/func.sh

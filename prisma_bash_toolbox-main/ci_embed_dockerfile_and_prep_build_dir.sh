@@ -4,6 +4,7 @@
 # 12.9.2021
 
 source ./secrets/secrets
+source ./func/func.sh
 
 
 # App-id: Custom value to used for collections and scope in WAAS policies. See https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_defender/install_rasp_defender
@@ -32,15 +33,7 @@ UNZIP_DIR="./app_embedded_Dockerfile_dir/"
 # Where to store the defender files on the container
 DATA_FOLDER="/twistlock/"
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 step succeeded"
-  else
-    echo "$1 step failed error code: $res" >&2
-    exit 1
-  fi
-}
+tl-var-check
 
 # Check to ensure unzip is installed and available
 unzip -v

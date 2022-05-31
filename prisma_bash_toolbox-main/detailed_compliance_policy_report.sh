@@ -4,6 +4,7 @@
 # Pulls all the policies associated with a particular compliance framework in Prisma Cloud
 
 source ./secrets/secrets
+source ./func/func.sh
 
 # Only variable that needs to be assigned in script
 COMPLIANCE_NAME="PCI DSS v3.2.1"
@@ -14,15 +15,7 @@ COMPLIANCE_NAME="PCI DSS v3.2.1"
 
 #### NO EDITS NEEDED BELOW
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res"
-    exit
-  fi
-}
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

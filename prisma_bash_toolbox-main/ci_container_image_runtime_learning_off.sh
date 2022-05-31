@@ -2,6 +2,7 @@
 # Written by Kyle Butler
 # Turns off the runtime workload learning process. For use during CI or during staging. 
 source ./secrets/secrets
+source ./func/func.sh
 
 # Put container image tag here
 IMAGE_TAG="swaggerapi/petstore:latest"

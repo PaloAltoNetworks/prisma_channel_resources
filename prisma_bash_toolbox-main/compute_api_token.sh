@@ -1,11 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 # written by Kyle Butler
 # requires jq to be installed
 
 # retrieves the variables from the secrets file
 source ./secrets/secrets
+source ./func/func.sh
 
 # Ensures proper formatting of json in bash
+
+tl-var-check
+
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$TL_USER", "password": "$TL_PASSWORD"}
 EOF

@@ -6,8 +6,8 @@
 
 PC_SECRETKEY_MATCH='^(\w|\d|\/|\+){27}\=$'
 PC_ACCESSKEY_MATCH='^(\d|\w){8}\-(\d|\w){4}\-(\d|\w){4}\-(\d|\w){4}\-(\d|\w){12}$'
-PC_APIURL_MATCH='^https\:\/\/api[2-9]?\.(anz|eu|gov|ca|sg|uk|ind)?(\.)?prismacloud\.(cn|io)$'
-TL_CONSOLE_MATCH='^https\:\/\/(\w|\d|\.|\-|\_|\:)+$'
+PC_APIURL_MATCH='^(?i)https\:\/\/api[2-9]?\.(anz|eu|gov|ca|sg|uk|ind)?(\.)?prismacloud\.(cn|io)$'
+TL_CONSOLE_MATCH='^(?i)https\:\/\/(\w|\d|\.|\-|\_|\:)+$'
 
 # function to check variables required to access the prisma cloud enterprise api endpoints for cspm
 pce-var-check () {

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./secrets/secrets
+source ./func/func.sh
 
 # Put container image tag here
 
@@ -13,15 +14,7 @@ LEARNING_PAYLOAD=$(cat <<EOF
 EOF
 )
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
+tl-var-check
 
 # Retrieves the IMAGE PROFILE ID from the compute console
 # self-hosted may require curl -k depending on if you're using a self-signed cert

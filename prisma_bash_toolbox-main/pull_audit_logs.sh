@@ -4,6 +4,7 @@
 
 
 source ./secrets/secrets
+source ./func/func.sh
 
 # Time filter. Assign the appropriate values. This will pull the last month's worth of audit logs. 
 TIMEAMOUNT=1
@@ -13,15 +14,7 @@ TIMETYPE="relative"
 
 #### NO EDITS NEEDED BELOW
 
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

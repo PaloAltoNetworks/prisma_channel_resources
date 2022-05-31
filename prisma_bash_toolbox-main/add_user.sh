@@ -4,6 +4,7 @@
 
 
 source ./secrets/secrets
+source ./func/var_check_func.sh
 
 
 # Username information. The goal here is to pull this information and assign to a these variables using a different api call. 
@@ -30,6 +31,8 @@ quick_check () {
     exit 1
   fi
 }
+
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

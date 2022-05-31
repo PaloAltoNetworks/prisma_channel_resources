@@ -13,6 +13,7 @@
 # SECURITY RECOMMENDATIONS:
 
 source ./secrets/secrets
+source ./func/var_check_func.sh
 
 
 # adjust the below variables TIMEUNIT and TIMEAMOUNT as necessary. By default will pull the last 1 month of data
@@ -33,6 +34,8 @@ quick_check () {
     exit 1
   fi
 }
+pce-var-check
+
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

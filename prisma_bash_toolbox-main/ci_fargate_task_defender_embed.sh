@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./secrets/secrets
+source ./func/func.sh
 
 # Directory path to fargate task
 FARGATE_TASK_LOCATION="./unprotected.json"
@@ -10,15 +11,7 @@ PROTECTED_DEFINITION_OUTPUT="./protected.json"
 
 # Not user defined
 
-function quick_check {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res"
-    exit
-  fi
-}
+tl-var-check
 
 HOSTNAME_FOR_CONSOLE=$(printf %s $TL_CONSOLE | awk -F / '{print $3}' | sed  s/':\S*'//g)
 

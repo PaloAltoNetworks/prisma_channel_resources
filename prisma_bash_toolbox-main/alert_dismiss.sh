@@ -16,7 +16,7 @@
 
 
 source ./secrets/secrets
-source ./func/var_check_func.sh
+source ./func/func.sh
 
 
 DISMISS_NOTE="dismissal note here" # your custom note to dismiss
@@ -27,16 +27,6 @@ TIMEAMOUNT="1" # integer value
 
 ### NO EDITS BELOW
 
-
-quick_check () {
-  res=$?
-  if [ $res -eq 0 ]; then
-    echo "$1 request succeeded"
-  else
-    echo "$1 request failed error code: $res" >&2
-    exit 1
-  fi
-}
 pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF

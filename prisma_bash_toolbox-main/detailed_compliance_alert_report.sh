@@ -66,28 +66,25 @@ quick_check "/compliance/{$COMPLIANCE_ID}/requirement"
 
 SECTION_ID=$(printf %s "$SECTION_ID_RESPONSE" | jq -r '.[].id')
 
-
-
-declare -a SECTION_ID_ARRAY=($(printf %s "$SECTION_ID"))
+SECTION_ID_ARRAY=( $(printf '%s' "$SECTION_ID") )
 
 COMPLIANCE_SECTION_RESPONSE=$(for SECTION_ID in "${SECTION_ID_ARRAY[@]}"; do
-                                    curl --request GET \
-                                         --url $PC_APIURL/compliance/{$SECTION_ID}/section \
-                                         --header "x-redlock-auth: $PC_JWT" | jq '.[]';
+                                  pc-api-request "CSPM" "GET" "/compliance/{$SECTION_ID}/section" | jq '.[]';
                               done)
-quick_check "compliance section array population"
 
-POLICY_ID_ARRAY=($(printf %s "$COMPLIANCE_SECTION_RESPONSE" | jq -r '.associatedPolicyIds[]'))
+POLICY_ID_ARRAY=( $(printf %s "$COMPLIANCE_SECTION_RESPONSE" | jq -r '.associatedPolicyIds[]') )
 
-printf '%s\n' "policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceId, standardName, requirementName, sectionId" >  "./detailed_compliance_alert_report_$COMPLIANCE_STD_NAME-$REPORT_DATE.csv"
+REPORT_LOCATION="./reports/detailed_compliance_alert_report_$COMPLIANCE_STD_NAME-$REPORT_DATE.csv"
 
-for POLICY_ID in ${POLICY_ID_ARRAY[@]}; do
-  POLICY_RESPONSE=$(curl --request GET \
-                         --url "$PC_APIURL/v2/alert?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT&detailed=true&policy.id=$POLICY_ID&status=$STATUS" \
-                         --header "x-redlock-auth: $PC_JWT")
-  quick_check "/v2/alert?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT&detailed=true&policy.id=$POLICY_ID&status=$STATUS"
-  printf '%s' "$POLICY_RESPONSE" | jq -r --arg COMPLIANCE_NAME "$COMPLIANCE_STD_NAME" '.items[] | select(.status == "open" ) | {policyName: .policy.name, policyDescription: .policy.description, policySeverity: .policy.severity, policyType: .policy.policyType, policyRecommendation: .policy.recommendation, account: .resource.account, resourceName: .resource.name, resourceType: .resource.resourceType, resourceId: .resource.rrn, complianceMetadata: [.policy.complianceMetadata[] | select( .standardName == $COMPLIANCE_NAME )]} | {policyName: .policyName, policyDescription: .policyDescription, policySeverity: .policySeverity, policyType: .policyType, policyRecommendation: .policyRecommendation, account: .account, resourceName: .resourceName, resourceType: .resourceType, resourceId: .resourceId, complianceMetadata: .complianceMetadata[]} | [{policyName: .policyName, policyDescription: .policyDescription, policySeverity: .policySeverity, policyType: .policyType, policyRecommendation: .policyRecommendation, account: .account, resourceName: .resourceName, resourceType: .resourceType, resourceId: .resourceId, standardName: .complianceMetadata.standardName, requirementName: .complianceMetadata.requirementName, sectionId: .complianceMetadata.sectionId}] | map({policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceId, standardName, requirementName, sectionId})| (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >>  "./detailed_compliance_alert_report_$COMPLIANCE_STD_NAME-$REPORT_DATE.csv"
+printf '%s\n' "policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceId, standardName, requirementName, sectionId" > "$REPORT_LOCATION" 
+
+
+for POLICY_ID in "${POLICY_ID_ARRAY[@]}"; do
+  POLICY_RESPONSE=$(pc-api-request "CSPM" "GET" "/v2/alert?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT&detailed=true&policy.id=$POLICY_ID&status=$STATUS")
+  printf '%s' "$POLICY_RESPONSE" | jq -r --arg COMPLIANCE_NAME "$COMPLIANCE_STD_NAME" '.items[] | select(.status == "open" ) | {policyName: .policy.name, policyDescription: .policy.description, policySeverity: .policy.severity, policyType: .policy.policyType, policyRecommendation: .policy.recommendation, account: .resource.account, resourceName: .resource.name, resourceType: .resource.resourceType, resourceId: .resource.rrn, complianceMetadata: [.policy.complianceMetadata[] | select( .standardName == $COMPLIANCE_NAME )]} | {policyName: .policyName, policyDescription: .policyDescription, policySeverity: .policySeverity, policyType: .policyType, policyRecommendation: .policyRecommendation, account: .account, resourceName: .resourceName, resourceType: .resourceType, resourceId: .resourceId, complianceMetadata: .complianceMetadata[]} | [{policyName: .policyName, policyDescription: .policyDescription, policySeverity: .policySeverity, policyType: .policyType, policyRecommendation: .policyRecommendation, account: .account, resourceName: .resourceName, resourceType: .resourceType, resourceId: .resourceId, standardName: .complianceMetadata.standardName, requirementName: .complianceMetadata.requirementName, sectionId: .complianceMetadata.sectionId}] | map({policyName, policyDescription, policySeverity, policyType, policyRecommendation, account, resourceName, resourceType, resourceId, standardName, requirementName, sectionId})| (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >>  "$REPORT_LOCATION"
   sleep 1
 done
+
+printf '\n\n%s\n' "All done! Your report is in the ./reports directory saved as: detailed_compliance_alert_report_$COMPLIANCE_STD_NAME-$REPORT_DATE.csv"
 
 exit

@@ -125,7 +125,7 @@ if [ -z "$PC_JWT" ]
       printf '\n%s\n' "Prisma Cloud Enterprise CSPM api token not retrieved, have you verified the expiration date of the access key and secret key? Have you verified connectivity to the url provided? Troubleshoot and then you'll need to run this script again"
       exit 1
   else
-     printf '\n%s\n%s\n' "Token retireived" "CSPM API TOKEN IS $PC_JWT"
+     printf '\n%s\n' "Token retrieved, access key, secret key, and prisma cloud enterprise edition api url are valid"
 fi
 
 
@@ -150,22 +150,23 @@ if [ -z "$TL_JWT" ]
         printf '\n%s\n' "Prisma compute api token not retrieved, have you verified the expiration date of the access key and secret key? Have you verified connectivity to the url provided? Troubleshoot and then you'll need to run this script again"
         exit 1
     else
-       printf '\n%s\n%s\n' "Token retireived" "COMPUTE API TOKEN IS $TL_JWT"
+       printf '\n%s\n' "Token retrieved, access key, secret key, and compute api url are valid" 
 fi
 
 
-printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n' "#!/bin/sh" "PC_APIURL=\"$PC_APIURL\"" \
-                                                  "PC_ACCESSKEY=\"$PC_ACCESSKEY\"" \
-                                                  "PC_SECRETKEY=\"$PC_SECRETKEY\"" \
-                                                  "TL_CONSOLE=\"$TL_CONSOLE\"" "TL_USER=\"$TL_USER\"" \
-                                                  "TL_PASSWORD=\"$TL_PASSWORD\"" > $PATH_TO_SECRETS_FILE
+printf '%s\n%s\n%s\n%s\n%s\n%s\n%s\n' "#!/bin/sh" \
+                                      "PC_APIURL=\"$PC_APIURL\"" \
+                                      "PC_ACCESSKEY=\"$PC_ACCESSKEY\"" \
+                                      "PC_SECRETKEY=\"$PC_SECRETKEY\"" \
+                                      "TL_CONSOLE=\"$TL_CONSOLE\"" "TL_USER=\"$TL_USER\"" \
+                                      "TL_PASSWORD=\"$TL_PASSWORD\"" > $PATH_TO_SECRETS_FILE
 
 
 
 chmod 700 ./secrets/secrets
 
-printf '%s\n%s\n%s\n%s\n' "All scripts in the toolbox are able to be executed!" \
-                          "Many have variables that need to be assigned to fit the use case." \
-                          "Please edit the script to verify the variables and then execute by running:" \
-                          "bash ./<script_name>.sh"
-
+printf '%s\n%s\n%s\n%s\n\n\n' "All scripts in the toolbox are able to be executed!" \
+                              "Many have variables that need to be assigned to fit the use case." \
+                              "Please edit the script to verify the variables and then execute by running:" \
+                              "bash ./<script_name>.sh"
+exit

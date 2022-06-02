@@ -51,7 +51,7 @@ quick_check "/v2/inventory?timeType=relative&timeAmount=$TIMEAMOUNT&timeUnit=$TI
 RESPONSE_JSON=$(printf %s $RESPONSE_DATA | jq '[.groupedAggregates[]]' | jq 'group_by(.cloudTypeName)[]| {(.[0].cloudTypeName): [.[] | {resourceTypeName: .resourceTypeName, highSeverityIssues: .highSeverityFailedResources, mediumSeverityIssues: .mediumSeverityFailedResources, lowSeverityIssues: .lowSeverityFailedResources, passedResources: .passedResources, failedResources: .failedResources, totalResources: .totalResources}]}')
 
 
-echo -e "aws" >> pcee_asset_inventory__with_alerts_$REPORT_DATE.csv 2>/dev/null
+echo -e "aws" >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
 printf %s "$RESPONSE_JSON" | jq -r '.aws' | jq -r 'map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
 
 echo -e "\nazure \n" >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null

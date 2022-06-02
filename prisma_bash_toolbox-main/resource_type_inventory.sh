@@ -62,10 +62,7 @@ printf '%s' "$RESPONSE_JSON" | jq -r '.azure | select(. != null) | map({resource
 printf '\n%s\n' "gcp" >> "$REPORT_LOCATION"
 printf '%s' "$RESPONSE_JSON" | jq -r '.gcp | select(. != null) | map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
-printf '\n%s\n' "All done! Your report is saved in the ./reports directory as pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
-
-
-exit
+printf '\n%s\n\n' "All done! Your report is saved in the ./reports directory as pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
 
 
 exit

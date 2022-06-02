@@ -48,18 +48,18 @@ RESPONSE_DATA=$(curl --request GET \
                      --header "x-redlock-auth: $PC_JWT")
 quick_check "/v2/inventory?timeType=relative&timeAmount=$TIMEAMOUNT&timeUnit=$TIMEUNIT&groupBy=resource.type&scan.status=all"
 
-RESPONSE_JSON=$(printf %s $RESPONSE_DATA | jq '[.groupedAggregates[]]' | jq 'group_by(.cloudTypeName)[]| {(.[0].cloudTypeName): [.[] | {resourceTypeName: .resourceTypeName, highSeverityIssues: .highSeverityFailedResources, mediumSeverityIssues: .mediumSeverityFailedResources, lowSeverityIssues: .lowSeverityFailedResources, passedResources: .passedResources, failedResources: .failedResources, totalResources: .totalResources}]}')
+RESPONSE_JSON=$(printf '%s' "$RESPONSE_DATA" | jq '[.groupedAggregates[]] | group_by(.cloudTypeName)[]| {(.[0].cloudTypeName): [.[] | {resourceTypeName: .resourceTypeName, highSeverityIssues: .highSeverityFailedResources, mediumSeverityIssues: .mediumSeverityFailedResources, lowSeverityIssues: .lowSeverityFailedResources, passedResources: .passedResources, failedResources: .failedResources, totalResources: .totalResources}]}')
 
 
-echo -e "aws" >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
-printf %s "$RESPONSE_JSON" | jq -r '.aws' | jq -r 'map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
+printf '%s\n' "aws" >> "./pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
+printf '%s' "$RESPONSE_JSON" | jq -r '.aws | select(. != null) | map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "./pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
 
-echo -e "\nazure \n" >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
-printf %s "$RESPONSE_JSON" | jq -r '.azure' | jq -r 'map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
+printf '\n%s\n' "azure" >> "./pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
+printf '%s' "$RESPONSE_JSON" | jq -r '.azure | select(. != null) | map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "./pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
 
-echo -e "\ngcp\n" >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
-printf %s "$RESPONSE_JSON" | jq -r '.gcp' | jq -r 'map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_asset_inventory_with_alerts_$REPORT_DATE.csv 2>/dev/null
+printf '\n%s\n' "gcp" >> "./pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
+printf '%s' "$RESPONSE_JSON" | jq -r '.gcp | select(. != null) | map({resourceTypeName, highSeverityIssues, mediumSeverityIssues, lowSeverityIssues, passedResources, failedResources, totalResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "./pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
 
-echo "All done! Your report is saved as $PWD/pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
+printf '\n%s\n' "All done! Your report is saved as $PWD/pcee_asset_inventory_with_alerts_$REPORT_DATE.csv"
 
 exit

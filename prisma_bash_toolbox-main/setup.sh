@@ -4,7 +4,7 @@
 
 source ./func/func.sh
 
-printf '\n%s\n%s\n%s\n'  "This script will set up your secrets file in secrets directory and modify the permissions so the user running it will be the only one who can modify the file." \
+printf '\n%s\n%s\n%s\n'  "This script will set up your secrets file in the ./secrets directory and modify the permissions so the user running it will be the only one who can modify the file." \
                           "It will also verify you have the proper dependencies and ensure an api token can be retrieved." \
                           "It will override any existing file you have in the .secrets/secrets directory"
 

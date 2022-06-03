@@ -66,19 +66,23 @@ REQUIREMENT_IDS_RESPONSE=$(curl --request GET \
 
 quick_check "/compliance/{$COMPLICE_ID}/requirement"
 
-REQUIREMENT_IDS=$(printf %s "$REQUIREMENT_IDS_RESPONSE" | jq -r '.[].id')
+REQUIREMENT_IDS=$(printf '%s' "$REQUIREMENT_IDS_RESPONSE" | jq -r '.[].id')
 
-declare -a REQUIREMENT_ID_ARRAY=($(printf %s "$REQUIREMENT_IDS"))
+REQUIREMENT_ID_ARRAY=($(printf '%s' "$REQUIREMENT_IDS"))
 
-echo -e "sectionName, description, assignedPolicies, failedResources, passedResources, totalResources, HighSeverityFailedResources, mediumSeverityFailedResources, lowSeverityFailedResources \n" > ./compliance_section_summary_data_$REPORT_DATE.csv
+REPORT_LOCATION="./reports/compliance_section_summary_data_$REPORT_DATE.csv"
+
+printf '%s\n' "sectionName, description, assignedPolicies, failedResources, passedResources, totalResources, HighSeverityFailedResources, mediumSeverityFailedResources, lowSeverityFailedResources \n" > "$REPORT_LOCATION"
 
 for REQUIREMENT_ID in ${REQUIREMENT_ID_ARRAY[@]}; do
         COMPLIANCE_POSTURE_RESPONSE=$(curl --request GET \
                                            --url "$PC_APIURL/compliance/posture/{$COMPLIANCE_ID}/{$REQUIREMENT_ID}?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT" \
                                            --header "x-redlock-auth: $PC_JWT" )
         loop_response_check "/compliance/posture/{$COMPLIANCE_ID}/{$REQUIREMENT_ID}?timeType=$TIME_TYPE&timeAmount=$TIME_AMOUNT&timeUnit=$TIME_UNIT"
-        printf %s "$COMPLIANCE_POSTURE_RESPONSE" | jq '.complianceDetails[] | {sectionName: .name, description: .description, assignedPolicies: .assignedPolicies, failedResources: .failedResources, passedResources: .passedResources, totalResources: .totalResources, HighSeverityFailedResources: .highSeverityFailedResources, mediumSeverityFailedResources: .mediumSeverityFailedResources, lowSeverityFailedResources: .lowSeverityFailedResources}'| jq -r '[.] | map({sectionName, description, assignedPolicies, failedResources, passedResources, totalResources, HighSeverityFailedResources, mediumSeverityFailedResources, lowSeverityFailedResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./compliance_section_summary_data_$REPORT_DATE.csv
+        printf %s "$COMPLIANCE_POSTURE_RESPONSE" | jq '.complianceDetails[] | {sectionName: .name, description: .description, assignedPolicies: .assignedPolicies, failedResources: .failedResources, passedResources: .passedResources, totalResources: .totalResources, HighSeverityFailedResources: .highSeverityFailedResources, mediumSeverityFailedResources: .mediumSeverityFailedResources, lowSeverityFailedResources: .lowSeverityFailedResources}'| jq -r '[.] | map({sectionName, description, assignedPolicies, failedResources, passedResources, totalResources, HighSeverityFailedResources, mediumSeverityFailedResources, lowSeverityFailedResources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> "$REPORT_LOCATION"
 
 done
+printf '\n%s\n\n' "All done! Your report is in the ./reports directory saved as: compliance_section_summary_data_$REPORT_DATE.csv"
+
 
 exit

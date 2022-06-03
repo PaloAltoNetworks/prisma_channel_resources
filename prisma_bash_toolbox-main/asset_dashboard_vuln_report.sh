@@ -72,7 +72,7 @@ REPORT_DATE=$(date  +%m_%d_%y)
 REPORT_LOCATION="./reports/pcee_cspm_kpi_report_$REPORT_DATE.csv"
 
 printf '%s\n' "summary" > "$REPORT_LOCATION"
-printf '%s ' "$OVERALL_SUMMARY" | jq -r 'map({summary,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources,resources_passing,resources_failing}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
+printf '%s' "$OVERALL_SUMMARY" | jq -r 'map({summary,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources,resources_passing,resources_failing}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
 printf '\n%s\n' "compliance summary" >> "$REPORT_LOCATION"
 printf '%s' "$COMPLIANCE_SUMMARY" | jq -r 'map({framework_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources,number_of_policy_checks}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"

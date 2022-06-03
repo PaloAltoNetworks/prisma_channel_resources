@@ -69,31 +69,30 @@ SERVICE_SUMMARY=$(curl --request GET \
 quick_check "/v2/inventory"
 
 REPORT_DATE=$(date  +%m_%d_%y)
+REPORT_LOCATION="./reports/pcee_cspm_kpi_report_$REPORT_DATE.csv"
 
-echo -e "summary\n" >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null # ignore jq error
-printf %s $OVERALL_SUMMARY | jq -r 'map({summary,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources,resources_passing,resources_failing}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null # ignores the null error from jq
+printf '%s\n' "summary" > "$REPORT_LOCATION"
+printf '%s ' "$OVERALL_SUMMARY" | jq -r 'map({summary,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources,resources_passing,resources_failing}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
-echo -e "\ncompliance summary\n" >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
-printf %s $COMPLIANCE_SUMMARY | jq -r 'map({framework_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources,number_of_policy_checks}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
+printf '\n%s\n' "compliance summary" >> "$REPORT_LOCATION"
+printf '%s' "$COMPLIANCE_SUMMARY" | jq -r 'map({framework_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources,number_of_policy_checks}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
-echo -e "\naws \n" >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
-printf %s $SERVICE_SUMMARY | jq -r '.aws' | jq -r 'map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
+printf '\n%s\n' "aws" >> "$REPORT_LOCATION"
+printf '%s' "$SERVICE_SUMMARY" | jq -r '.aws | select(. != null) | map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
-echo -e "\nazure \n" >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
-printf %s $SERVICE_SUMMARY | jq -r '.azure' | jq -r 'map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
+printf '\n%s\n' "azure" >> "$REPORT_LOCATION"
+printf '%s' "$SERVICE_SUMMARY" | jq -r '.azure | select(. != null) | map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
-echo -e "\ngcp \n" >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
-printf %s $SERVICE_SUMMARY | jq -r '.gcp' | jq -r 'map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
+printf '\n%s\n' "gcp" >> "$REPORT_LOCATION"
+printf '%s' "$SERVICE_SUMMARY" | jq -r '.gcp | select(. != null)| map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
-echo -e "\noci \n" >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
-printf %s $SERVICE_SUMMARY | jq -r '.oci' | jq -r 'map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
+printf '\n%s\n' "oci" >> "$REPORT_LOCATION"
+printf '%s' "$SERVICE_SUMMARY" | jq -r '.oci | select(. != null) | map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
 
-echo -e "\nalibaba_cloud \n" >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
-printf %s $SERVICE_SUMMARY | jq -r '.alibaba_cloud' | jq -r 'map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> pcee_cspm_kpi_report_$REPORT_DATE.csv 2>/dev/null
-echo "                                                                     "
-echo "                                                                     "
-echo "report created here: $PWD/pcee_cspm_kpi_report_$REPORT_DATE.csv" 
-echo "                                                                     "
-echo "                                                                     "
+printf '\n%s\n' "alibaba_cloud" >> "$REPORT_LOCATION"
+printf '%s' "$SERVICE_SUMMARY" | jq -r '.alibaba_cloud | select(. != null) | map({service_name,high_severity_issues,medium_severity_issues,low_severity_issues,total_number_of_resources}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' >> "$REPORT_LOCATION"
+
+printf '\n\n%s\n\n' "All done! Your report is in the ./reports directory saved as: pcee_cspm_kpi_report_$REPORT_DATE.csv"
 
 exit
+

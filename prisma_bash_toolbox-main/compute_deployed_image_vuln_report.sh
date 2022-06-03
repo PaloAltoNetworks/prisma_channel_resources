@@ -38,6 +38,8 @@ REPORT_LOCATION="./reports/deployed_images_report_$REPORT_DATE.csv"
 curl -H "Authorization: Bearer $TL_JWT" \
      -H 'Content-Type: application/json' \
      -X GET \
-     --url "$TL_CONSOLE/api/v1/images/download?" > ./deployed_images_report_$REPORT_DATE.csv
+     --url "$TL_CONSOLE/api/v1/images/download?" > $REPORT_LOCATION
 
 quick_check "/api/v1/images/download"
+
+printf '\n%s\n\n" "All done! Your report is in the ./reports directory saved as: deployed_images_report_$REPORT_DATE.csv"

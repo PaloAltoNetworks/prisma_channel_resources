@@ -32,7 +32,7 @@ PC_JWT_RESPONSE=$(curl --request POST \
 
 quick_check "/login"
 
-PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
+PC_JWT=$(printf '%s' "$PC_JWT_RESPONSE" | jq -r '.token' )
 
 ALERT_RULE_RESPONSE=$(curl --request GET \
                            --url "$PC_APIURL/v2/alert/rule" \
@@ -41,18 +41,24 @@ ALERT_RULE_RESPONSE=$(curl --request GET \
 quick_check "/alert/rule"
 
 POLICY_INFO_RESPONSE=$(curl --request GET \
-                            --url "$PC_APIURL/v2/policy/" \
+                            --url "$PC_APIURL/v2/policy" \
                             --header "x-redlock-auth: $PC_JWT")
 
 quick_check "/v2/policy"
 
-POLICY_JSON=$(printf %s "$POLICY_INFO_RESPONSE" | jq '.[] | {policyId: .policyId, name: .name}')
+POLICY_JSON=$(printf '%s' "$POLICY_INFO_RESPONSE" | jq '.[] | {policyId: .policyId, name: .name}')
 
 
-printf %s "$POLICY_JSON" > ./policy_temp.json
+printf '%s' "$POLICY_JSON" > ./policy_temp.json
 
+REPORT_LOCATION="./reports/alert_rule_policy_report.csv"
 
-printf %s "$ALERT_RULE_RESPONSE" | jq '[.[] |{name: .name, enabled: .enabled, policies: .policies[]}] | map({name, enabled, policies, policyName: (.policies as $policyId | $policydata |..|select(.name? and .policyId==$policyId))})' --slurpfile policydata ./policy_temp.json \
+printf '%s' "$ALERT_RULE_RESPONSE" | jq '[.[] |{name: .name, enabled: .enabled, policies: .policies[]}] | map({name, enabled, policies, policyName: (.policies as $policyId | $policydata |..|select(.name? and .policyId==$policyId))})' --slurpfile policydata ./policy_temp.json \
 | jq '[.[] |{name: .name, enabled: .enabled, policyId: .policies, policyName: .policyName.name}]' \
-| jq -r 'map({name, enabled, policyId, policyName}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > ./alert_rule_policy_report.csv
+| jq -r 'map({name, enabled, policyId, policyName}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > "$REPORT_LOCATION"
+
+printf '\n\n%s\n%s\n\n' "All done! Your report is in the ./reports directory saved as: alert_rule_policy_report.csv" \
+                        "You are welcome to delete the policy_temp.json file if you'd like."
+                        
+exit               
 

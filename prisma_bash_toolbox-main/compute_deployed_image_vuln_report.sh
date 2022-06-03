@@ -30,7 +30,9 @@ TL_JWT_RESPONSE=$(curl --silent \
 
 quick_check "/api/v1/authenticate"
 
-TL_JWT=$(printf %s "$TL_JWT_RESPONSE" | jq -r '.token' )
+TL_JWT=$(printf '%s' "$TL_JWT_RESPONSE" | jq -r '.token' )
+
+REPORT_LOCATION="./reports/deployed_images_report_$REPORT_DATE.csv"
 
 # add -k to curl if using self-hosted version with a self-signed cert
 curl -H "Authorization: Bearer $TL_JWT" \

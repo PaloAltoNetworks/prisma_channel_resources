@@ -41,3 +41,4 @@ su ${USER}
 ```
 
 * `./twistcli images scan --address <Address_to_console> -u <user_name> -p <password> --details <repository_name>:<tag>` or if you added the alias `twistcli images scan --address <Address_to_console> -u <user_name> -p <password> --details <repository_name>:<tag>`
+* If using the demo-build on GCP use --address https://console-master-fill-this-in-with-yours.demo.twistlock.com and the username and password must be the one you use to log into the console (i.e. creating a new one doesn't work)

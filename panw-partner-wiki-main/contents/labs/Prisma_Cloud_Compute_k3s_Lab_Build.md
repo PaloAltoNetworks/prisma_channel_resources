@@ -137,7 +137,7 @@ ff02::2 ip6-allrouters
 Start up the mysql server container and ensure you've replaced <PASSWORD> with a password of your choosing we're going to name it gogs-mysql. Write the password you assigned to the the SQL Server Container down as SQL_SERVER_ROOT_PASSWORD, we'll refer to it later. The first command deploys the container and starts the configuration. We'll use the next commands to ensure everything is running and finally pull the IP Address assigned to the container.
 
 ```bash
-docker run --name gogs-mysql  -e MYSQL_ROOT_PASSWORD=<PASSWORD> -d mysql:latest
+docker run --name gogs-mysql  -v ./gogs-mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=<PASSWORD> -d mysql:latest
 docker logs gogs-mysql
 docker inspect gogs-mysql | grep IPAddress
 ```

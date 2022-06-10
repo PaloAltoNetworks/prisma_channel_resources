@@ -228,7 +228,7 @@ Once you finished assigning values to the variables (if using nano as your edito
 ### Step 5: Modify your hosts file
 
 ```bash
-sudo nano /etc/hosts/
+sudo nano /etc/hosts
 ```
 
 * Add `gitea drone swagger prometheus grafana vault dvwa` next to your local IP address `127.0.0.1`

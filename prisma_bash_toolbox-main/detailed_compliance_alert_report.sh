@@ -69,7 +69,9 @@ SECTION_ID=$(printf %s "$SECTION_ID_RESPONSE" | jq -r '.[].id')
 SECTION_ID_ARRAY=( $(printf '%s' "$SECTION_ID") )
 
 COMPLIANCE_SECTION_RESPONSE=$(for SECTION_ID in "${SECTION_ID_ARRAY[@]}"; do
-                                  pc-api-request "CSPM" "GET" "/compliance/{$SECTION_ID}/section" | jq '.[]';
+                                    curl --request GET \
+                                         --url $PC_APIURL/compliance/{$SECTION_ID}/section \
+                                         --header "x-redlock-auth: $PC_JWT" | jq '.[]';
                               done)
 
 POLICY_ID_ARRAY=( $(printf %s "$COMPLIANCE_SECTION_RESPONSE" | jq -r '.associatedPolicyIds[]') )

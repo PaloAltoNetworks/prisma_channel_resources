@@ -144,6 +144,7 @@ services:
     - './volumes/grafana/provisioning:/etc/grafana/provisioning'
     - './volumes/grafana/dashboards:/var/lib/grafana/dashboards'
     - './volumes/grafana-storage:/var/lib/grafana'
+    user: '472'
 
   splunk:
     image: splunk/splunk:latest

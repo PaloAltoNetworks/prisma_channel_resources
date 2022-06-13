@@ -143,7 +143,7 @@ services:
     volumes:
     - './volumes/grafana/provisioning:/etc/grafana/provisioning'
     - './volumes/grafana/dashboards:/var/lib/grafana/dashboards'
-    - 'grafana-storage:/var/lib/grafana'
+    - './volumes/grafana-storage:/var/lib/grafana'
 
   splunk:
     image: splunk/splunk:latest

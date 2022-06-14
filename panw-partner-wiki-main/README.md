@@ -124,6 +124,7 @@ _These labs were created or curated by Kyle Butler, John Chavanne, and Goran Bog
     * [Build a CI Pipeline test to scan IaC Templates](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_code_security_on_prem_vcs_ci_pipeline.md) - requires the lab set-up referenced [here](https://github.com/PaloAltoNetworks/prisma_channel_resources/tree/main/lab_deploy) or the ova Prisma Compute Lab
     
 - **Labs for Prisma Cloud Enterprise** - requires access to an Enterprise license
+    - [Prisma Cloud Code Security integration with Terraform Cloud - Run Tasks & Sentinel Policies](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/terraform-cloud-sentinel-and-run-tasks-integration.md)
     - [Prisma Cloud CSPM RESTFUL API Tutorial with Hashicorp Vault](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_Enterprise_API_Tutorial.md)
     - [AWS ECR (Elastic Container Repository) Deployment](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/Prisma_Cloud_AWS_ECR_Set-up.md)
     - [Install Defenders in Public Cloud](./contents/labs/Install_Defenders_in_Public_Cloud.md)

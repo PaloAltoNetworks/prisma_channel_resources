@@ -285,11 +285,7 @@ Wait for the services to stop, then:
 * In firefox navigate to `https://prisma-compute-lab:8083` and create the admin user and password.
 * Sign in and input your license information. 
 * Open terminal and run `docker network connect gitea-drone_default twistlock_console`
-* Then run `docker network inspect gitea-drone_default | grep -A 3 "twistlock_console"`
-* Copy the IP Address without the CIDR range that is assigned to the Prisma Cloud Console. 
-* Sign in to the Prisma Cloud Console and go to `Manage > Defenders` 
-* On the defenders page click the `Names` tab in the top middle of the page and add the IP address you copied down to the SAN list. 
-* Click accept the risk and continue (by default Prisma Cloud Compute deploys with a self-signed cert)
+* In prisma cloud compute.
 * Go to the `Defend` tab in the side bar under the `Radar` tab in the left hand side menu
 * In the middle top of the screen click the `Images` tab. Click the `+Add rule` button and create a rule called `Default`, don't change any of the default settings and click the `Save Button`
 * Then go to the middle top of the page and click the `Hosts` tab and repeat the same process of creating a default host rule. In the middle top of the screen click the `Images` tab. Click the `+Add rule` button and create a rule called `Default`, don't change any of the default settings and click the `Save Button`
@@ -303,7 +299,7 @@ Navigate back to drone in firefox at http://drone:8000
 * On the secrets page click the `+ New Secret` button and we'll create three secrets. 
 * The first secret you create should be named `pcc_password`; for the value we'll use the password you created in your Prisma Cloud Console. 
 * The second secret you will create should be named `pcc_user`; for the value use the username you created in the Prisma Cloud Console.
-* The third secret we'll create will be named `pcc_console_ip`; for the value we'll use the IP address we added to the SAN list in the Prisma Cloud Console
+* The third secret we'll create will be named `pcc_console`; for the value we'll use the name `twistlock_console` 
 * Once the secrets have been added to the repo, navigate to Gitea at `http://gitea:3000`. 
 * Sign in and go to your `ci-vuln-scan repo`
 * Add two more files to your repo. 
@@ -349,9 +345,9 @@ steps:
   commands:
   - apk add curl
   - |
-    curl -k --header "Authorization: Basic $(echo -n $PCC_USER:$PCC_PASSWORD | base64 | tr -d '\n')" https://$PCC_CONSOLE_IP:8083/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
+    curl -k --header "Authorization: Basic $(echo -n $PCC_USER:$PCC_PASSWORD | base64 | tr -d '\n')" https://$PCC_CONSOLE:8083/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
   - |
-    ./twistcli images scan --address https://$PCC_CONSOLE_IP:8083 -u $PCC_USER -p $PCC_PASSWORD --details my_questionable_container:1 .
+    ./twistcli images scan --address https://$PCC_CONSOLE:8083 -u $PCC_USER -p $PCC_PASSWORD --details my_questionable_container:1 .
 
 services:
 - name: docker

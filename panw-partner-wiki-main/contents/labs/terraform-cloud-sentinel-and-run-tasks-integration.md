@@ -1,7 +1,7 @@
 # Prisma Cloud Code Security and Terraform Sentinel Set-up
 Requirements:
 
-* GitHub repository with terraform files in it something like [this](https://github.com/kyle9021/wbc-demo)
+* GitHub repository with a terraform file in it something like [this](https://github.com/kyle9021/wbc-demo/blob/main/s3.tf)
 * An AWS Account with an IAM user that has permissions to deploy IaC files
 * AWS Access Key and Secret key created for your IAM user
 * A license for Prisma Cloud Enterprise with the Code Security Module. 

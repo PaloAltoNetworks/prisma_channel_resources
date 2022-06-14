@@ -321,8 +321,8 @@ steps:
       from_secret: pcc_user
     PCC_PASSWORD:
       from_secret: pcc_password
-    PCC_CONSOLE_IP:
-      from_secret: pcc_console_ip
+    PCC_CONSOLE:
+      from_secret: pcc_console
   volumes:
   - name: dockersock
     path: /var/run
@@ -337,8 +337,8 @@ steps:
       from_secret: pcc_user
     PCC_PASSWORD:
       from_secret: pcc_password
-    PCC_CONSOLE_IP:
-      from_secret: pcc_console_ip
+    PCC_CONSOLE:
+      from_secret: pcc_console
   volumes:
   - name: dockersock
     path: /var/run

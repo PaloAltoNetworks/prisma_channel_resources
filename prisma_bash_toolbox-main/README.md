@@ -19,17 +19,8 @@ This is a community toolkit and IS NOT supported nor maintained by Palo Alto Net
 * install jq `sudo apt-get install jq`
 * clone the repo `git clone https://github.com/PaloAltoNetworks/prisma_channel_resources`
 * `cd ./prisma_channel_resources/prisma_bash_toolbox-main/`
-* add the `./secrets/secrets` file to .gitignore
-* `chmod 700 ./secrets/secrets`
-* create a set of access keys and secret keys in the prisma cloud console
-* retrieve both api urls for the console 
-* `TL_CONSOLE` can be found under Compute > System > Utilities as `Path to Console` or is the url you use to navigate to the self-hosted edition of the platform. 
-* `PC_APIURL` can be found here: https://prisma.pan.dev/api/cloud/api-urls
-* `PC_ACCESSKEY` is self explanitory
-* `PC_SECRETKEY` is self explanitory 
-* `TL_USER` is either the access key you created above or if using the self hosted version of the platform a `CI user` username.
-* `TL_PASSWORD` is either the secret key you created above or if using the self hosted version of the platform a `CI user` password.
-* edit the secrets file and assign the variables as needed. 
+* `bash ./setup.sh`
+* edit the script you want to run, then `bash ./<script_name>.sh` or `chmod a+x <script_name>.sh` and run by entering `./<script_name>.sh`
 
 Each Script Has it's own set of variables which need to be assigned prior to running them. 
 

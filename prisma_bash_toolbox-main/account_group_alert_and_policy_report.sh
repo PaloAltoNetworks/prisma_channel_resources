@@ -151,7 +151,7 @@ cat "$JSON_LOCATION/temp_finished.json" | jq -r '[.[] | {cloudTypeName: .cloudTy
 sleep 5
 
 printf '%s\n' "cleaning up temp.json files"
-rm "$JSON_LOCATION/temp_*.json"
+rm "$JSON_LOCATION/*.json"
 
 printf '%s\n' "done"
 }

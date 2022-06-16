@@ -20,6 +20,7 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 
 ### Prisma Cloud Dev Community Highlights
 
+* [Pro-Serv Ryan Haney's version of Prisma Cloud Golang SDK - Thank you Ryan!](https://github.com/thathaneydude/prisma-cloud-sdk)
 * [Python CLI Tool - Thank you Steven de Boer](https://pypi.org/project/prismacloud-cli/)
 * [Prisma Cloud Postman Collection - Thank you Sean Sullivan](https://github.com/PaloAltoNetworks/pcs-postman)
 * [Prisma Cloud Golang SDK](https://github.com/PaloAltoNetworks/prisma-cloud-go)

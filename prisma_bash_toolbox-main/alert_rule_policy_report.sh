@@ -4,7 +4,7 @@
 # shows all the policies mapped to alert rules in the Prisma Cloud Enterprise edition console for alert rule troubleshooting and routing
 
 source ./secrets/secrets
-source ./func/var_check_func.sh
+source ./func/func.sh
 
 quick_check () {
   res=$?

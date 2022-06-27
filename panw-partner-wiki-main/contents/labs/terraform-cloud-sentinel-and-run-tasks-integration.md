@@ -72,7 +72,7 @@ policy "prismacloud" {
 ```
 * Once that's been done in your text file hit the next button in Prisma Cloud. 
 * This will bring up another policy. Copy and paste this below the above policy and write a note that this will be saved as `prismacloud.sentinel`. 
-* We don't need to alter this at all policy at all. It should look similar to the below code block:
+* If you copy from the console UI you won't need to alter the below policy. If you copy from this tutorial, replace the values in the `<>` brackets with the correct values. 
 
 ```hcl 
 import "http"
@@ -81,9 +81,9 @@ import "json"
 param PRISMA_ACCESS_KEY
 param PRISMA_SECRET_KEY
 
-loginReq = http.request("https://api2.prismacloud.io/login").with_body(json.marshal({"username": PRISMA_ACCESS_KEY, "password": PRISMA_SECRET_KEY})).with_header("Content-Type", "application/json")
+loginReq = http.request("https://api<app_stack_number>.prismacloud.io/login").with_body(json.marshal({"username": PRISMA_ACCESS_KEY, "password": PRISMA_SECRET_KEY})).with_header("Content-Type", "application/json")
 loginResp = json.unmarshal(http.post(loginReq).body)
-req = http.request("https://api2.prismacloud.io/bridgecrew/api/v1/tfCloud/sentinel/ws-wjkHiazBi7asooiM").with_header("Authorization", loginResp.token)
+req = http.request("https://api<app_stack_number>.prismacloud.io/bridgecrew/api/v1/tfCloud/sentinel/<TF_WORKSPACE_ID>").with_header("Authorization", loginResp.token)
 resp = json.unmarshal(http.get(req).body)
 if (length(resp.violations) > 0) {
     print("Violations:\n")

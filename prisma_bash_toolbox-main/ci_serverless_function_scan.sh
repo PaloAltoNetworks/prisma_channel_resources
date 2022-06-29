@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Written by Kyle Butler
 # Use to surface the apis and permissions for serverless functions during CI. Recommending to use the CI_local_repo_scan.sh script along with this one to get vulnerability information about the workload. 
 # ZIPS ALL THE FILES IN THE CURRENT WORKING DIRECTORY TO SCAN will output a temp zip file.

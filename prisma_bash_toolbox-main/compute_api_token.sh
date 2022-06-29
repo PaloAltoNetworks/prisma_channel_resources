@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # written by Kyle Butler
 # requires jq to be installed
 

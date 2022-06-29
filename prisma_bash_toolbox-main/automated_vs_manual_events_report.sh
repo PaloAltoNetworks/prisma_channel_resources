@@ -12,11 +12,11 @@ TIME_AMOUNT="24"
 
 
 ########### END OF USER CONFIG ############################
-pce-var-check
+
 
 source ./secrets/secrets
 source ./func/func.sh
-
+pce-var-check
 
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

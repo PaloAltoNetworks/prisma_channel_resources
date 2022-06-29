@@ -1,14 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Author Kyle Butler
 # Requires jq to be installed on the system you are running the script: https://stedolan.github.io/jq/download/ 
 
-# Instructions to install jq:
-# Ubuntu:
-# sudo apt-get install jq 
-# MacOS: 
-# brew install jq
-# RHEL
-# yum install jq
 
 
 

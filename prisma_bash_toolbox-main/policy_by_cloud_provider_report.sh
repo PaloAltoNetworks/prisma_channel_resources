@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/env bash
 # requires jq
 # written by Kyle Butler
 # shows all the policies for a particular cloud provider

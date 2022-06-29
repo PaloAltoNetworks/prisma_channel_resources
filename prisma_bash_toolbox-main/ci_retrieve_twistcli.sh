@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # author Kyle Butler
 # for CI 
 # downloads the twistcli tool from the Prisma Cloud Compute side of the console. 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # written by Kyle Butler
 # use to validate the prisma variable assignements in ./secrets/secrets
 

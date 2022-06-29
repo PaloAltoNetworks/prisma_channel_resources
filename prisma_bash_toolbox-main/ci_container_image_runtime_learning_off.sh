@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Written by Kyle Butler
 # Turns off the runtime workload learning process. For use during CI or during staging. 
 source ./secrets/secrets

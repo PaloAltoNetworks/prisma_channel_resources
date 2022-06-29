@@ -38,15 +38,15 @@ tl-var-check
 # Check to ensure unzip is installed and available
 unzip -v
 
-quick_check "unzip must be installed prior to running"
+quick_check "unzip"
 
-
+echo "checking to ensure an entrypoint is defined in the Dockerfile"
 # Checks to ensure the Dockerfile ends with an entrypoint or CMD
 tail -3 $PATH_TO_DOCKERFILE | grep -P "(ENTRYPOINT \[|CMD \[)"
     
 
 # Dockerfile must include either a CMD or ENTRYPOINT see documentation: https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/install_defender/install_rasp_defender.html
-quick_check "an entrypoint must be included in your docker file to do the embedding."
+quick_check "entrypoint"
 
 echo
 echo

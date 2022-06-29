@@ -55,6 +55,8 @@ quick_check "/search/event"
 NUMBER_OF_EVENTS=$(printf '%s' "$EVENT_RESPONSE" | jq '.data.items[] | .id' | wc -l)
 NUMBER_OF_MANUAL_EVENTS=$(printf '%s' "$EVENT_RESPONSE" | jq '.data.items[]| select(.ip != null) | .ip ' | wc -l)
 NUMBER_OF_AUTOMATED_EVENTS=$(printf '%s' "$EVENT_RESPONSE" | jq '.data.items[]| select(.ip == null) | .ip ' | wc -l)
+PERCENTAGE_MANUAL=$(bc -l <<< "($NUMBER_OF_MANUAL_EVENTS/$NUMBER_OF_EVENTS)* 100")
+PERCENTAGE_AUTOMATED=$(bc -l <<< "($NUMBER_OF_AUTOMATED_EVENTS/$NUMBER_OF_EVENTS)* 100")
 
 METRICS_JSON=$(cat <<EOF
 {
@@ -63,10 +65,13 @@ METRICS_JSON=$(cat <<EOF
  "reportTimeAmount": "$TIME_AMOUNT",
  "manualEvents": "$NUMBER_OF_MANUAL_EVENTS",
  "automatedEvents": "$NUMBER_OF_AUTOMATED_EVENTS",
- "totalEvents": "$NUMBER_OF_EVENTS"
+ "totalEvents": "$NUMBER_OF_EVENTS",
+ "percentageEventsManual": "$PERCENTAGE_MANUAL",
+ "percentageEventsAutomated": "$PERCENTAGE_AUTOMATED"
 }
 EOF
 )
+
 
 
 printf '%s' "$METRICS_JSON" | jq

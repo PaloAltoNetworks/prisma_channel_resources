@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Author Kyle Butler
 # For CI pipeline
 # Scans VM Image as it's being built using something like packer

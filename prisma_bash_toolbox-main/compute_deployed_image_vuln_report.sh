@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Written by Kyle Butler
 # Will pull down a vulnerability report for all deployed images visable to the prisma cloud compute platform

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Written by Kyle Butler 
 # 12.9.2021

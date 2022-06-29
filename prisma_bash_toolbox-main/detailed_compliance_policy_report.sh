@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # written by Kyle Butler
 
 # Pulls all the policies associated with a particular compliance framework in Prisma Cloud

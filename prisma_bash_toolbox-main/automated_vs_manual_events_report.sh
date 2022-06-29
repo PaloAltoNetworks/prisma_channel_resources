@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Written by Kyle Butler
 # Shows how many events are performed by a user vs automation task
 

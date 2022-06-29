@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Author Kyle Butler
 # For CI pipeline
 # Scans container after being built from a Dockerfile

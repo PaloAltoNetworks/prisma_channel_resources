@@ -9,6 +9,11 @@ TIME_UNIT="hour"
 # choose integer amount
 TIME_AMOUNT="24"
 
+
+
+########### END OF USER CONFIG ############################
+pce-var-check
+
 source ./secrets/secrets
 source ./func/func.sh
 

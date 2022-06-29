@@ -49,7 +49,8 @@ EVENT_RESPONSE=$(curl --request POST \
                        --header 'content-type: application/json; charset=UTF-8' \
                        --header "x-redlock-auth: $PC_JWT" \
                        --data "$EVENT_SEARCH")
-
+                       
+quick_check "/search/event"                       
 
 NUMBER_OF_EVENTS=$(printf '%s' "$EVENT_RESPONSE" | jq '.data.items[] | .id' | wc -l)
 NUMBER_OF_MANUAL_EVENTS=$(printf '%s' "$EVENT_RESPONSE" | jq '.data.items[]| select(.ip != null) | .ip ' | wc -l)

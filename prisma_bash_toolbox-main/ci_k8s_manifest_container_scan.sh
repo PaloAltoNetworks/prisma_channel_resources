@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Author Kyle Butler
 # For CI pipeline
 # Scan all the container images in a k8s manifest prior to deployment

@@ -76,7 +76,7 @@ chmod a+x ./twistcli
 			      $(basename -a $PATH_TO_DOCKERFILE)
 
 
-quick_check "App Embedded twistcli command failed."
+quick_check "embedding"
 
 
 # Unzips the package app embedded defender package along with the modified Dockerfile

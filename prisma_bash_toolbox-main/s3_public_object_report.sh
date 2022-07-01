@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Written by Kyle Butler
-# Shows how many events are performed by a user vs automation task
+# Pulls the URLS for the Public objects found in an s3 bucket and also shows malware, data patterns...etc. 
 
 
 

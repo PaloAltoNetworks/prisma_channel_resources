@@ -63,6 +63,14 @@ quick_check () {
   fi
 }
 
+var_response_check () {
+  if [[ $(printf '%s' "$1" | jq -r '. | keys | @sh') == "'err'" ]]; then
+    echo "request response is assigned to an err value: $(printf '%s' "$1" | jq -r '.err')" >&2;
+  elif [ -z "$1" ]; then
+    echo "null value in response"
+  fi
+}
+
 # function to check api request in for loop
 loop_response_check () {
   res=$?

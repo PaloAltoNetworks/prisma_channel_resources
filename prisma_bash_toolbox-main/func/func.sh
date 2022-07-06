@@ -58,16 +58,17 @@ quick_check () {
   if [ $res -eq 0 ]; then
     echo "$1 request succeeded"
   else
-    echo "$1 request failed error code: $res" >&2
+    echo "ERROR: $1 request failed error code: $res" >&2
     exit 1
   fi
 }
 
 var_response_check () {
   if [[ $(printf '%s' "$1" | jq -r '. | keys | @sh') == "'err'" ]]; then
-    echo "request response is assigned to an err value: $(printf '%s' "$1" | jq -r '.err')" >&2;
+    echo "ERROR: request response is assigned to an err value: $(printf '%s' "$1" | jq -r '.err')" >&2
+    exit 1
   elif [ -z "$1" ]; then
-    echo "null value in response"
+    echo "INFO: null response body"
   fi
 }
 

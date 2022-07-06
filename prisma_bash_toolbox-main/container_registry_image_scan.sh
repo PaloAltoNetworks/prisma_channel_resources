@@ -146,14 +146,16 @@ quick_check "/api/v1/authenticate"
 AUTH_TOKEN=$(printf %s $AUTH_RESPONSE | jq -r '.token')
 
 
-curl -H "Authorization: Bearer $AUTH_TOKEN" \
-     -H 'Content-Type: application/json' \
-     -X POST \
-     -d "$IMAGE_SCAN_REQUEST_PAYLOAD"\
-     $TL_CONSOLE/api/v1/registry/scan
+SCAN_REQUEST=$(curl -H "Authorization: Bearer $AUTH_TOKEN" \
+                    -H 'Content-Type: application/json' \
+                    -X POST \
+                    -d "$IMAGE_SCAN_REQUEST_PAYLOAD"\
+                    --url "$TL_CONSOLE/api/v1/registry/scan")
 
 
 quick_check "/api/v1/registry/scan"
+var_response_check "$SCAN_REQUEST"
+
 
 FULL_IMAGE_ID="$IMAGE_REGISTRY/$IMAGE_REPOSITORY:$IMAGE_TAG"
 
@@ -165,7 +167,7 @@ GET_ALL_IMAGES=$(curl -H "Authorization: Bearer $AUTH_TOKEN" \
                       $TL_CONSOLE/api/v1/registry/names)
 
 quick_check "/api/v1/registry/names"
-
+var_response_check "$GET_ALL_IMAGES"
 
 # Ensures there's a scan entry in the Prisma Compute Console under registries
 IMAGE_SCAN_CHECK=$(printf %s $GET_ALL_IMAGES | jq -r '.[]'| grep "$FULL_IMAGE_ID")

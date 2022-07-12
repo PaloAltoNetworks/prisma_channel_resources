@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Written by Kyle Butler
 # Reports all the files in a particular source type (VCS) which have errors/issues. 
+# Requires jq, curl, and bash
 
 
 source ./secrets/secrets

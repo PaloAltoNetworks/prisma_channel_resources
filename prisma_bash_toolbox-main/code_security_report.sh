@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Written by Kyle Butler
-# Scans Container images in a container registry if you've enabled that through the Prisma Cloud Compute in the registry settings. 
+# Reports all the files in a particular source type (VCS) which have errors/issues. 
 
 
 source ./secrets/secrets

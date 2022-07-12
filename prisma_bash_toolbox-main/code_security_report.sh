@@ -57,16 +57,17 @@ ERROR_FILES_PAYLOAD=$(cat <<EOF
 EOF
 )
 
-ERROR_FILES_ARRAY=$(curl --request POST \
+ERROR_FILES_REQUEST=$(curl --request POST \
                          --url "$PC_APIURL/code/api/v1/errors/files" \
                          --header "authorization: $PC_JWT" \
                          --header 'content-type: application/json' \
                          --data "$ERROR_FILES_PAYLOAD")
 
 quick_check "/code/api/v1/errors/files"
+var_response_check "$ERROR_FILES_REQUEST"
 
-FILE_PATH_ARRAY=($(printf '%s' "$ERROR_FILES_ARRAY" | jq -r '.data[].filePath' ))
-FILE_ERROR_COUNT_ARRAY=($(printf '%s' "$ERROR_FILES_ARRAY" | jq -r '.data[].errorsCount' ))
+FILE_PATH_ARRAY=($(printf '%s' "$ERROR_FILES_REQUEST" | jq -r '.data[].filePath' ))
+FILE_ERROR_COUNT_ARRAY=($(printf '%s' "$ERROR_FILES_REQUEST" | jq -r '.data[].errorsCount' ))
 
 for file_path in "${!FILE_PATH_ARRAY[@]}"; do
 
@@ -83,7 +84,7 @@ EOF
 
 for offset in $(seq 0 10 "${FILE_ERROR_COUNT_ARRAY[file_path]}"); do
 
-echo "${FILE_ERROR_COUNT_ARRAY[file_path]} error counts in file. offset is $offset"
+echo "${FILE_ERROR_COUNT_ARRAY[file_path]} error counts in ${FILE_PATH_ARRAY[file_path]}. offset is $offset"
 
 curl -s --request POST \
      --url "$PC_APIURL/code/api/v1/errors/file?limit=10&offset=$offset" \

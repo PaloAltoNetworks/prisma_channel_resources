@@ -111,7 +111,7 @@ fi
 done
 REPORT_DATE=$(date  +%m_%d_%y)
 
-cat ./temp/*.json | jq -r '[.] | map({repo, filePath, frameworkType, status, author, date, runtimeId, errorId, scannerType, cveId}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > ./reports/"code_security_report_$REPORT_DATE.csv"
+cat ./temp/*.json | jq -r  jq -n  -r '[inputs] | map({repo, filePath, frameworkType, status, author, date, runtimeId, errorId, scannerType, cveId}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > ./reports/"code_security_report_$REPORT_DATE.csv"
 
 {
 rm -rf ./temp/*

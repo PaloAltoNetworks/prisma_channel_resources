@@ -63,6 +63,8 @@ ERROR_FILES_ARRAY=$(curl --request POST \
                          --header 'content-type: application/json' \
                          --data "$ERROR_FILES_PAYLOAD")
 
+quick_check "/code/api/v1/errors/files"
+
 FILE_PATH_ARRAY=($(printf '%s' "$ERROR_FILES_ARRAY" | jq -r '.data[].filePath' ))
 FILE_ERROR_COUNT_ARRAY=($(printf '%s' "$ERROR_FILES_ARRAY" | jq -r '.data[].errorsCount' ))
 

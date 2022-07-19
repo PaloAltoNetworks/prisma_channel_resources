@@ -22,12 +22,15 @@ BC_API_KEY="<BC_API_KEY>"
 
 REPORT_DATE=$(date  +%m_%d_%y)
 
-curl --request GET \
-     --url https://www.bridgecrew.cloud/api/v1/policies/table/data \
-     --header 'Accept: application/json' \
-     --header "authorization: $BC_API_KEY" > ./temp/bridgecrew_policies_table_data.json
+BRIDGECREW_POLICY_RESPONSE=$(curl --request GET \
+                                   --url https://www.bridgecrew.cloud/api/v1/policies/table/data \
+                                   --header 'Accept: application/json' \
+                                   --header "authorization: $BC_API_KEY")
+                                   
+quick_check "https://www.bridgecrew.cloud/api/v1/policies/table/data"
+     
 
-
+printf '%s' "$BRIDGECREW_POLICY_RESPONSE" > ./temp/bridgecrew_policies_table_data.json
 
 cat ./temp/bridgecrew_policies_table_data.json | jq --arg DATE "$REPORT_DATE" '[.data[] | select(.code != null) | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: .code}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "  false", withIac: "true"}, type: "Config" }, severity: .severity }]' | sed 's/\"severity\"\: \"CRITICAL\"/\"severity\"\: \"HIGH\"  /g' > ./temp/transformed_code_policies.json
 
@@ -64,15 +67,19 @@ PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
 
 for policy_file in ./temp/policy_*.json; do
 
-
 curl --request POST \
      --header 'content-type: application/json; charset=UTF-8' \
      --url "$PC_APIURL/policy" \
      --header "x-redlock-auth: $PC_JWT" \
      --data-binary @"$policy_file"
 
+quick_check "/policy"
+
+printf '\n%s\n' "policy uploaded" 
+
 done
 
+# clean up task
 {
 rm ./temp/*.json
 }

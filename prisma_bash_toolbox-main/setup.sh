@@ -62,7 +62,7 @@ if [ -z "$PC_SECRETKEY" ] || [ -z "$PC_ACCESSKEY" ] || [ -z "$PC_APIURL" ] || [ 
           COMPUTE_SELF_HOSTED="FALSE"
       fi
   else
-        printf '\n%s/n' "Is it okay to reconfigure the ./secrets/secrets file?"
+        printf '\n%s/n' "Is it okay to reconfigure the ./secrets/secrets file? (y/n)"
         read -r VERIFY
         if [ "$VERIFY" != "${VERIFY#[Yy]}" ]
           then
@@ -96,7 +96,7 @@ if [[ $COMPUTE_SELF_HOSTED == "TRUE" ]]
     printf '\n%s\n' "enter your prisma cloud api url (found here https://prisma.pan.dev/api/cloud/api-urls):"
     read -r PC_APIURL
     pce-var-check
-    printf '\n%s\n' "enter your prisma cloud compute api url (found under compute > settings > system > utilities):"
+    printf '\n%s\n' "enter your prisma cloud compute api url (found  in your Prisma Cloud Console under compute > system > utilities > path-to-console):"
     read -r TL_CONSOLE
     TL_USER=$PC_ACCESSKEY
     TL_PASSWORD=$PC_SECRETKEY

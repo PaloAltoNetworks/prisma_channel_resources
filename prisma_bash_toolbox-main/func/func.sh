@@ -21,6 +21,7 @@ if [[ ! $PC_SECRETKEY =~ $PC_SECRETKEY_MATCH ]]
      else
         printf '\n%s' "try running the setup.sh script"
         exit 1
+     fi
 fi
 
 if [[ ! $PC_ACCESSKEY =~ $PC_ACCESSKEY_MATCH ]]
@@ -33,6 +34,7 @@ if [[ ! $PC_ACCESSKEY =~ $PC_ACCESSKEY_MATCH ]]
      else
         printf '\n%s' "try running the setup.sh script"
         exit 1
+     fi
 fi
 
 
@@ -46,6 +48,7 @@ if [[ ! $PC_APIURL =~ $PC_APIURL_MATCH ]]
      else
         printf '\n%s' "try running the setup.sh script"
         exit 1
+     fi
 fi
 }
 
@@ -61,6 +64,7 @@ if [[ ! $TL_CONSOLE =~ $TL_CONSOLE_MATCH ]]
      else
         printf '\n%s' "try running the setup.sh script"
         exit 1
+     fi
 fi
 
 if [ -z "$TL_USER" ]

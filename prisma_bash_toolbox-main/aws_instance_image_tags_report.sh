@@ -12,7 +12,7 @@ TAG_KEY_1="Supported By"
 TAG_KEY_2="Environment"
 TAG_KEY_3="Company"
 
-
+# END OF USER CONFIG #######
 
 
 source ./secrets/secrets

@@ -38,6 +38,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 ### Prisma Quoting Selling Calculators and Scripts
 
 * [Prisma Cloud Enterprise Pricing Guide](https://www.paloaltonetworks.com/resources/guides/prisma-cloud-enterprise-edition-licensing-guide)
+* [Prisma Cloud Code Security Sizing Script using Checkov](https://github.com/PaloAltoNetworks/pcs-sizing-scripts/tree/main/code-security)
 * [Prisma Cloud Compute Edition Pricing Guide](https://www.paloaltonetworks.com/resources/guides/prisma-cloud-compute-edition-licensing-guide)
 * [Prisma Cloud Sizing Script for Calculator](https://github.com/PaloAltoNetworks/pcs-sizing-scripts)
 * [Prisma Cloud Credit Calculator](https://www.paloaltonetworks.com/content/dam/pan/en_US/partners/products/docs/prisma/prisma-cloud-licensing-calculator.xlsx)

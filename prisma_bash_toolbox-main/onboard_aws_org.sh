@@ -4,8 +4,8 @@
 # REQUIRES Jq to be installed
 # Written by Kyle Butler
 
-# This onboard and AWS org through the prisma cloud apis. It does not cover all the possible usecases. Example: excluding specific accounts within the org. 
-
+# This onboard an AWS org into Prisma Cloud through the prisma cloud apis. It does not cover all the possible usecases. Example: excluding specific accounts within the org. 
+# Full api documentaiton on this endpoint can be found here: https://prisma.pan.dev/api/cloud/cspm/cloud-accounts/#operation/add-cloud-account
 source ./secrets/secrets
 source ./func/func.sh
 

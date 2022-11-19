@@ -85,7 +85,7 @@ EOF
 
 curl -v \
      --request POST \
-     --url 'https://api3.prismacloud.io/cloud/aws' \
+     --url "$PC_APIURL/cloud/aws" \
      --header 'accept: application/json; charset=UTF-8' \
      --header 'content-type: application/json' \
      --header "x-redlock-auth: $PC_JWT"  \

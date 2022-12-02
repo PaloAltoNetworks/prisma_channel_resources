@@ -16,8 +16,9 @@ You understand that this is not a production ready deployment of Prisma Cloud Co
 
 ## Requirements
 
-Ubuntu 20.04 LTS Desktop VM
+Ubuntu 22.04 LTS Desktop VM
 
+Suggested hardware specs
 ```bash
 100 GB HD
 8 GB RAM
@@ -81,11 +82,12 @@ sudo usermod -aG docker $USER
 su $USER
 ```
 
-Install [Docker-Compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
+Install [Docker Compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)
 
 ```bash
-sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+chmod +x ~/.docker/cli-plugins/docker-compose
 ```
 <br />
 
@@ -258,7 +260,7 @@ ff02::2 ip6-allrouters
 * Once you're in the deployment folder, we'll temporarily deploy gitea and it's database to generate an Oauth token. After running the below command keep terminal open and allow everything to run. 
 
 ```bash
-docker-compose --env-file .secrets -p gitea-drone up gitea gitea-db
+docker compose --env-file .secrets -p gitea-drone up gitea gitea-db
 ```
 After running the above command open firefox and navigate to `http://gitea:3000` to finish the installation and register a user. 
 * go ahead and click install at the bottom of the gitea page. All the settings have been preconfigured for you. 
@@ -271,7 +273,7 @@ After running the above command open firefox and navigate to `http://gitea:3000`
 Now you'll deploy the rest of the services. In your terminal session stop docker compose by hitting `ctrl + c` on your keyboard. 
 Wait for the services to stop, then:
 * edit the `.secrets` file again using the command `nano ./secrets` and fill in the last two variables under the basic configuration options: `DRONE_GITEA_CLIENT_ID` and `DRONE_GITEA_CLIENT_SECRET`. You'll use the Client ID & Client Secret you generated in Gitea. 
-* `docker-compose --env-file .secrets -p gitea-drone up -d`
+* `docker compose --env-file .secrets -p gitea-drone up -d`
 * This above command will start everything in detached mode so you won't see any logging. 
 * Navigate to gitea in your firefox browser and create a new repository named `ci-vuln-scan`. Select a license and check add a READ_ME.md file. 
 * Then navigate to `http://drone:8000` to finish the connection. 

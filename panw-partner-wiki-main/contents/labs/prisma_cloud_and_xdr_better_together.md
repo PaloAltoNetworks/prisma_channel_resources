@@ -107,10 +107,10 @@ Here's the process to follow:
 
 * First create a collection scoped to the environment you'd like this policy to apply to. [Documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/configure/collections)
 * Then create a custom runtime rule scoped to your new collection. Under Defend > Runtime in the Prisma Cloud Console. 
-* Name of the rule: Alllow trusted process <process_name>
-* Create a customer rule with the type: filesystem
+* Name of the rule: Alllow trusted process XDR (pmd)
+* Create a custom rule with the type: filesystem
 * Set to log as Audit with the effect as alert. 
-* Message should be: Trusted <process_name> allowed
+* Message should be: Trusted XDR (pmd) allowed
 * Rule should be: `(proc.name = "pmd" or proc.pname = "pmd") and file.dir startswith "/opt/traps"`
 
 This allows for the xdr agent to writes files to the directory path that starts with `/opt/traps/` and also allows the xdr agent to spawn child processes to writes files to that directory. This same process can be used of course with any trusted process in a k8s cluster where this type alert is being seen and the process in known to the organization! 

@@ -2,8 +2,6 @@
 
 written by Kyle Butler
 
-last edited by John Chavanne
-
 Requirements:
 * Prisma Cloud Compute edition deployed; see Deployment Guide here: [Minikube Prisma Cloud Compute Partner VM Lab Deployment Instructions](Prisma_Cloud_Compute_Minikube_Lab.md)
 * Container defender deployed in environment where you'll be runnning the DVWA app. 

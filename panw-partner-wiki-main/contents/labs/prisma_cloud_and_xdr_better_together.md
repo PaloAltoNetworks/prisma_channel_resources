@@ -86,12 +86,36 @@ I'll write up a sample API script and post it here in a bit.
 
 So here's the scenario. In the default Host policy runtime rules under networking and spoofing ncat comes up as a tool that could be used for these purposes. However, the XDR utilizes ncat for forensic analysis. Steven de Boer was asked to come up with a custom rule that would allow the XDR agent to use the ncat tool but not create an alert in the Prisma Console. Here's how he did it!
 
-* Create custom runtime rule inder Defend > Runtime in the Prisma Compute console. 
+* Create custom runtime rule under Defend > Runtime in the Prisma Compute console. 
 * Name Allow ncat to be executed by XDR agent
 * Message: `%proc.name is used, it's parent is %proc.pname`
 * Rule should be: `proc.name = "ncat" and (proc.pname = "pmd")`
 
 What this does is it allows the XDR agent access to the `ncat` tool and will ensure there's no alert generated when it uses the binary. However if a user were to attempt to use it then the alert or prevententive behavior would still occur. 
+
+## Finding #9 - In collaboration with Brandon Goldstein (Prisma Cloud Sr. Customer Success Engineer) - Ability to deploy Cortex XDR agent and Prisma Cloud defender in K8s cluster. Thank you Brandon Goldstein!
+
+Here's the scenario: 
+
+Alerts on suspicous binary - audit type file system. 
+
+Context: 
+
+Cortex XDR is able to be deployed as a daemonset into a k8s cluster. The XDR agent writes encrypted files to a specific directory which gets flagged as suspicious by the Prisma Cloud Defender. We want to ensure that a trusted process is able to write files to a given directory path. How do you ensure there aren't alerts created and also see that the exception is logged?
+
+Here's the process to follow:
+
+* First create a collection scoped to the environment you'd like this policy to apply to. [Documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/configure/collections)
+* Then create a custom runtime rule scoped to your new collection. Under Defend > Runtime in the Prisma Cloud Console. 
+* Name of the rule: Alllow trusted process <process_name>
+* Create a customer rule with the type: filesystem
+* Set to log as Audit with the effect as alert. 
+* Message should be: Trusted <process_name> allowed
+* Rule should be: `(proc.name = "pmd" or proc.pname = "pmd") and file.dir startswith "/opt/traps"`
+
+This allows for the xdr agent to writes files to the directory path that starts with `/opt/traps/` and also allows the xdr agent to spawn child processes to writes files to that directory. This same process can be used of course with any trusted process in a k8s cluster where this type alert is being seen and the process in known to the organization! 
+
+
 
 ## Discussions topics we're working on. 
 

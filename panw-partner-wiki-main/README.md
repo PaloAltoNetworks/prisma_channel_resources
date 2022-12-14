@@ -19,6 +19,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 ### Prisma Cloud Risk Assessment Resources
 
+* [Link to Prisma Cloud Technical Certifications](https://www.paloaltonetworks.com/legal-notices/trust-center/tech-certs)
 * [Link to the Self-Paced Learning (requires a Prisma Cloud License)](https://www.paloaltonetworks.com/services/education/digital-learning#Prisma)
 * [NextWave Deal Registration Form](https://identity.paloaltonetworks.com/idp/startSSO.ping?PartnerSpId=https%3A%2F%2Fsaml.salesforce.com.prodpc&InErrorResource=http%3A%2F%2Fwww.paloaltonetworks.com%2Ferrors%2Fpartner-login-error.html&TargetResource=https%3A%2F%2Fpaloaltonetworkssupport.force.com%2FNextWavePartnerProgram%2Fs%2Fnewdealregistration)
 * [Prisma Terraform Provider](https://registry.terraform.io/providers/PaloAltoNetworks/prismacloud/latest/docs/data-sources/ExampleUsage)

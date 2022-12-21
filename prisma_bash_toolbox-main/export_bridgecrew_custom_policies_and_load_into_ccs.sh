@@ -34,6 +34,7 @@ quick_check "https://www.bridgecrew.cloud/api/v1/policies/table/data"
 
 printf '%s' "$BRIDGECREW_POLICY_RESPONSE" > ./temp/bridgecrew_policies_table_data.json
 
+# Takes the response file and filters the response on policies which were written in yaml. 
 cat ./temp/bridgecrew_policies_table_data.json | jq --arg DATE "$REPORT_DATE" '[.data[] | select(.code != null) | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: .code}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "  false", withIac: "true"}, type: "Config" }, severity: .severity }]' | sed 's/\"severity\"\: \"CRITICAL\"/\"severity\"\: \"HIGH\"  /g' > ./temp/transformed_code_policies.json
 
 NUMBER_OF_POLICIES=$(cat ./temp/transformed_code_policies.json | jq '. |length')

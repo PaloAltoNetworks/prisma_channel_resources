@@ -80,6 +80,7 @@ _IaC/Container Scanning for CI/CD or Dev Use_
 
 _Other Prisma Resources_
 
+* [Puresec Serverless Security](https://github.com/puresec/awesome-serverless-security)
 * [Scott McAndrew's Dude where's my compliance for Prisma Cloud](https://github.com/scottymcandrew/dude_wheres_my_compliance)
 * [Prisma Enhanced Remediations](https://github.com/PaloAltoNetworks/Prisma-Enhanced-Remediation)
 * [Prisma Cloud Policies - For API Import](https://github.com/PaloAltoNetworks/prisma-cloud-policies)

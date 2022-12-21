@@ -11,6 +11,8 @@
 # Find the Prisma Cloud Enterprise Edition API URL specific to your deployment: https://prisma.pan.dev/api/cloud/api-url
 #
 # SECURITY RECOMMENDATIONS:
+# Exports all the custom policies written as code from the BridgeCrew console and imports them into prisma cloud. 
+# As of Dec 21st 20222 only the custom policies written in YAML syntax can be exported this way. 
 
 source ./secrets/secrets
 source ./func/func.sh

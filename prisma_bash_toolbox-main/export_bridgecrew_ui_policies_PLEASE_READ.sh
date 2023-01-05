@@ -96,7 +96,7 @@ metadata:
   severity: $severity
 scope:
   provider: $provider
-  definition:
+definition:
 EOF
 )
 
@@ -153,7 +153,7 @@ metadata:
   severity: $severity
 scope:
   provider: $provider
-  definition:
+definition:
 EOF
 )
 
@@ -218,7 +218,7 @@ metadata:
   severity: $severity
 scope:
   provider: $provider
-  definition:
+definition:
 EOF
 )
 
@@ -284,7 +284,7 @@ metadata:
   severity: $severity
 scope:
   provider: $provider
-  definition:
+definition:
 EOF
 )
 
@@ -341,7 +341,7 @@ metadata:
   severity: $severity
 scope:
   provider: $provider
-  definition:
+definition:
 EOF
 )
 
@@ -415,7 +415,7 @@ metadata:
   severity: $severity
 scope:
   provider: $provider
-  definition:
+definition:
 EOF
 )
 
@@ -473,7 +473,7 @@ metadata:
   severity: $severity
 scope:
   provider: $provider
-  definition:
+definition:
 EOF
 )
 

@@ -117,10 +117,10 @@ EOF
 
 # create a policy code file
 
-CODE=$(printf '%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_AND_ARRAY" "$BC_UI_EXPORT_PARAMETERS" | awk '{printf "%s\\n", $0}')
+CODE=$(printf '%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_AND_ARRAY" "$BC_UI_EXPORT_PARAMETERS")
 
 # final transform
-jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '[. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }]' < "$bc_ui_policy" > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
+jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }' < "$bc_ui_policy" | sed 's/\"severity\"\: \"CRITICAL\"/\"severity\"\: \"HIGH\"  /g'  > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
 
 # If there are no  "or" conditions in the policy but multiple AND statements
   elif [[ -n "$(jq '.conditionQuery.and[]?' < "$bc_ui_policy" )" ]] && [[ -z "$(jq '.conditionQuery.and[]?.or[]?' < "$bc_ui_policy" )" ]]; then
@@ -178,10 +178,10 @@ printf '%s\n' "$BC_UI_EXPORT_PARAMETERS" >> "./temp/$(printf '%03d_%s' "$conditi
 
 FULL_CONDITIONS=$(cat ./temp/0*_"$BC_POLICY_FILE_NAME_ONLY")
 
-CODE=$(printf '%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_AND_ARRAY" "$FULL_CONDITIONS" | awk '{printf "%s\\n", $0}')
+CODE=$(printf '%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_AND_ARRAY" "$FULL_CONDITIONS" )
 
 # final transform
-jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '[. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }]' < "$bc_ui_policy" > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
+jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }' < "$bc_ui_policy" |sed 's/\"severity\"\: \"CRITICAL\"/\"severity\"\: \"HIGH\"  /g' > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
 
 
 done
@@ -244,10 +244,10 @@ printf '%s\n' "$BC_UI_EXPORT_PARAMETERS" >> "./temp/$(printf '%03d_%s' "$conditi
 
 FULL_CONDITIONS=$(cat ./temp/0*_"$BC_POLICY_FILE_NAME_ONLY")
 
-CODE=$(printf '%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_OR_ARRAY" "$FULL_CONDITIONS" | awk '{printf "%s\\n", $0}')
+CODE=$(printf '%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_OR_ARRAY" "$FULL_CONDITIONS")
 
 # final transform
-jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '[. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }]' < "$bc_ui_policy" > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
+jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }' < "$bc_ui_policy" | sed 's/\"severity\"\: \"CRITICAL\"/\"severity\"\: \"HIGH\"  /g' > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
 
 done
 
@@ -375,10 +375,10 @@ done
 FULL_AND_CONDITIONS=$(cat ./temp/and_0*_"$BC_POLICY_FILE_NAME_ONLY")
 FULL_NESTED_OR_CONDITIONS=$(cat ./temp/or_0*_"$BC_POLICY_FILE_NAME_ONLY")
 
-CODE=$(printf '%s\n%s\n%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_AND_ARRAY" "$FULL_AND_CONDITIONS" "$BC_UI_EXPORT_NESTED_OR_ARRAY" "$FULL_NESTED_OR_CONDITIONS" | awk '{printf "%s\\n", $0}')
+CODE=$(printf '%s\n%s\n%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_AND_ARRAY" "$FULL_AND_CONDITIONS" "$BC_UI_EXPORT_NESTED_OR_ARRAY" "$FULL_NESTED_OR_CONDITIONS")
 
 # final transform
-jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '[. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }]' < "$bc_ui_policy" > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
+jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }' < "$bc_ui_policy" |sed 's/\"severity\"\: \"CRITICAL\"/\"severity\"\: \"HIGH\"  /g' > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
 
 
 # if there's multiple "or" statements between policy condtions and nested "and" statements. Currently will only work with two layers
@@ -507,10 +507,10 @@ done
 FULL_OR_CONDITIONS=$(cat ./temp/or_0*_"$BC_POLICY_FILE_NAME_ONLY")
 FULL_NESTED_AND_CONDITIONS=$(cat ./temp/and_0*_"$BC_POLICY_FILE_NAME_ONLY")
 
-CODE=$(printf '%s\n%s\n%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_OR_ARRAY" "$FULL_OR_CONDITIONS" "$BC_UI_EXPORT_NESTED_AND_ARRAY" "$FULL_NESTED_AND_CONDITIONS" | awk '{printf "%s\\n", $0}')
+CODE=$(printf '%s\n%s\n%s\n%s\n%s\n' "$BC_UI_EXPORT" "$BC_UI_EXPORT_OR_ARRAY" "$FULL_OR_CONDITIONS" "$BC_UI_EXPORT_NESTED_AND_ARRAY" "$FULL_NESTED_AND_CONDITIONS" )
 
 # final transform
-jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '[. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }]' < "$bc_ui_policy" > "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
+jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '. | {cloudType: .provider, complianceMetadata: [], description: .guideline, labels: [], name: (.title + "_" + $DATE), policySubTypes: ["build"], policyType: "config", recommendation: "", rule: { children: [{metadata: {code: $CODE}, type: "build", recommendation: ""}], name:  (.title + "_" + $DATE), parameters: {savedSearch: "false", withIac: "true"}, type: "Config" }, severity: .severity }' < "$bc_ui_policy"  | sed 's/\"severity\"\: \"CRITICAL\"/\"severity\"\: \"HIGH\"  /g'> "./temp/finished_$BC_POLICY_FILE_NAME_ONLY"
 
 
 fi
@@ -545,8 +545,8 @@ read -r ANSWER
 if [ "$ANSWER" != "${ANSWER#[Yy]}" ]
   then
         printf '\n%s\n' "Uploading the policies to the Prisma Console"
-
-        for policy_file in ./temp/finished_*.json; do
+        POLICIES="./temp/finished_*.json"
+        for policy_file in $POLICIES; do
 
                 curl --request POST \
                      --header 'content-type: application/json; charset=UTF-8' \

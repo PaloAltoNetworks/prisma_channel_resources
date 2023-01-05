@@ -77,9 +77,9 @@ BC_POLICY_FILE_NAME_ONLY=$(printf '%s' "$bc_ui_policy" | sed 's/\.\/temp\///g')
 
 title=$(jq '.title' < "$bc_ui_policy")
 guideline=$(jq '.guideline' < "$bc_ui_policy")
-category=$(jq '.category' < "$bc_ui_policy")
+category=$(jq '.category' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 severity=$(jq '.pcSeverity' < "$bc_ui_policy")
-provider=$(jq '.provider' < "$bc_ui_policy")
+provider=$(jq '.provider' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 cond_type=$(jq '.conditionQuery.cond_type' < "$bc_ui_policy")
 resource_types=$(jq '.conditionQuery.resource_types[]' < "$bc_ui_policy")
 attribute=$(jq '.conditionQuery.attribute' < "$bc_ui_policy")
@@ -94,8 +94,8 @@ metadata:
   guidelines: $guideline
   category: $category
   severity: $severity
-  scope:
-    provider: $provider
+scope:
+  provider: $provider
   definition:
 EOF
 )
@@ -132,9 +132,9 @@ number_of_conditions_minus_one=$(( "$number_of_conditions" - 1))
 
 title=$(jq '.title' < "$bc_ui_policy")
 guideline=$(jq '.guideline' < "$bc_ui_policy")
-category=$(jq '.category' < "$bc_ui_policy")
+category=$(jq '.category' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 severity=$(jq '.pcSeverity' < "$bc_ui_policy")
-provider=$(jq '.provider' < "$bc_ui_policy")
+provider=$(jq '.provider' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 
 
 cond_type=$(jq --argjson condition "$condition" '.conditionQuery.and[$condition].cond_type' < "$bc_ui_policy")
@@ -151,8 +151,8 @@ metadata:
   guidelines: $guideline
   category: $category
   severity: $severity
-  scope:
-    provider: $provider
+scope:
+  provider: $provider
   definition:
 EOF
 )
@@ -197,9 +197,9 @@ number_of_conditions_minus_one=$(( "$number_of_conditions" - 1))
 
 title=$(jq '.title' < "$bc_ui_policy")
 guideline=$(jq '.guideline' < "$bc_ui_policy")
-category=$(jq '.category' < "$bc_ui_policy")
+category=$(jq '.category' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 severity=$(jq '.pcSeverity' < "$bc_ui_policy")
-provider=$(jq '.provider' < "$bc_ui_policy")
+provider=$(jq '.provider' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 
 
 cond_type=$(jq --argjson condition "$condition" '.conditionQuery.or[$condition].cond_type' < "$bc_ui_policy")
@@ -216,8 +216,8 @@ metadata:
   guidelines: $guideline
   category: $category
   severity: $severity
-  scope:
-    provider: $provider
+scope:
+  provider: $provider
   definition:
 EOF
 )
@@ -263,9 +263,9 @@ filtered_and_bc_ui_policy=$(jq '[.conditionQuery.and[] | select(.or == null)]' <
 
 title=$(jq '.title' < "$bc_ui_policy")
 guideline=$(jq '.guideline' < "$bc_ui_policy")
-category=$(jq '.category' < "$bc_ui_policy")
+category=$(jq '.category' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 severity=$(jq '.pcSeverity' < "$bc_ui_policy")
-provider=$(jq '.provider' < "$bc_ui_policy")
+provider=$(jq '.provider' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 
 
 cond_type=$(printf '%s' "$filtered_and_bc_ui_policy" | jq --argjson and_condition "$and_condition" '.[$and_condition].cond_type')
@@ -282,8 +282,8 @@ metadata:
   guidelines: $guideline
   category: $category
   severity: $severity
-  scope:
-    provider: $provider
+scope:
+  provider: $provider
   definition:
 EOF
 )
@@ -321,9 +321,9 @@ filtered_bc_ui_policy_or=$(jq '[.conditionQuery.and[]?.or[]?]' < "$bc_ui_policy"
 
 title=$(jq '.title' < "$bc_ui_policy")
 guideline=$(jq '.guideline' < "$bc_ui_policy")
-category=$(jq '.category' < "$bc_ui_policy")
+category=$(jq '.category' < "$bc_ui_policy" |tr '[:upper:]' '[:lower:]')
 severity=$(jq '.pcSeverity' < "$bc_ui_policy")
-provider=$(jq '.provider' < "$bc_ui_policy")
+provider=$(jq '.provider' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 
 
 cond_type=$(printf '%s' "$filtered_bc_ui_policy_or" | jq --argjson or_condition "$or_condition" '.[$or_condition].cond_type')
@@ -339,8 +339,8 @@ metadata:
   guidelines: $guideline
   category: $category
   severity: $severity
-  scope:
-    provider: $provider
+scope:
+  provider: $provider
   definition:
 EOF
 )
@@ -394,9 +394,9 @@ filtered_or_bc_ui_policy=$(jq '[.conditionQuery.or[] | select(.and == null)]' < 
 
 title=$(jq '.title' < "$bc_ui_policy")
 guideline=$(jq '.guideline' < "$bc_ui_policy")
-category=$(jq '.category' < "$bc_ui_policy")
+category=$(jq '.category' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 severity=$(jq '.pcSeverity' < "$bc_ui_policy")
-provider=$(jq '.provider' < "$bc_ui_policy")
+provider=$(jq '.provider' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 
 
 cond_type=$(printf '%s' "$filtered_or_bc_ui_policy" | jq --argjson or_condition "$or_condition" '.[$or_condition].cond_type')
@@ -413,8 +413,8 @@ metadata:
   guidelines: $guideline
   category: $category
   severity: $severity
-  scope:
-    provider: $provider
+scope:
+  provider: $provider
   definition:
 EOF
 )
@@ -452,9 +452,9 @@ filtered_bc_ui_policy_and=$(jq '[.conditionQuery.or[]?.and[]?]' < "$bc_ui_policy
 
 title=$(jq '.title' < "$bc_ui_policy")
 guideline=$(jq '.guideline' < "$bc_ui_policy")
-category=$(jq '.category' < "$bc_ui_policy")
+category=$(jq '.category' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 severity=$(jq '.pcSeverity' < "$bc_ui_policy")
-provider=$(jq '.provider' < "$bc_ui_policy")
+provider=$(jq '.provider' < "$bc_ui_policy" | tr '[:upper:]' '[:lower:]')
 
 
 cond_type=$(printf '%s' "$filtered_bc_ui_policy_and" | jq --argjson and_condition "$and_condition" '.[$and_condition].cond_type')
@@ -471,8 +471,8 @@ metadata:
   guidelines: $guideline
   category: $category
   severity: $severity
-  scope:
-    provider: $provider
+scope:
+  provider: $provider
   definition:
 EOF
 )

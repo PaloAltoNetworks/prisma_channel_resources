@@ -32,7 +32,7 @@ source ./func/func.sh
 BC_API_KEY="<BC_API_KEY>"
 
 if [[ $BC_API_KEY = "<BC_API_KEY>" ]] || [[ -z $BC_API_KEY ]]; then
-  printf '%s\n' "The BridgeCrew API key is not assigned in the script, please assign the key BC_API_KEY var in the script and run again"
+  printf '%s\n' "The BridgeCrew API key is not assigned in the script, please assign the key to the BC_API_KEY var in the script and run again"
   exit 1
 fi
 

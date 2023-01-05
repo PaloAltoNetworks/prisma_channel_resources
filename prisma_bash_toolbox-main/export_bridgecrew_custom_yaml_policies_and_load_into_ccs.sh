@@ -20,6 +20,11 @@ source ./func/func.sh
 # CREATE BRIDGECREW API KEY IN BRIDGECREW CONSOLE AND ASSIGN IT TO THE VAR BELOW
 BC_API_KEY="<BC_API_KEY>"
 
+if [[ $BC_API_KEY = "<BC_API_KEY>" ]] || [[ -z $BC_API_KEY ]]; then
+  printf '%s\n' "The BridgeCrew API key is not assigned in the script, please assign the key BC_API_KEY var in the script and run again"
+  exit 1
+fi
+
 ###### NO EDITS BELOW NECESSARY
 
 REPORT_DATE=$(date  +%m_%d_%y)

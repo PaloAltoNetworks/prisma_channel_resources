@@ -55,7 +55,7 @@ REPORT_DATE=$(date  +%m_%d_%y)
 BC_UI_CUSTOM_POLICY_NUMBER=$(jq '[.data[] | select( .isCustom == true) | select(.code == null)] | length' < ./temp/bridgecrew_policies_table_data.json)
 
 # Reads the export out from the BC API and then seperates the UI policies into a seperate file
-jq '[.data[] | select( .isCustom == true) | select(.code == null)]' < ./temp/bridgecrew_policies_table_data.json > ./temp/bridgecrew_ui_policies.json
+jq -r '[.data[] | select( .isCustom == true) | select(.code == null)]' < ./temp/bridgecrew_policies_table_data.json > ./temp/bridgecrew_ui_policies.json
 
 # Subtract once so it works with seq and indexing for the "for" loops below
 BC_UI_NUMBER_MINUS_ONE=$(( "$BC_UI_CUSTOM_POLICY_NUMBER" - 1 ))

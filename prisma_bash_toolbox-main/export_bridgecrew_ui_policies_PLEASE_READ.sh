@@ -110,15 +110,32 @@ BC_UI_EXPORT_AND_ARRAY=$(cat <<EOF
 EOF
 )
 
+
+if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
+
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
      - cond_type: $cond_type
        resource_types:
          - $resource_types
        attribute: $attribute
        operator: $operator
-       value: $value
 EOF
 )
+
+  else
+
+BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
+       - cond_type: $cond_type
+         resource_types:
+           - $resource_types
+         attribute: $attribute
+         operator: $operator
+         value: $value
+EOF
+)
+
+fi
+
 
 # create a policy code file
 
@@ -167,15 +184,31 @@ BC_UI_EXPORT_AND_ARRAY=$(cat <<EOF
 EOF
 )
 
+
+if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
+
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
      - cond_type: $cond_type
        resource_types:
          - $resource_types
        attribute: $attribute
        operator: $operator
-       value: $value
 EOF
 )
+
+  else
+
+BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
+       - cond_type: $cond_type
+         resource_types:
+           - $resource_types
+         attribute: $attribute
+         operator: $operator
+         value: $value
+EOF
+)
+
+fi
 
 touch "./temp/$(printf '%03d_%s' "$condition" "$BC_POLICY_FILE_NAME_ONLY")"
 
@@ -232,15 +265,32 @@ BC_UI_EXPORT_OR_ARRAY=$(cat <<EOF
 EOF
 )
 
+
+if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
+
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
      - cond_type: $cond_type
        resource_types:
          - $resource_types
        attribute: $attribute
        operator: $operator
-       value: $value
 EOF
 )
+
+  else
+
+BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
+       - cond_type: $cond_type
+         resource_types:
+           - $resource_types
+         attribute: $attribute
+         operator: $operator
+         value: $value
+EOF
+)
+
+fi
+
 
 touch "./temp/$(printf '%03d_%s' "$condition" "$BC_POLICY_FILE_NAME_ONLY")"
 
@@ -298,19 +348,37 @@ BC_UI_EXPORT_AND_ARRAY=$(cat <<EOF
 EOF
 )
 
+
+
+
+if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
+
 BC_UI_EXPORT_AND_PARAMETERS=$(cat <<EOF
      - cond_type: $cond_type
        resource_types:
          - $resource_types
        attribute: $attribute
        operator: $operator
-       value: $value
 EOF
 )
 
+  else
+
+BC_UI_EXPORT_AND_PARAMETERS=$(cat <<EOF
+       - cond_type: $cond_type
+         resource_types:
+           - $resource_types
+         attribute: $attribute
+         operator: $operator
+         value: $value
+EOF
+)
+
+fi
+
 touch "./temp/$(printf '%s_%03d_%s' "and" "$and_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 
-if [[ -n "$value" ]]; then
+if [[ -n "$cond_type" ]]; then
 printf '%s\n' "$BC_UI_EXPORT_AND_PARAMETERS" >> "./temp/$(printf '%s_%03d_%s' "and" "$and_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 fi
 
@@ -360,6 +428,20 @@ BC_UI_EXPORT_NESTED_OR_ARRAY=$(cat <<EOF
 EOF
 )
 
+
+if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
+
+BC_UI_EXPORT_NESTED_OR_PARAMETERS=$(cat <<EOF
+         - cond_type: $cond_type
+           resource_types:
+             - $resource_types
+           attribute: $attribute
+           operator: $operator
+EOF
+)
+
+  else
+
 BC_UI_EXPORT_NESTED_OR_PARAMETERS=$(cat <<EOF
          - cond_type: $cond_type
            resource_types:
@@ -369,9 +451,14 @@ BC_UI_EXPORT_NESTED_OR_PARAMETERS=$(cat <<EOF
            value: $value
 EOF
 )
+
+fi
+
+
+
 touch "./temp/$(printf '%s_%03d_%s' "or" "$or_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 
-if [[ -n "$value" ]]; then
+if [[ -n "$cond_type" ]]; then
 printf '%s\n' "$BC_UI_EXPORT_NESTED_OR_PARAMETERS" >> "./temp/$(printf '%s_%03d_%s' "or" "$or_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 fi
 
@@ -429,6 +516,20 @@ BC_UI_EXPORT_OR_ARRAY=$(cat <<EOF
 EOF
 )
 
+
+
+if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
+
+BC_UI_EXPORT_OR_PARAMETERS=$(cat <<EOF
+     - cond_type: $cond_type
+       resource_types:
+         - $resource_types
+       attribute: $attribute
+       operator: $operator
+EOF
+)
+  else
+
 BC_UI_EXPORT_OR_PARAMETERS=$(cat <<EOF
      - cond_type: $cond_type
        resource_types:
@@ -439,9 +540,13 @@ BC_UI_EXPORT_OR_PARAMETERS=$(cat <<EOF
 EOF
 )
 
+
+fi
+
+
 touch "./temp/$(printf '%s_%03d_%s' "or" "$or_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 
-if [[ -n "$value" ]]; then
+if [[ -n "$cond_type" ]]; then
 printf '%s\n' "$BC_UI_EXPORT_OR_PARAMETERS" >> "./temp/$(printf '%s_%03d_%s' "or" "$or_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 fi
 
@@ -492,6 +597,20 @@ BC_UI_EXPORT_NESTED_AND_ARRAY=$(cat <<EOF
 EOF
 )
 
+
+if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
+
+BC_UI_EXPORT_NESTED_AND_PARAMETERS=$(cat <<EOF
+         - cond_type: $cond_type
+           resource_types:
+             - $resource_types
+           attribute: $attribute
+           operator: $operator
+EOF
+)
+
+  else
+
 BC_UI_EXPORT_NESTED_AND_PARAMETERS=$(cat <<EOF
          - cond_type: $cond_type
            resource_types:
@@ -501,9 +620,15 @@ BC_UI_EXPORT_NESTED_AND_PARAMETERS=$(cat <<EOF
            value: $value
 EOF
 )
+fi
+
+
+
+
+
 touch "./temp/$(printf '%s_%03d_%s' "and" "$and_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 
-if [[ -n "$value" ]]; then
+if [[ -n "$cond_type" ]]; then
 printf '%s\n' "$BC_UI_EXPORT_NESTED_AND_PARAMETERS" >> "./temp/$(printf '%s_%03d_%s' "or" "$and_condition" "$BC_POLICY_FILE_NAME_ONLY")"
 fi
 
@@ -578,7 +703,7 @@ if [ "$ANSWER" != "${ANSWER#[Yy]}" ]
 
 # clean up task
 {
-rm ./temp/*.json
+rm  -f ./temp/*.json
 }
   else
     exit

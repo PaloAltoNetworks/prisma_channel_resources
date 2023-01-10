@@ -44,7 +44,7 @@ cat ./temp/bridgecrew_policies_table_data.json | jq --arg DATE "$REPORT_DATE" '[
 
 NUMBER_OF_POLICIES=$(cat ./temp/transformed_code_policies.json | jq '. |length')
 
-NUMBER_MINUS_ONE=$(( "$NUMBER_OF_POLICIES" - 1 ))
+NUMBER_MINUS_ONE=$(printf '%04d' "$(( NUMBER_OF_POLICIES - 1 ))"| tr -d '"')
 
 for number in $(seq 0 "$NUMBER_MINUS_ONE"); do
 
@@ -89,7 +89,7 @@ done
 
 # clean up task
 {
-rm ./temp/*.json
+rm -f ./temp/*.json
 }
 
 printf '\n%s\n' "Custom policies written as code (not the GUI ones) have been exported from your bridgecrew console and loaded into your prisma console"

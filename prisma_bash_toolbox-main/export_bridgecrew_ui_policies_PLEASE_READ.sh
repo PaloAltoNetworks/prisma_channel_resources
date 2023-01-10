@@ -28,7 +28,7 @@
 source ./secrets/secrets
 source ./func/func.sh
 
-# CREATE BRIDGECREW API KEY IN BRIDGECREW CONSOLE AND ASSIGN IT TO THE VAR BELOW
+# CREATE BRIDGECREW API KEY IN BRIDGECREW CONSOLE AND ASSIGN IT TO THE VAR BELOW. TODO: enable policy check to ensure expired/active api keys are hardcoded
 BC_API_KEY="<BC_API_KEY>"
 
 if [[ $BC_API_KEY = "<BC_API_KEY>" ]] || [[ -z $BC_API_KEY ]]; then

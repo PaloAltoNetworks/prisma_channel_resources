@@ -29,7 +29,7 @@ source ./secrets/secrets
 source ./func/func.sh
 
 # CREATE BRIDGECREW API KEY IN BRIDGECREW CONSOLE AND ASSIGN IT TO THE VAR BELOW
-BC_API_KEY="e9b3a0af-56f8-4ac2-9187-0e3d655e79cb"
+BC_API_KEY="<BC_API_KEY>"
 
 if [[ $BC_API_KEY = "<BC_API_KEY>" ]] || [[ -z $BC_API_KEY ]]; then
   printf '%s\n' "The BridgeCrew API key is not assigned in the script, please assign the key to the BC_API_KEY var in the script and run again"

@@ -58,7 +58,7 @@ BC_UI_CUSTOM_POLICY_NUMBER=$(jq '[.data[] | select( .isCustom == true) | select(
 jq -r '[.data[] | select( .isCustom == true) | select(.code == null)]' < ./temp/bridgecrew_policies_table_data.json > ./temp/bridgecrew_ui_policies.json
 
 # Subtract once so it works with seq and indexing for the "for" loops below
-BC_UI_NUMBER_MINUS_ONE=$(printf '%04d' "$(( "$BC_UI_CUSTOM_POLICY_NUMBER" - 1 ))" | tr -d '"')
+BC_UI_NUMBER_MINUS_ONE=$(printf '%04d' "$(( BC_UI_CUSTOM_POLICY_NUMBER - 1 ))" | tr -d '"')
 
 
 # Reads in the UI policies files and breaks apart the policies into their own seperate files in the temp folder. Example: ./temp/ui_policy_0001.json and so on. 
@@ -150,7 +150,7 @@ jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '. | {cloudType: .provider, comp
 
 number_of_conditions=$(jq -r '.conditionQuery.and? | length' < "$bc_ui_policy")
 
-number_of_conditions_minus_one=$(printf '%04d' "$(( "$number_of_conditions" - 1 ))" | tr -d '"')
+number_of_conditions_minus_one=$(printf '%04d' "$(( number_of_conditions - 1 ))" | tr -d '"')
 
 
   for condition in $(seq 0 "$number_of_conditions_minus_one"); do
@@ -234,7 +234,7 @@ done
 
 
 number_of_conditions=$(jq -r '.conditionQuery.or? | length' < "$bc_ui_policy")
-number_of_conditions_minus_one=$(printf '%04d' "$(( "$number_of_conditions" - 1 ))" | tr -d '"')
+number_of_conditions_minus_one=$(printf '%04d' "$(( number_of_conditions - 1 ))" | tr -d '"')
 
 
   for condition in $(seq 0 "$number_of_conditions_minus_one"); do
@@ -316,7 +316,7 @@ done
   elif [[ -n "$(jq -r '.conditionQuery.and[]?' < "$bc_ui_policy" )" ]] && [[ -n "$(jq -r '.conditionQuery.and[]?.or[]?' < "$bc_ui_policy" )" ]]; then
 
 number_of_unested_and_conditions=$(jq -r '[.conditionQuery.and[]?| select( .or == null)] | length' < "$bc_ui_policy")
-number_of_and_conditions_minus_one=$(printf '%04d' "$(( "$number_of_unested_and_conditions" - 1 ))" | tr -d '"')
+number_of_and_conditions_minus_one=$(printf '%04d' "$(( number_of_unested_and_conditions - 1 ))" | tr -d '"')
 
 filtered_and_bc_ui_policy=$(jq '[.conditionQuery.and[] | select(.or == null)]' < "$bc_ui_policy")
 
@@ -392,8 +392,7 @@ fi
 done
 
 number_of_nested_or_conditions=$(jq -r '[.conditionQuery.and[].or[]?] | length' < "$bc_ui_policy")
-
-number_of_nested_or_conditions_minus_one=$(printf '%04d' "$(( "$number_of_nested_or_conditions" - 1 ))" | tr -d '"')
+number_of_nested_or_conditions_minus_one=$(printf '%04d' "$(( number_of_nested_or_conditions - 1 ))" | tr -d '"')
 
 filtered_bc_ui_policy_or=$(jq '[.conditionQuery.and[]?.or[]?]' < "$bc_ui_policy")
 
@@ -486,7 +485,7 @@ jq --arg CODE "$CODE" --arg DATE "$REPORT_DATE" '. | {cloudType: .provider, comp
   elif [[ -n "$(jq -r '.conditionQuery.or[]?' < "$bc_ui_policy" )" ]] && [[ -n "$(jq -r '.conditionQuery.or[]?.and[]?' < "$bc_ui_policy" )" ]]; then
 
 number_of_unested_or_conditions=$(jq -r '[.conditionQuery.or[]?| select( .and == null)] | length' < "$bc_ui_policy")
-number_of_or_conditions_minus_one=$(printf '%04d' "$(( "$number_of_unested_or_conditions" - 1 ))" | tr -d '"')
+number_of_or_conditions_minus_one=$(printf '%04d' "$(( number_of_unested_or_conditions - 1 ))" | tr -d '"')
 
 filtered_or_bc_ui_policy=$(jq '[.conditionQuery.or[] | select(.and == null)]' < "$bc_ui_policy")
 
@@ -563,7 +562,7 @@ fi
 done
 
 number_of_nested_and_conditions=$(jq -r '[.conditionQuery.or[].and[]?] | length' < "$bc_ui_policy")
-number_of_nested_and_conditions_minus_one=$(printf '%04d' "$(( "$number_of_nested_and_conditions" - 1 ))" | tr -d '"')
+number_of_nested_and_conditions_minus_one=$(printf '%04d' "$(( number_of_nested_and_conditions - 1 ))" | tr -d '"')
 filtered_bc_ui_policy_and=$(jq '[.conditionQuery.or[]?.and[]?]' < "$bc_ui_policy")
 
 

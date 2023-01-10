@@ -29,7 +29,7 @@ source ./secrets/secrets
 source ./func/func.sh
 
 # CREATE BRIDGECREW API KEY IN BRIDGECREW CONSOLE AND ASSIGN IT TO THE VAR BELOW
-BC_API_KEY="<BC_API_KEY>"
+BC_API_KEY="e9b3a0af-56f8-4ac2-9187-0e3d655e79cb"
 
 if [[ $BC_API_KEY = "<BC_API_KEY>" ]] || [[ -z $BC_API_KEY ]]; then
   printf '%s\n' "The BridgeCrew API key is not assigned in the script, please assign the key to the BC_API_KEY var in the script and run again"
@@ -126,12 +126,12 @@ EOF
   else
 
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
-       - cond_type: $cond_type
-         resource_types:
-           - $resource_types
-         attribute: $attribute
-         operator: $operator
-         value: $value
+      - cond_type: $cond_type
+        resource_types:
+         - $resource_types
+        attribute: $attribute
+        operator: $operator
+        value: $value
 EOF
 )
 
@@ -183,7 +183,7 @@ EOF
 )
 
 BC_UI_EXPORT_AND_ARRAY=$(cat <<EOF
-    and:
+  and:
 EOF
 )
 
@@ -193,23 +193,23 @@ EOF
 if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
 
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
-     - cond_type: $cond_type
-       resource_types:
-         - $resource_types
-       attribute: $attribute
-       operator: $operator
+    - cond_type: $cond_type
+      resource_types:
+        - $resource_types
+      attribute: $attribute
+      operator: $operator
 EOF
 )
 
   else
 
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
-       - cond_type: $cond_type
-         resource_types:
-           - $resource_types
-         attribute: $attribute
-         operator: $operator
-         value: $value
+    - cond_type: $cond_type
+      resource_types:
+        - $resource_types
+      attribute: $attribute
+      operator: $operator
+      value: $value
 EOF
 )
 
@@ -267,7 +267,7 @@ EOF
 )
 
 BC_UI_EXPORT_OR_ARRAY=$(cat <<EOF
-    or:
+  or:
 EOF
 )
 
@@ -275,23 +275,23 @@ EOF
 if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
 
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
-     - cond_type: $cond_type
-       resource_types:
-         - $resource_types
-       attribute: $attribute
-       operator: $operator
+    - cond_type: $cond_type
+      resource_types:
+       - $resource_types
+      attribute: $attribute
+      operator: $operator
 EOF
 )
 
   else
 
 BC_UI_EXPORT_PARAMETERS=$(cat <<EOF
-       - cond_type: $cond_type
-         resource_types:
-           - $resource_types
-         attribute: $attribute
-         operator: $operator
-         value: $value
+    - cond_type: $cond_type
+      resource_types:
+       - $resource_types
+      attribute: $attribute
+      operator: $operator
+      value: $value
 EOF
 )
 
@@ -351,7 +351,7 @@ EOF
 )
 
 BC_UI_EXPORT_AND_ARRAY=$(cat <<EOF
-    and:
+  and:
 EOF
 )
 
@@ -363,7 +363,7 @@ if [[ $operator == "exists" ]] || [[ $value == "null" ]]; then
 BC_UI_EXPORT_AND_PARAMETERS=$(cat <<EOF
      - cond_type: $cond_type
        resource_types:
-         - $resource_types
+        - $resource_types
        attribute: $attribute
        operator: $operator
 EOF
@@ -372,12 +372,12 @@ EOF
   else
 
 BC_UI_EXPORT_AND_PARAMETERS=$(cat <<EOF
-       - cond_type: $cond_type
-         resource_types:
-           - $resource_types
-         attribute: $attribute
-         operator: $operator
-         value: $value
+     - cond_type: $cond_type
+       resource_types:
+        - $resource_types
+       attribute: $attribute
+       operator: $operator
+       value: $value
 EOF
 )
 

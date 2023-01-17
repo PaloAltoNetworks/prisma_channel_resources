@@ -88,10 +88,10 @@ scan-build:
     - IMAGE_NAME="${CI_DEFAULT_BRANCH}--${CI_COMMIT_SHA}"
     - mv raw?ref=main prisma-containerized-scan.txt # rename the file that comes down ----needs to be updated and fixed. Probably issue with the wget command.
     - cat prisma-containerized-scan.txt >> ./Dockerfile #adds the twistcli container scanning file to the Dockerfile prior to the build
-    - sed -i "s/PC_ACCESSKEY/$PC_ACCESSKEY/g" ./Dockerfile # Securely ensures that the env variables are injected only when the build happens. 
-    - sed -i "s/PC_SECRETKEY/$PC_ACCESSKEY/g" ./Dockerfile # No need to store anything sensitive in the other repo that contains the prisma-containerized-scan.txt file
-    - sed -i "s/TL_CONSOLE/$TL_CONSOLE/g" ./Dockerfile
-    - sed -i "s/CI_REGISTRY/$CI_REGISTRY/g" ./Dockerfile
+    - sed -i "s|PC_ACCESSKEY|$PC_ACCESSKEY|g" ./Dockerfile # Securely ensures that the env variables are injected only when the build happens. 
+    - sed -i "s|PC_SECRETKEY|$PC_ACCESSKEY|g" ./Dockerfile # No need to store anything sensitive in the other repo that contains the prisma-containerized-scan.txt file
+    - sed -i "s|TL_CONSOLE/$TL_CONSOLE|g" ./Dockerfile
+    - sed -i "s|CI_REGISTRY|$CI_REGISTRY|g" ./Dockerfile
     - |-
        KANIKOPROXYBUILDARGS=""
        KANIKOCFG="{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64 | tr -d '\n')\"}}}"

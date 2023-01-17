@@ -38,7 +38,7 @@ WORKDIR $HOME/prisma/
 RUN chmod a+x ./twistcli
 
 #Execute image scan
-RUN /app/twistcli images scan --containerized --details --address TL_CONSOLE --user PC_ACCESSKEY --password PC_SECRETKEY CI_REGISTRY # < NOT A TYPO
+RUN /prisma/twistcli images scan --containerized --details --address TL_CONSOLE --user PC_ACCESSKEY --password PC_SECRETKEY CI_REGISTRY # < NOT A TYPO
 ```
 
 

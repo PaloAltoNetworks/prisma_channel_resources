@@ -31,9 +31,11 @@ Building containers inside the kaniko container is spartan to say the least. The
 
 ```
 #Add Twistcli
-RUN mkdir /app
-COPY /twistcli /app/twistcli
-RUN chmod a+x /app/twistcli
+USER root
+RUN mkdir -p $HOME/prisma
+COPY twistcli $HOME/prisma/twistcli
+WORKDIR $HOME/prisma/
+RUN chmod a+x ./twistcli
 
 #Execute image scan
 RUN /app/twistcli images scan --containerized --details --address TL_CONSOLE --user PC_ACCESSKEY --password PC_SECRETKEY CI_REGISTRY # < NOT A TYPO

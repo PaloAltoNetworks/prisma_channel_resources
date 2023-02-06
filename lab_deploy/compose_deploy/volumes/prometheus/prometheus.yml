@@ -28,20 +28,20 @@ scrape_configs:
 
 
 # Grafana monitoring
-- job_name: grafana
-  metrics_path: /metrics
-  scheme: http
-  static_configs:
-  - targets:
-    - grafana:3001
+  - job_name: grafana
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+    - targets:
+      - grafana:3001
 
 # Prometheus self-monitoring
-- job_name: prometheus
-  honor_timestamps: true
-  metrics_path: /metrics
-  scheme: http
-  follow_redirects: true
-  enable_http2: true
-  static_configs:
-  - targets:
-    - localhost:9090
+  - job_name: prometheus
+    honor_timestamps: true
+    metrics_path: /metrics
+    scheme: http
+    follow_redirects: true
+    enable_http2: true
+    static_configs:
+    - targets:
+      - localhost:9090

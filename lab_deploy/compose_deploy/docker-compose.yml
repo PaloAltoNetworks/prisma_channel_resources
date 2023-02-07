@@ -131,6 +131,7 @@ services:
      - 'prometheus-storage:/prometheus'
     ports:
      - "9091:9090"
+    user: ${CURRENT_UID}
 
   grafana:
     image: grafana/grafana-oss:main
@@ -145,7 +146,7 @@ services:
     - './volumes/grafana/dashboards:/var/lib/grafana/dashboards'
     - './volumes/grafana-storage:/var/lib/grafana'
     - './volumes/grafana/plugins:/var/lib/grafana/plugins'
-    user: '472'
+    user: ${CURRENT_UID}
 
   splunk:
     image: splunk/splunk:latest

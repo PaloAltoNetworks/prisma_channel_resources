@@ -329,7 +329,7 @@ steps:
   - name: dockersock
     path: /var/run
   commands:
-  - sleep 7 # give docker enough time to start
+  - sleep 10 # give docker enough time to start
   - docker build -t my_questionable_container:1 .
 
 - name: vuln scan

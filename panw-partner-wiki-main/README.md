@@ -232,6 +232,7 @@ _Integrations:_
 ### Compliance Information
 
 * [DoD Kubernetes Hardening Guidelines](https://media.defense.gov/2021/Aug/03/2002820425/-1/-1/1/CTR_KUBERNETES%20HARDENING%20GUIDANCE.PDF)
+* [Software Assurance Maturity Model (SAMM)](https://owasp.org/www-pdf-archive/SAMM_Core_V1-5_FINAL.pdf)
 * [DOD Cloud Security Guidelines](https://public.cyber.mil/dccs/)
 * [CCPA](https://oag.ca.gov/privacy/ccpa)
 * [What is GDPR the EU's new data protection law?](https://gdpr.eu/what-is-gdpr/)

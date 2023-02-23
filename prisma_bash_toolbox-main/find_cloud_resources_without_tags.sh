@@ -57,7 +57,7 @@ rql_api_response=$(curl --url "$PC_APIURL/search/suggest" \
                         --data "$config_request_body")
 
 
-printf '%s' "$rql_api_response" | jq > "./temp/rql_api_response_$csp.json"
+printf '%s' "$rql_api_response" > "./temp/rql_api_response_$csp.json"
 
 
 done

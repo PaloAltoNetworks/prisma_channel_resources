@@ -27,7 +27,7 @@ Each Script Has it's own set of variables which need to be assigned prior to run
 * edit the script you'd like to run (for self-hosted versions ensure that `curl` is ran with `-k` if using the default deployment method)
 * run! modify enjoy!
 
-# ERRORS AND KNOWN ISSUES
+# Errors, debugging, and known gotchas
 
 * MacOs uses (BRE) vs Ubuntu which uses the GNU (ERE) so the function I wrote to check the validity of the secrets file fails when run on MacOS. 
 * Debugging the scripts. All you need to do to get the RESPONSE code is add `-v` to any `curl` command in the script. 

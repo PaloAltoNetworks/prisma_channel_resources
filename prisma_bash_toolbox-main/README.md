@@ -27,9 +27,14 @@ Each Script Has it's own set of variables which need to be assigned prior to run
 * edit the script you'd like to run (for self-hosted versions ensure that `curl` is ran with `-k` if using the default deployment method)
 * run! modify enjoy!
 
+# Security recommendations
+
+* Recommending the user has a strong password for their account and ensuring that the permissions on the ./secrets/secrets file are set accordingly. ie `chmod 700 ./secrets/secrets`
+
 # Errors, debugging, and known gotchas
 
 * MacOs uses (BRE) vs Ubuntu which uses the GNU (ERE) so the function I wrote to check the validity of the secrets file fails when run on MacOS. 
+   * If you're sure the secrets are entered correctly by checking the ./secrets/secrets file then you can either remove the function from the scripts `pce-var-check` or just hit `y` on your keyboard. 
 * Debugging the scripts. All you need to do to get the RESPONSE code is add `-v` to any `curl` command in the script. 
 
 

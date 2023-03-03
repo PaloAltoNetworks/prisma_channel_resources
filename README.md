@@ -1,6 +1,9 @@
 # Prisma Cloud Channel Resources
 
-[![CodeFactor](https://www.codefactor.io/repository/github/kyle9021/prisma_channel_resources/badge)](https://www.codefactor.io/repository/github/kyle9021/prisma_channel_resources)
+[![CodeFactor](https://www.codefactor.io/repository/github/kyle9021/prisma_channel_resources/badge)](https://www.codefactor.io/repository/github/kyle9021/prisma_channel_resources) 
+
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![support](https://img.shields.io/badge/Support%20Level-Community-yellowgreen)](./SUPPORT.md)
+
 
 A collection of resources for engineers who work with Prisma Cloud. The repository is broken into three main sections. Please click the links to explore: 
 

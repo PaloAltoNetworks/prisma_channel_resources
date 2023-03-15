@@ -98,7 +98,7 @@ curl -s --url "$PC_APIURL/search/config" \
 done
 wait
 
-printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType" > "./reports/cloud_resources_without_tags_$date.csv"
+printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType" > "./reports/all_cloud_resources_$date.csv"
 
 cat ./temp/other_* | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "./reports/cloud_resources_without_tags_$date.csv"
 

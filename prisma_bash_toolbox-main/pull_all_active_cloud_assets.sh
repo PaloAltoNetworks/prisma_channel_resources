@@ -130,12 +130,13 @@ done
 
 printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType" > "./reports/all_cloud_resources_$date.csv"
 
-cd temp
-cat other_* | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "../reports/all_cloud_resources_$date.csv"
+rm ./temp/rql_cloud_account_response.json
+rm ./temp/rql_api_response_*
+
+find ./temp/*.json | xargs -t cat | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "../reports/all_cloud_resources_$date.csv"
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
 
-cd ..
 
 {
 rm -f ./temp/*.json

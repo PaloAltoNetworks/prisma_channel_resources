@@ -15,6 +15,9 @@ source ./func/func.sh
 
 pce-var-check
 
+# controls the number of requests a second
+$number_of_jobs="20"
+
 csp_pfix_array=("aws-" "azure-" "gcp-" "gcloud-" "alibaba-" "oci-")
 
 
@@ -113,6 +116,7 @@ rql_request_body=$(cat <<EOF
 EOF
 )
 
+sub_control;
 curl -s --url "$PC_APIURL/search/config" \
      --header "accept: application/json; charset=UTF-8" \
      --header "content-type: application/json" \

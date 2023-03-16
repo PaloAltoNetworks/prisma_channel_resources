@@ -101,7 +101,7 @@ for api_query in "${!rql_api_array[@]}"; do \
 
 rql_request_body=$(cat <<EOF
 {
-  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND api.name = ${rql_api_array[api_query]}",
+  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND api.name = ${rql_api_array[api_query]} AND resource.status = Active",
   "timeRange":{
      "type":"relative",
      "value":{

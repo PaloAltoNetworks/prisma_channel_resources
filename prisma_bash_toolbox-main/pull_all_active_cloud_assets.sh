@@ -16,7 +16,7 @@ source ./func/func.sh
 pce-var-check
 
 # controls the number of requests a second
-$number_of_jobs="20"
+number_of_jobs="20"
 
 csp_pfix_array=("aws-" "azure-" "gcp-" "gcloud-" "alibaba-" "oci-")
 

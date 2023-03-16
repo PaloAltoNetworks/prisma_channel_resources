@@ -110,3 +110,11 @@ loop_response_check () {
   fi
 }
 
+# helps with rate limits on requests requires the $number_of_jobs var to be set in a script to use. 
+function sub_control {
+   while [ $(jobs | wc -l) -ge "$number_of_jobs" ]
+   do
+      sleep 1
+   done
+}
+

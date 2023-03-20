@@ -114,7 +114,7 @@ loop_response_check () {
 function sub_control {
    while [ $(jobs | wc -l) -ge "$number_of_jobs" ]
    do
-      sleep 1
+      sleep 5
    done
 }
 

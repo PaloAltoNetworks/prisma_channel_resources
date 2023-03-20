@@ -93,7 +93,7 @@ rql_cloud_account_response=$(curl --url "$PC_APIURL/search/suggest" \
 
 printf '%s' "$rql_cloud_account_response" | jq -r '.suggestions[]' > "./temp/rql_cloud_account_response.json"
 
-rql_cloud_account_array=()                                           
+rql_cloud_account_array=()
 while IFS= read -r line; do
    rql_cloud_account_array+=("$line")
 done < "./temp/rql_cloud_account_response.json"
@@ -104,7 +104,7 @@ for api_query in "${!rql_api_array[@]}"; do \
 
 rql_request_body=$(cat <<EOF
 {
-  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND api.name = ${rql_api_array[api_query]} AND resource.status = Active",
+  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND api.name = ${rql_api_array[api_query]}",
   "timeRange":{
      "type":"relative",
      "value":{
@@ -116,15 +116,20 @@ rql_request_body=$(cat <<EOF
 EOF
 )
 
-#sub_control;
+#number_of_jobs;
+
+mkdir -p ./temp/$(printf '%05d' "$cloud_account")
+
 curl -s --url "$PC_APIURL/search/config" \
      --header "accept: application/json; charset=UTF-8" \
      --header "content-type: application/json" \
      --header "x-redlock-auth: $PC_JWT" \
-     --data "${rql_request_body}" > "./temp/other_$(printf '%05d%05d' "$cloud_account" "$api_query").json" &
+     --data "${rql_request_body}" > "./temp/$(printf '%05d' "$cloud_account")/other_$(printf '%05d' "$api_query").json" &
 
 done
 wait
+
+cat ./temp/$(printf '%05d' "$cloud_account")/*.json > ./temp/finished_$(printf '%05d' "$cloud_account").json
 
 done
 
@@ -133,11 +138,11 @@ printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,servi
 rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
-find ./temp/*.json | xargs -t cat | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "../reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "./reports/all_cloud_resources_$date.csv"
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
 
 
 {
-rm -f ./temp/*.json
+rm -rf ./temp/*
 }

@@ -15,7 +15,7 @@ source ./func/func.sh
 
 pce-var-check
 
-# controls the number of requests a second; uncomment line 119 if you need to use.
+# controls the number of requests a second; uncomment line 121 if you need to use.
 number_of_jobs="20"
 
 csp_pfix_array=("aws-" "azure-" "gcp-" "gcloud-" "alibaba-" "oci-")
@@ -100,6 +100,8 @@ done < "./temp/rql_cloud_account_response.json"
 
 for cloud_account in "${!rql_cloud_account_array[@]}"; do \
 
+mkdir -p ./temp/$(printf '%05d' "$cloud_account")
+
 for api_query in "${!rql_api_array[@]}"; do \
 
 rql_request_body=$(cat <<EOF
@@ -118,7 +120,6 @@ EOF
 
 #number_of_jobs;
 
-mkdir -p ./temp/$(printf '%05d' "$cloud_account")
 
 curl -s --url "$PC_APIURL/search/config" \
      --header "accept: application/json; charset=UTF-8" \

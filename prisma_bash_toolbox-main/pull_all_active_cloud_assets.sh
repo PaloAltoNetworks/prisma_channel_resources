@@ -98,7 +98,10 @@ while IFS= read -r line; do
    rql_cloud_account_array+=("$line")
 done < "./temp/rql_cloud_account_response.json"
 
+
 for cloud_account in "${!rql_cloud_account_array[@]}"; do \
+
+# issue here when the JWT expires depending on number of accounts
 
 mkdir -p ./temp/$(printf '%05d' "$cloud_account")
 
@@ -118,7 +121,7 @@ rql_request_body=$(cat <<EOF
 EOF
 )
 
-#number_of_jobs;
+#sub_control;
 
 
 curl -s --url "$PC_APIURL/search/config" \

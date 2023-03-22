@@ -101,7 +101,17 @@ done < "./temp/rql_cloud_account_response.json"
 
 for cloud_account in "${!rql_cloud_account_array[@]}"; do \
 
-# issue here when the JWT expires depending on number of accounts
+request_number=$(($api_query % 600))
+
+if [ $request_number = 0 ]; then \
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+PC_JWT=$(printf '%s' "$PC_JWT_RESPONSE" | jq -r '.token')
+fi
 
 mkdir -p ./temp/$(printf '%05d' "$cloud_account")
 

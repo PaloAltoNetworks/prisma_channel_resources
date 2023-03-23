@@ -3,7 +3,7 @@
 # to run: `bash ./<script_name>.sh`
 # requires jq to be installed
 
-# WARNING THIS COULD REQUIRE SIGNIFICANT FREE STORAGE TO GENERATE
+# WARNING THIS COULD REQUIRE SIGNIFICANT FREE STORAGE TO GENERATE: Example 2 million cloud resources will require roughly 1 GB of free space. 
 # EXCEL HAS LIMITATIONS WHICH MAY MAKE THIS REPORT UNABLE TO BE OPENED
 # https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
 
@@ -15,8 +15,6 @@ source ./func/func.sh
 
 pce-var-check
 
-# controls the number of requests a second; uncomment line 121 if you need to use.
-number_of_jobs="20"
 
 csp_pfix_array=("aws-" "azure-" "gcp-" "gcloud-" "alibaba-" "oci-")
 
@@ -101,9 +99,9 @@ done < "./temp/rql_cloud_account_response.json"
 
 for cloud_account in "${!rql_cloud_account_array[@]}"; do \
 
-
-
+# every 600 api requests refresh the JWT so it doesn't timeout. 
 if [ $api_query = 600 ]; then \
+
 PC_JWT_RESPONSE=$(curl --request POST \
                        --url "$PC_APIURL/login" \
                        --header 'Accept: application/json; charset=UTF-8' \
@@ -130,8 +128,6 @@ rql_request_body=$(cat <<EOF
 }
 EOF
 )
-
-#sub_control;
 
 
 curl -s --url "$PC_APIURL/search/config" \

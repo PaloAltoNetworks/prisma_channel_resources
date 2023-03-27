@@ -27,7 +27,6 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 * [Python CLI Tool - Thank you Steven de Boer](https://pypi.org/project/prismacloud-cli/)
 * [Prisma Universal Serverless Syslog to SIEM project - Thanks Eddie Beuerlein and Marc Hobson!](https://github.com/PaloAltoNetworks/pcs-serverless-syslog)
 * [Prisma Cloud Postman Collection - Thank you Sean Sullivan](https://github.com/PaloAltoNetworks/pcs-postman)
-* [Prisma Cloud Golang SDK](https://github.com/PaloAltoNetworks/prisma-cloud-go)
 * [Prisma Cloud Python Toolbox - Thank you Tom Kishel](https://github.com/PaloAltoNetworks/pcs-toolbox)
 * [Prisma Cloud Commmunity Operator - Thank you Wyatt Gill](https://github.com/PaloAltoNetworks/prisma-cloud-compute-operator)
 * [Prisma Cloud Compute Sample Code - Thank you Stephen Gordon and Wyatt Gill](https://github.com/PaloAltoNetworks/prisma-cloud-compute-sample-code)

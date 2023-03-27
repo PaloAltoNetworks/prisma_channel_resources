@@ -33,3 +33,5 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 * [Prisma Cloud Compute Sample Code - Thank you Stephen Gordon and Wyatt Gill](https://github.com/PaloAltoNetworks/prisma-cloud-compute-sample-code)
 * [Prisma Cloud Workshops - Azure Focused - Thank you David Okeyode!](https://github.com/davidokeyode/prismacloud-workshops-labs)
 * [BridgeCrew Toolbox - Thanks Mike Urbanski and Kartik](https://github.com/bridgecrewio/bc-toolbox)
+* [Prisma Cloud Terraform Provider - Thanks Garfield Freeman!](https://github.com/PaloAltoNetworks/terraform-provider-prismacloud)
+* [Prisma Cloud Golang SDK - Thanks Garfield Freeman!](https://github.com/PaloAltoNetworks/prisma-cloud-go)

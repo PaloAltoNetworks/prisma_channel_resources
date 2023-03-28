@@ -75,6 +75,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 * [Prisma Cloud Enterprise As-Built](https://live.paloaltonetworks.com/t5/prisma-cloud/prisma-cloud-enterprise-as-built/ta-p/402827)
 * [Set up VM Image Scanning](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/vulnerability_management/vm_image_scanning.html)
 * [Set up Agentless Scanning](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/vulnerability_management/agentless_scanning.html)
+* [Prisma Cloud Field Guide](https://github.com/PaloAltoNetworks/prisma-cloud-best-practices/blob/main/Prisma%20Cloud%20Field%20Guide.pdf)
 
 ### Sales Presentation Materials
 
@@ -89,8 +90,7 @@ Make sure you read this [page](https://github.com/PaloAltoNetworks/prisma_channe
 
 ### Data/Overview Sheets
 
-* [IaC DataSheet](https://www.paloaltonetworks.com/resources/datasheets/infrastructure-as-code-security)
-* [DevSecOps DataSheet](https://www.paloaltonetworks.com/resources/datasheets/infrastructure-as-code-security)
+* [Code Security Datasheet](https://www.paloaltonetworks.com/resources/datasheets/infrastructure-as-code-security)
 * [CWPP Datasheet](https://www.paloaltonetworks.com/resources/datasheets/cloud-workload-protection)
 * [CIEM DataSheet](https://www.paloaltonetworks.com/resources/datasheets/prisma-cloud-identity-ams)
 * [Secure Managed Kubernetes](https://www.paloaltonetworks.com/content/dam/pan/en_US/assets/pdf/technology-solutions-briefs/securing-managed-kubernetes-with-prisma-cloud.pdf)

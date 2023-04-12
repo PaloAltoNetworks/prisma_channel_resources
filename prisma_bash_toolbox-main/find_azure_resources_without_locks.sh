@@ -100,7 +100,7 @@ wait
 printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType" > "./reports/azure_resources_without_lock_$date.csv"
 
 
-cat ./temp/api_response* | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "./reports/azure_resources_without_lock_$date.csv"
+cat temp/api_response* | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "./reports/azure_resources_without_lock_$date.csv"
 
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/azure_resources_without_lock_$date.csv"

@@ -34,3 +34,4 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 * [BridgeCrew Toolbox - Thanks Mike Urbanski and Kartik](https://github.com/bridgecrewio/bc-toolbox)
 * [Prisma Cloud Terraform Provider - Thanks Garfield Freeman!](https://github.com/PaloAltoNetworks/terraform-provider-prismacloud)
 * [Prisma Cloud Golang SDK - Thanks Garfield Freeman!](https://github.com/PaloAltoNetworks/prisma-cloud-go)
+* [BridgeCrew Terraform Provider](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew)

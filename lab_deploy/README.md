@@ -372,7 +372,28 @@ If you'd like to work on creating a ci pipeline to scan IAC templates, k8s manif
 
 And if your organization happens to have a self-hosted production deployment of GitLab, and want to get into some more advanced stuff. You might check out this page (FYI, this will require a real deployment of GitLab) [Prisma Cloud Compute Container Scanning using Kaniko and GitLab](https://github.com/PaloAltoNetworks/prisma_channel_resources/blob/main/panw-partner-wiki-main/contents/labs/prisma_cloud_compute_gitlab_self_hosted_kaniko_rootless_container_building.md)
 
-### Step 9: Integrate prometheus with Prisma Cloud Compute, Drone, and Gitea. 
+### Step 9: Add configure git, ssh, and ssh config files
+
+* Create a ssh-key `ssh-keygen -t ed25519 -C "your_email@example.com"` 
+* Create the ssh config file `nano $HOME/.ssh/config`
+* Copy and paste the below into the file:
+
+```
+Host gitea
+  port 4070
+```
+
+* Configure git user name: `git config --global user.name $(whoami)`
+* Configure git user email: `git config --global user.email "<YOUR_USER_EMAIL>"`
+* Now you can add your ssh key to gitea by opening your web browser and navigating to `gitea:3000` 
+* Log-in and then click the top right profile and settings button in gitea. 
+* From the drop-down click settings 
+* Then click the SSH/GPG keys tab. 
+* cat your PUBLIC ssh file in your terminal `cat $HOME/.ssh/id_ed25519.pub` 
+* copy and paste the output into the ssh key section and hit save!
+
+
+### Step 10: Integrate prometheus with Prisma Cloud Compute, Drone, and Gitea. 
 
 Now it's time to start getting metrics from the Prometheus Integration for Prisma Cloud Compute and begin to combine those metrics with metrics from other systems and servers!
 WIP -  https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/audit/prometheus.html - official documentation as a placeholder

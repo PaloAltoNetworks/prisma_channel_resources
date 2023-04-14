@@ -268,6 +268,16 @@ Wait for the services to stop, then:
 * edit the `.secrets` file again using the command `nano ./secrets` and fill in the last two variables under the basic configuration options: `DRONE_GITEA_CLIENT_ID` and `DRONE_GITEA_CLIENT_SECRET`. You'll use the Client ID & Client Secret you generated in Gitea. 
 * `docker compose --env-file .secrets -p gitea-drone up -d`
 * This above command will start everything in detached mode so you won't see any logging. 
+* set the permissions on the container storage volumes by entering the commands below:
+
+```bash
+sudo chown -R 1000:1000 ./volumes/prometheus/
+sudo chmod -R u+rwx ./volumes/prometheus/
+sudo chown -R 1000:1000 ./volumes/prometheus-storage/
+sudo chmod -R u+rwx ./volumes/prometheus-storage/
+sudo chown -R 1000:1000 ./volumes/grafana/
+sudo chmod -R u+rwx ./volumes/grafana-storage/
+```
 * Navigate to gitea in your firefox browser and create a new repository named `ci-vuln-scan`. Select a license and check add a READ_ME.md file. 
 * Then navigate to `http://drone:8000` to finish the connection. 
 * It'll have you authorize the OAuth app you created in Gitea

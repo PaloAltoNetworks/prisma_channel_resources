@@ -72,7 +72,7 @@ Install [Docker](https://docs.docker.com/engine/install/ubuntu/)
 
 ```bash
 sudo apt-get update
-sudo apt install ca-certificates curl git jq gnupg vim zsh tmux
+sudo apt install ca-certificates curl git jq gnupg vim zsh tmux shellcheck
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg

@@ -3,7 +3,7 @@ version: "3.9"
 services:
 
   gitea:
-    image: gitea/gitea:1.18.3
+    image: gitea/gitea:1.19.1
     hostname: gitea
     container_name: gitea
     environment:
@@ -29,7 +29,7 @@ services:
       - "3000:3000"
 
   gitea-db:
-    image: postgres:15.1-bullseye
+    image: postgres:alpine3.17
     hostname: postgres
     container_name: gitea-db
     ports:
@@ -42,7 +42,7 @@ services:
       - "POSTGRES_DB=${POSTGRES_DB}"
 
   drone:
-    image: drone/drone:2.16.0
+    image: drone/drone:linux-amd64
     hostname: drone
     container_name: drone
     ports:
@@ -95,7 +95,7 @@ services:
      - "9090:80"
 
   vault:
-    image: vault:1.12.2
+    image: vault:1.13.1
     restart: always
     hostname: vault
     container_name: vault
@@ -128,7 +128,7 @@ services:
      - drone
     volumes:
      - './volumes/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
-     - 'prometheus-storage:/prometheus'
+     - './volumes/prometheus-storage:/prometheus'
     ports:
      - "9091:9090"
     user: ${CURRENT_UID}

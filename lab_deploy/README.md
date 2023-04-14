@@ -304,7 +304,7 @@ Navigate back to drone in firefox at http://drone:8000
 * On the secrets page click the `+ New Secret` button and we'll create three secrets. 
 * The first secret you create should be named `pcc_password`; for the value we'll use the password you created in your Prisma Cloud Console. 
 * The second secret you will create should be named `pcc_user`; for the value use the username you created in the Prisma Cloud Console.
-* The third secret we'll create will be named `pcc_console`; for the value we'll use the name `twistlock_console` 
+* The third secret we'll create will be named `pcc_console`; for the value we'll use the name `twistlock-console` 
 * Once the secrets have been added to the repo, navigate to Gitea at `http://gitea:3000`. 
 * Sign in and go to your `ci-vuln-scan repo`
 * Add two more files to your repo. 

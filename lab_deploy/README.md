@@ -72,7 +72,7 @@ Install [Docker](https://docs.docker.com/engine/install/ubuntu/)
 
 ```bash
 sudo apt-get update
-sudo apt install ca-certificates curl git jq gnupg
+sudo apt install ca-certificates curl git jq gnupg vim zsh
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
@@ -89,8 +89,8 @@ su $USER
 ```bash
 cd $HOME
 mkdir prisma_compute_deploy
-wget https://cdn.twistlock.com/releases/snpWBgcM/prisma_cloud_compute_edition_22_01_840.tar.gz
-tar -xvzf prisma_cloud_compute_edition_22_01_840.tar.gzz -C $HOME/prisma_compute_deploy/
+wget https://cdn.twistlock.com/releases/eoTrPDul/prisma_cloud_compute_edition_22_06_234.tar.gz
+tar -xvzf prisma_cloud_compute_edition_22_06_234.tar.gz -C $HOME/prisma_compute_deploy/
 sudo cp $HOME/prisma_compute_deploy/linux/twistcli /usr/local/bin/
 sudo $HOME/prisma_compute_deploy/twistlock.sh -s onebox
 ```

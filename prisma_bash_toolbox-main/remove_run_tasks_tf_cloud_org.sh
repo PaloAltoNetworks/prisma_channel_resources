@@ -14,7 +14,7 @@ ORGANIZATION=""
 TF_WORKSPACES_REQUEST=$(curl \
                             --header "Authorization: Bearer $TF_TOKEN" \
                             --header "Content-Type: application/vnd.api+json" \
-                            --url "https://app.terraform.io/api/v2/organizations/$ORGANIZATION/workspaces?page%5Bnumber=$TF_WORKSPACES&page%5Bsize=100")
+                            --url "https://app.terraform.io/api/v2/organizations/$ORGANIZATION/workspaces?page%5Bnumber=1&page%5Bsize=100")
 
 HUNDRED_WORKSPACES_IN_TF=$(printf '%s' "$TF_WORKSPACES_REQUEST" | jq -r '.meta.pagination."total-pages"')
 

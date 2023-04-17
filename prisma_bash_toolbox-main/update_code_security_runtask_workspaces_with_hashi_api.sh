@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# written by Kyle Butler
 # ensures all the workspaces in terraform cloud are added to the selected workspaces in prisma cloud
 # requires jq
 # requires a terraform cloud api token that has the permission to view all workspaces for the org

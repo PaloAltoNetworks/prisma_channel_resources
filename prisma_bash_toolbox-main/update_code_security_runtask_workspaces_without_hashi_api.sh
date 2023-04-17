@@ -2,12 +2,24 @@
 # written by Kyle Butler
 # adds all the available workspaces to the terraform runtask integration.
 # requires jq
-# only uses the prisma cloud api endpoints
+# only uses the prisma cloud api endpoint
+#
+# suggested usage: https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec
+#
+# resource "null_resource" "update-prisma-integration" {
+#
+# provisioner "local-exec" {
+#    
+#    command = "/bin/bash <./path/to/this/script>"
+#   }
+# }
+#
+# would require removing lines 23 & 24 and assigning the vars on 20, 21,22
 
 TFC_ORG_NAME="<TERRAFORM_CLOUD_ORG_NAME>"
-
-
-
+# PC_ACCESSKEY=""
+# PC_SECRETKEY=""
+# PC_APIURL=""
 source ./secrets/secrets
 source ./func/func.sh
 # auth request body for prisma /login endpoint

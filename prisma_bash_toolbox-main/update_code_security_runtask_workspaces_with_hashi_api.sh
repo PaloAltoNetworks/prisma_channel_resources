@@ -45,21 +45,22 @@ curl --request GET \
 # parses the integrations file for the tfc integration data
 EXISTING_TFC_RUN_TASK_INTEGRATIONS=$(jq --arg org_name "$TFC_ORG_NAME" '[.data[] | select( .type == "tfcRunTasks") | select(.params.organization.name == $org_name)] | .[0] | {organization: .params.organization, workspaces: .params.workspaces, integrationId: .id}' < ./prisma_code_security_integrations.json)
 
-
+# makes a request with the Terraform cloud api token to the workspaces endpoint for the org 
 TFC_WORKSPACES_REQUEST=$(curl --header "Authorization: Bearer $TFC_API_TOKEN" \
                               --header "Content-Type: application/vnd.api+json" \
                               --url "https://app.terraform.io/api/v2/organizations/$TFC_ORG_NAME/workspaces?page%5Bnumber=1&page%5Bsize=100")
 
+# finds out how many pages to loop through (counting by 100)
 HUNDRED_WORKSPACES_IN_TFC=$(printf '%s' "$TFC_WORKSPACES_REQUEST" | jq -r '.meta.pagination."total-pages"')
 
-
+# loops through the pages and puts the response into a temp json file
 for TFC_WORKSPACES in $(seq 1 "$HUNDRED_WORKSPACES_IN_TFC"); do \
   curl --header "Authorization: Bearer $TFC_API_TOKEN" \
        --header "Content-Type: application/vnd.api+json" \
        --url "https://app.terraform.io/api/v2/organizations/$TFC_ORG_NAME/workspaces?page%5Bnumber=$TFC_WORKSPACES&page%5Bsize=100" > ./temp_tf_workspace_$(printf '%05d' "$TFC_WORKSPACES").json
 done
 
-
+# parses the responses for the workspace id and name
 EXISTING_TFC_WORKSPACES=$(cat ./temp_tf_workspace_* | jq '[.data[] |{id: .id, name: .attributes.name}]')
 
 
@@ -94,3 +95,5 @@ curl --url "$PC_APIURL/bridgecrew/api/v1/tfRunTasks/cloud/create" \
      --header "authorization: $PC_JWT" \
      --header 'content-type: application/json' \
      --data-raw "$TFC_CLOUD_CREATE_REQUEST_BODY"
+     
+

@@ -9,8 +9,14 @@ TF_TOKEN=""
 #Terraform cloud organization name
 ORGANIZATION=""
 
-#how many 100's of workspacees you have rounding up. EXAMPLE: if you have 133 you'd put the number 2 below
-HUNDRED_WORKSPACES_IN_TF=1
+# no user input required below
+
+TF_WORKSPACES_REQUEST=$(curl \
+                            --header "Authorization: Bearer $TF_TOKEN" \
+                            --header "Content-Type: application/vnd.api+json" \
+                            --url "https://app.terraform.io/api/v2/organizations/$ORGANIZATION/workspaces?page%5Bnumber=$TF_WORKSPACES&page%5Bsize=100")
+
+HUNDRED_WORKSPACES_IN_TF=$(printf '%s' "$TF_WORKSPACES_REQUEST" | jq -r '.meta.pagination."total-pages"')
 
 # handles the api page limits and numbers in the request
 for TF_WORKSPACES in $(seq 1 "$HUNDRED_WORKSPACES_IN_TF"); do\

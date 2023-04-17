@@ -3,13 +3,23 @@
 # ensures all the workspaces in terraform cloud are added to the selected workspaces in prisma cloud
 # requires jq
 # requires a terraform cloud api token that has the permission to view all workspaces for the org
-
+# suggested usage: https://developer.hashicorp.com/terraform/language/resources/provisioners/local-exec
+#
+# resource "null_resource" "update-prisma-integration" {
+#
+# provisioner "local-exec" {
+#    
+#    command = "/bin/bash <./path/to/this/script>"
+#   }
+# }
+#
+# would require removing lines 23 & 24 and assigning the vars on 20, 21,22
 
 TFC_ORG_NAME="<TERRAFORM_ORG_NAME>"
 TFC_API_TOKEN="<TERRAFORM_API_TOKEN_WITH_READ_PERMISSIONS_TO_ALL_WORKSPACES>"
-
-
-
+# PC_ACCESSKEY=""
+# PC_SECRETKEY=""
+# PC_APIURL=""
 source ./secrets/secrets
 source ./func/func.sh
 # auth request body for prisma /login endpoint

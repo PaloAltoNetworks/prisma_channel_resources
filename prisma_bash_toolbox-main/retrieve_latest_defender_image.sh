@@ -27,31 +27,6 @@ PRISMA_COMPUTE_API_AUTH_RESPONSE=$(curl --header "Content-Type: application/json
 TL_JWT=$(printf %s $PRISMA_COMPUTE_API_AUTH_RESPONSE | jq -r '.token')
 
 
-TL_CONSOLE_SANS_PROTO=$(printf '%s' "$TL_CONSOLE" | sed -E 's/^\s*.*:\/\///g')
-
-ECS_TASK_DEF_REQ_BODY=$(cat <<EOF
-{
-  "consoleAddr": "$TL_CONSOLE_SANS_PROTO",
-  "namespace": "twistlock",
-  "orchestration": "ecs",
-  "selinux": false,
-  "cri": true,
-  "privileged": false,
-  "serviceAccounts": true,
-  "istio": false,
-  "collectPodLabels": false,
-  "proxy": null,
-  "dockerSocketPath": null,
-  "gkeAutopilot": false
-}
-EOF
-)
-
-ECS_TASK_REQUEST=$(curl --url "$TL_CONSOLE/api/v1/defenders/ecs-task.json?project=Central+Console" \
-                        --header 'Accept: application/json, text/plain, */*' \
-                        --header "Authorization: Bearer $TL_JWT" \
-                        --header 'Content-Type: application/json' \
-                        --data-raw "$ECS_TASK_DEF_REQ_BODY" \
-                        --compressed)
-
-printf '\n\n%s\n\n' "latest prisma compute defender image is: $(printf '%s' "$ECS_TASK_REQUEST" | jq -r '.containerDefinitions[].image')"
+curl --url "$TL_CONSOLE/api/v1/defenders/image-name" \
+     --header "Authorization: Bearer $TL_JWT" \
+     --header 'Content-Type: application/json'

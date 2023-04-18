@@ -47,7 +47,7 @@ ECS_TASK_DEF_REQ_BODY=$(cat <<EOF
 EOF
 )
 
-ECS_TASK_REQUEST=$(curl --url "https://us-east1.cloud.twistlock.com/us-2-158256885/api/v1/defenders/ecs-task.json?project=Central+Console" \
+ECS_TASK_REQUEST=$(curl --url "$TL_CONSOLE/api/v1/defenders/ecs-task.json?project=Central+Console" \
                         --header 'Accept: application/json, text/plain, */*' \
                         --header "Authorization: Bearer $TL_JWT" \
                         --header 'Content-Type: application/json' \

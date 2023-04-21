@@ -16,7 +16,13 @@ This is a community toolkit and IS NOT supported nor maintained by Palo Alto Net
 
 ## How to use:
 
-* install jq `sudo apt-get install jq`
+* install jq - for ubuntu: `sudo apt-get install jq` 
+* install jq -for RHEL: 
+```bash
+sudo yum install epel-release -y
+sudo yum update
+sudo yum install jq
+```
 * clone the repo `git clone https://github.com/PaloAltoNetworks/prisma_channel_resources`
 * `cd ./prisma_channel_resources/prisma_bash_toolbox-main/`
 * `bash ./setup.sh`

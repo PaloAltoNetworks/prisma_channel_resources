@@ -17,7 +17,7 @@ This is a community toolkit and IS NOT supported nor maintained by Palo Alto Net
 ## How to use:
 
 * install jq - for ubuntu: `sudo apt-get install jq` 
-* install jq -for RHEL: 
+* install jq - for RHEL: 
 ```bash
 sudo yum install epel-release -y
 sudo yum update

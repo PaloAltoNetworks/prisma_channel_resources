@@ -13,6 +13,7 @@ K8S_MANIFEST_LOCATION="./dir/path/to/manifest.yml"
 tl-var-check
 declare -a IMAGE_ARRAY=($(cat $K8S_MANIFEST_LOCATION | awk -F "image:" '/image/ {print $2}'))
 
+# docker login may be required if using a private container registry
 
 for i in ${IMAGE_ARRAY[@]}; do
         # podman pull $i if using podman

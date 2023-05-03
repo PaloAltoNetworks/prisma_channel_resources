@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # written by Kyle Butler
 # requires jq to be installed
-# retrieves the suppressions for Prisma Cloud Code Security and creates a report in csv format
+# retrieves the suppressions for Prisma Cloud Code Security across all onboarded projects and creates a report in csv format
 # no user configuration needed
 # to convert the (suppression) date to human readable UTC use this excel formula
 # =(B<row_number>/86400000)+DATE(1970,1,1) 

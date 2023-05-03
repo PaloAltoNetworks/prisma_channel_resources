@@ -3,7 +3,7 @@
 # requires jq to be installed
 # retrieves the suppressions for Prisma Cloud Code Security and creates a report in csv format
 # no user configuration needed
-# to convert the time to human readable UTC use this excel formula
+# to convert the (suppression) date to human readable UTC use this excel formula
 # =(B<row_number>/86400000)+DATE(1970,1,1) 
 # make sure to format the new column with a date format 
 

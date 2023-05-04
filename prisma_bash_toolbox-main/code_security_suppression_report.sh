@@ -115,7 +115,7 @@ echo "collecting data please wait for this to finish"
 if [ -d "./temp/$(printf '%05d' $index)" ]
 then
   if [ "$(ls -A ./temp/$(printf '%05d' $index))" ]; then
-   cat ./temp/$(printf '%05d' $index)/*.json | jq --arg REPO "${REPOSITORY_LIST_ARRAY[$index]}" '.data[] | {repo: $REPO, filePath, sourceType, frameworkType, status, author, date, runtimeId, errorId, scannerType}' > "./temp/finished_$(printf '%05d' "$repo").json"
+   cat ./temp/$(printf '%05d' $index)/*.json | jq --arg REPO "${REPOSITORY_LIST_ARRAY[$index]}" '.data[] | {repo: $REPO, filePath, sourceType, frameworkType, status, author, date, runtimeId, errorId, scannerType}' > "./temp/finished_$(printf '%05d' "$index").json"
   else
     echo "${REPOSITORY_LIST_ARRAY[repo]} has no errors"
  fi

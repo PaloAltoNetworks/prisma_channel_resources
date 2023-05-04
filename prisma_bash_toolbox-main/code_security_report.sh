@@ -94,16 +94,13 @@ curl -s --request POST \
      --data "$ERROR_FILE_PAYLOAD" > "./temp/$repo/$(printf '%05d%05d' "$file_path" "$offset").json" &
    done
   done
-done
 
 wait
-
-for repo in "${!REPOSITORY_LIST_ARRAY[@]}"; do
 
 if [ -d "./temp/$repo" ]
 then
   if [ "$(ls -A ./temp/"$repo")" ]; then
-   cat ./temp/"$repo"/*.json | jq --arg REPO "${REPOSITORY_LIST_ARRAY[repo]}" '.data[] | {repo: $REPO, filePath, frameworkType, status, author, date, runtimeId, errorId, scannerType}' > "./temp/$(printf '%05d' "$repo").json"
+   cat ./temp/"$repo"/*.json | jq --arg REPO "${REPOSITORY_LIST_ARRAY[$repo]}" '.data[] | {repo: $REPO, filePath, frameworkType, status, author, date, runtimeId, errorId, scannerType}' > "./temp/$(printf '%05d' "$repo").json"
   else
     echo "${REPOSITORY_LIST_ARRAY[repo]} has no errors"
  fi

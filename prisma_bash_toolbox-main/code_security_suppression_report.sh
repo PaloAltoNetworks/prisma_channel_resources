@@ -107,18 +107,15 @@ curl -s --request POST \
      --data "$ERROR_FILE_PATH_PAYLOAD" > "./temp/$(printf '%05d' "$index")/$(printf '%05d%05d' "$file_path" "$offset").json" &
    done
   done
-done
-
 
 wait
 echo "collecting data please wait for this to finish"
 
-for repo in "${!REPOSITORY_LIST_ARRAY[@]}"; do
 
 if [ -d "./temp/$(printf '%05d' $index)" ]
 then
   if [ "$(ls -A ./temp/$(printf '%05d' $index))" ]; then
-   cat ./temp/$(printf '%05d' $index)/*.json | jq --arg REPO "${REPOSITORY_LIST_ARRAY[repo]}" '.data[] | {repo: $REPO, filePath, sourceType, frameworkType, status, author, date, runtimeId, errorId, scannerType}' > "./temp/finished_$(printf '%05d' "$repo").json"
+   cat ./temp/$(printf '%05d' $index)/*.json | jq --arg REPO "${REPOSITORY_LIST_ARRAY[$index]}" '.data[] | {repo: $REPO, filePath, sourceType, frameworkType, status, author, date, runtimeId, errorId, scannerType}' > "./temp/finished_$(printf '%05d' "$repo").json"
   else
     echo "${REPOSITORY_LIST_ARRAY[repo]} has no errors"
  fi

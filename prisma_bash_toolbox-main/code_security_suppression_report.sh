@@ -98,7 +98,7 @@ EOF
 
 for offset in $(seq 0 10 "${FILE_ERROR_COUNT_ARRAY[file_path]}"); do
 
-echo "${FILE_ERROR_COUNT_ARRAY[file_path]} error counts in ${FILE_PATH_ARRAY[file_path]}. offset is $offset"
+echo "${FILE_ERROR_COUNT_ARRAY[file_path]} total errors in ${FILE_PATH_ARRAY[file_path]}. Request offset: $offset"
 
 curl -s --request POST \
      --url "$PC_APIURL/code/api/v1/errors/file?limit=10&offset=$offset" \

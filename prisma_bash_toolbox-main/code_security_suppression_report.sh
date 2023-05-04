@@ -162,7 +162,7 @@ cat ./temp/all_errors_$REPORT_DATE.json | jq '. |{repo, filePath, sourceType, fr
 # to do map response from suppressions to merged_policy_and_errors_DATE.json file
 # cat ./temp/policy/suppression_response_* | jq '.[]' > ./temp/finished_suppression_response_$REPORT_DATE.json
 
-cat ./temp/merged_policy_and_errors_$REPORT_DATE.json | jq -n -r '[inputs] | map({repo, sourceType, frameworkType, status, author, date, runtimeId, scannerType, policyId, policyTitle, policySeverity, policyCategory, policyDescriptiveTitle, policyConstructiveTitle}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > ./reports/"code_security_report_$REPORT_DATE.csv"
+cat ./temp/merged_policy_and_errors_$REPORT_DATE.json | jq -n -r '[inputs] | map({repo, filePath, sourceType, frameworkType, status, author, date, runtimeId, scannerType, policyId, policyTitle, policySeverity, policyCategory, policyDescriptiveTitle, policyConstructiveTitle}) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $keys,$rows[] | @csv' > ./reports/"code_security_report_$REPORT_DATE.csv"
 
 
 printf '\n%s\n' "All done your report is in the reports directory saved as: code_security_report_$REPORT_DATE.csv"

@@ -71,7 +71,7 @@ FILE_PATH_ARRAY=($(cat ./temp/error_file_response_$(printf '%05d' "$index").json
 FILE_ERROR_COUNT_ARRAY=($(cat ./temp/error_file_response_$(printf '%05d' "$index").json | jq '.data[].errorsCount' ))
 
 
-if !(( $index % 100)); then \
+if ! (( $index % 100)); then \
 
 PC_JWT_RESPONSE=$(curl --request POST \
                        --url "$PC_APIURL/login" \

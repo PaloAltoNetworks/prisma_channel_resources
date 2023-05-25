@@ -36,3 +36,4 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 * [Prisma Cloud Golang SDK - Thanks Garfield Freeman!](https://github.com/PaloAltoNetworks/prisma-cloud-go)
 * [BridgeCrew Terraform Provider](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew)
 * [PANW + Hashi](https://pan.dev/terraform/)
+* [An excellent test container for cloud security - Thank you McKinsey Engineer - Petr Ruzicka](https://github.com/ruzickap/malware-cryptominer-container/blob/main/README.md)

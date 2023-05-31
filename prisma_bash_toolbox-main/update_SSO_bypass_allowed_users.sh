@@ -32,4 +32,4 @@ curl -L -X PUT \
         --url "$PC_APIURL/user/saml/bypass" \
         --header 'Content-Type: application/json' \
         --header "x-redlock-auth: $PC_JWT" \
-        --data-raw "[ $USER_EMAIL ]"
+        --data-raw "[ \"$USER_EMAIL\" ]"

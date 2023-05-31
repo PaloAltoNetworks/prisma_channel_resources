@@ -6,7 +6,7 @@
 
 # assign user email to variable below
 
-USER_EMAIL=<YOUR_USER_EMAIL>
+USER_EMAIL="<YOUR_USER_EMAIL>"
 
 source ./secrets/secrets
 source ./func/func.sh

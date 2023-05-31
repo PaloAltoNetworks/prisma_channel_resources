@@ -28,7 +28,7 @@ PC_JWT_RESPONSE=$(curl --request POST \
 PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
 
 
-curl -L -X PUT
+curl -L -X PUT \
         --url "$PC_APIURL/user/saml/bypass" \
         --header 'Content-Type: application/json' \
         --header "x-redlock-auth: $PC_JWT" \

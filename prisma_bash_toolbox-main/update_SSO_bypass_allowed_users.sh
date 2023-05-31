@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # requires jq and curl
-# must have a sysadmin role in Prisma Cloud to work
+# must have a sysadmin role in Prisma Cloud to work and created access/secret keys for that user.
 # adds a user to the SSO Bypass list in case people have made a mistake in the SSO configuration section of the platform
 # author Kyle Butler
 

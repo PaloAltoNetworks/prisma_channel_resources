@@ -10,7 +10,7 @@
 source ./secrets/secrets
 source ./func/func.sh
 
-# KEEP IN MIND. WE HAVE A N-2 support policy for defenders and console. Please don't deploy a defender older than the last two major releases 
+# KEEP IN MIND. WE HAVE A N-2 support policy for defenders and console. Please don't deploy a defender older than the last two major releases of your console version
 TL_IMAGE_VERSION="22_12_694"
 
 

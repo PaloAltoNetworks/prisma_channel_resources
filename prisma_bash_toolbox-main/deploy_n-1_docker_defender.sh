@@ -60,8 +60,12 @@ LICENSE_ACCESS_KEY=$(curl --header "authorization: Bearer $TL_JWT" \
 
 ## could replace with internal container images
 docker pull registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION
+
+# it's unecessary to save the image as a tar.gz file. You could skip 65 and 66 but it's useful to see these commands if you're pulling from an internal container registry. 
 docker save registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION | gzip > ./twistlock_defender.tar.gz
 docker load -i ./twistlock_defender.tar.gz
+
+# this next part is key in order for the deployment scripts to work. 
 docker tag registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION  twistlock/private:defender_$TL_IMAGE_VERSION
 
 HOSTNAME_FOR_CONSOLE=$(printf %s $TL_CONSOLE | awk -F / '{print $3}' | sed  s/':\S*'//g)

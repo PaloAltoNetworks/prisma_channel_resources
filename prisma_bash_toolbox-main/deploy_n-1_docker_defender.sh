@@ -52,10 +52,10 @@ LICENSE_ACCESS_KEY=$(curl --header "authorization: Bearer $TL_JWT" \
                           --request GET \
                           --url "$TL_CONSOLE/api/v1/defenders/image-name" | sed "s|\"registry\-auth\.twistlock\.com\/||g" | sed "s|\/twistlock.*||g" | sed "s|tw_||g")
 
-# could replace with internal defender images which are checked into the organizations internal container registry
+## could replace with internal container images
 docker pull registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION
-docker save registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION | gzip > ./temp/twistlock_defender.tar.gz
-docker load -i ./temp/twistlock_defender.tar.gz
+docker save registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION | gzip > ./twistlock_defender.tar.gz
+docker load -i ./twistlock_defender.tar.gz
 docker tag registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION  twistlock/private:defender_$TL_IMAGE_VERSION
 
 HOSTNAME_FOR_CONSOLE=$(printf %s $TL_CONSOLE | awk -F / '{print $3}' | sed  s/':\S*'//g)
@@ -87,16 +87,16 @@ EOF
 curl --header "authorization: Bearer $TL_JWT" \
      --header 'Content-Type: application/json' \
      --request POST \
-     -o ./temp/twistlock-defender-helm.tar.gz \
+     -o twistlock-defender-helm.tar.gz \
      --data "$HELM_REQUEST_BODY" \
      --url "$TL_CONSOLE/api/v1/defenders/helm/twistlock-defender-helm.tar.gz"
 
 
-tar -xvzf ./temp/twistlock-defender-helm.tar.gz
+tar -xvzf ./twistlock-defender-helm.tar.gz
 sleep 2
 
 
-TL_API_KEY_DEFENDER=$(cat ./temp/twistlock-defender/values.yaml | grep "install_bundle" | sed 's|install_bundle\: ||g' | base64 -d | jq -r '.apiKey')
+TL_API_KEY_DEFENDER=$(cat ./twistlock-defender/values.yaml | grep "install_bundle" | sed 's|install_bundle\: ||g' | base64 -d | jq -r '.apiKey')
 
 tput_silent() {
   tput "$@" 2>/dev/null
@@ -133,25 +133,25 @@ download_certs() {
       hostname=$(hostname)
     fi
 print_info "Generating certs for ${hostname} ${ip}"
-curl --header "x-redlock-auth: $PC_JWT" "$TL_CONSOLE/api/v1/certs/server-certs.sh?hostname=${hostname}&ip=${ip}" -o ./temp/certs.sh
-bash ./temp/certs.sh
+curl --header "x-redlock-auth: $PC_JWT" "$TL_CONSOLE/api/v1/certs/server-certs.sh?hostname=${hostname}&ip=${ip}" -o certs.sh
+bash ./certs.sh
 }
 
 download_certs
 
 curl --header "authorization: Bearer $TL_JWT" \
      --url $TL_CONSOLE/api/v1/scripts/twistlock.sh \
-     -o ./temp/twistlock.sh
+     -o twistlock.sh
 
 curl --header "authorization: Bearer $TL_JWT" \
      --url "$TL_CONSOLE/api/v1/scripts/twistlock.cfg" \
-     -o ./temp/twistlock.cfg
+     -o twistlock.cfg
 
-sed -i "s|DOCKER_TWISTLOCK_TAG\=.*|DOCKER_TWISTLOCK_TAG\=_$TL_IMAGE_VERSION|g" ./temp/twistlock.cfg
+sed -i "s|DOCKER_TWISTLOCK_TAG\=.*|DOCKER_TWISTLOCK_TAG\=_$TL_IMAGE_VERSION|g" ./twistlock.cfg
 
 curl --header "authorization: Bearer $TL_JWT" \
      --url "$TL_CONSOLE/api/v1/certs/service-parameter" \
-     -o ./temp/service-parameter
+     -o service-parameter
 
 
 TL_CUSTOMER_ID=$(printf '%s' "$TL_CONSOLE" | sed 's|https\:\/\/||g' |grep "/" | cut -d/ -f2- )
@@ -179,14 +179,5 @@ ENCODED_TL_INSTALL_BUNDLE=$(printf '%s' "$TL_INSTALL_BUNDLE" | base64 | tr -d '\
 
 
 
-source ./temp/twistlock.cfg
-sudo bash ./temp/twistlock.sh -s --ws-port 443 -a "$HOSTNAME_FOR_CONSOLE" -b "$ENCODED_TL_INSTALL_BUNDLE" "defender"
-
-
-## Remove to keep temp
-{
-rm -rf ./temp/*
-}
-
-
-exit
+source ./twistlock.cfg
+sudo bash ./twistlock.sh -s --ws-port 443 -a "$HOSTNAME_FOR_CONSOLE" -b "$ENCODED_TL_INSTALL_BUNDLE" "defender"

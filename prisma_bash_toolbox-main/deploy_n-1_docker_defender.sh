@@ -7,7 +7,7 @@
 ###############################################################################################
 # WHY USE THIS: Well let's imagine for a moment we have a mature organization which has a certification process before deploying updated software. Smart. 
 # How could you deploy the last version of the prisma container defender after an upgrade of the console in the SaaS version of Prisma Cloud? 
-# Or what if an app team is convinced that the latest version of Prisma Cloud Defender is what's causing an issue? How would you roll back? For k8s it's pretty simple because 
+# Or what if an app team is convinced that the latest version of Prisma Cloud Defender is what's causing an issue (unlikely but sure)? How would you roll back? For k8s it's pretty simple because 
 # the organization would be practicing gitops...right?
 # but what about a single container defender? Docker desktop environments and dev workstations might be a bit of a challenge to manage at scale....until now ;)
 

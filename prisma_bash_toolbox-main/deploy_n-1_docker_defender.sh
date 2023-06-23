@@ -181,3 +181,17 @@ ENCODED_TL_INSTALL_BUNDLE=$(printf '%s' "$TL_INSTALL_BUNDLE" | base64 | tr -d '\
 
 source ./twistlock.cfg
 sudo bash ./twistlock.sh -s --ws-port 443 -a "$HOSTNAME_FOR_CONSOLE" -b "$ENCODED_TL_INSTALL_BUNDLE" "defender"
+
+
+
+## Remove to keep install files
+{
+rm -f ./certs.sh
+rm -f ./defender.sh
+rm -f ./twistlock.cfg
+rm -rf ./twistlock-defender
+rm -f ./twistlock-defender-helm.tar.gz
+rm -f ./twistlock_defender.tar.gz
+rm -f ./twistlock.sh
+rm -f ./twistlock-install.log
+}

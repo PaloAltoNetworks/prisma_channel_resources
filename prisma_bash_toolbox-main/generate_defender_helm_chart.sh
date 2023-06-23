@@ -46,7 +46,7 @@ EOF
 
 curl --header "authorization: Bearer $TL_JWT" \
      --header 'Content-Type: application/json' \
-     --reqeust POST \
+     --request POST \
      -o ./temp/twistlock-defender-helm.tar.gz \
      --data "$HELM_REQUEST_BODY" \
      --url "$TL_CONSOLE/api/v1/defenders/helm/twistlock-defender-helm.tar.gz"

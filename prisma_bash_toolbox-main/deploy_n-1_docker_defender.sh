@@ -4,6 +4,12 @@
 # usage: sudo bash <script_name>.sh
 # deploys a previous version of the container defender to a host/vm
 # requres docker, jq, and outbound access to the prisma cloud console and the twistlock cdn
+###############################################################################################
+# WHY USE THIS: Well let's imagine for a moment we have a mature organization which has a certification process before deploying updated software. Smart. 
+# How could you deploy the last version of the prisma container defender after an upgrade of the console in the SaaS version of Prisma Cloud? 
+# Or what if an app team is convinced that the latest version of Prisma Cloud Defender is what's causing an issue? How would you roll back? For k8s it's pretty simple because 
+# the organization would be practicing gitops...right?
+# but what about a single container defender? Docker desktop environments and dev workstations might be a bit of a challenge to manage at scale....until now ;)
 
 # USER CONFIG VARS BELOW
 

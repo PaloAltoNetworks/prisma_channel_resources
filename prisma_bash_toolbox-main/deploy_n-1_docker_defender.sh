@@ -33,7 +33,7 @@ command_exists() {
 # authenticates to the prisma compute console using the access key and secret key. If using a self-signed cert with a compute on-prem version, add -k to the curl command.·
 PRISMA_COMPUTE_API_AUTH_RESPONSE=$(curl --header "Content-Type: application/json" \
                                         --request POST \
-                                        --data-raw "$AUTH_PAYLOAD" \
+                                        --data "$AUTH_PAYLOAD" \
                                         --url $TL_CONSOLE/api/v1/authenticate )
 
 
@@ -61,9 +61,6 @@ LICENSE_ACCESS_KEY=$(curl --header "authorization: Bearer $TL_JWT" \
 ## could replace with internal container images
 docker pull registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION
 
-# it's unecessary to save the image as a tar.gz file. You could skip 65 and 66 but it's useful to see these commands if you're pulling from an internal container registry. 
-docker save registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION | gzip > ./twistlock_defender.tar.gz
-docker load -i ./twistlock_defender.tar.gz
 
 # this next part is key in order for the deployment scripts to work. 
 docker tag registry-auth.twistlock.com/tw_$LICENSE_ACCESS_KEY/twistlock/defender:defender_$TL_IMAGE_VERSION  twistlock/private:defender_$TL_IMAGE_VERSION
@@ -82,6 +79,7 @@ HELM_REQUEST_BODY=$(cat <<EOF
   "namespace": "twistlock",
   "orchestration": "kubernetes",
   "selinux": false,
+  "containerRuntime": "containerd",
   "cri": true,
   "privileged": false,
   "serviceAccounts": true,
@@ -99,7 +97,7 @@ curl --header "authorization: Bearer $TL_JWT" \
      --request POST \
      -o twistlock-defender-helm.tar.gz \
      --data "$HELM_REQUEST_BODY" \
-     --url "$TL_CONSOLE/api/v1/defenders/helm/twistlock-defender-helm.tar.gz"
+     --url "$TL_CONSOLE/api/v1/defenders/helm/twistlock-defender-helm.tar.gz?project=Central+Console"
 
 
 tar -xvzf ./twistlock-defender-helm.tar.gz

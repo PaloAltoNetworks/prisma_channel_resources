@@ -19,7 +19,7 @@ HOSTNAME_FOR_CONSOLE=$(printf %s $TL_CONSOLE | awk -F / '{print $3}' | sed  s/':
 # authenticates to the prisma compute console using the access key and secret key. If using a self-signed cert with a compute on-prem version, add -k to the curl command.·
 PRISMA_COMPUTE_API_AUTH_RESPONSE=$(curl --header "Content-Type: application/json" \
                                         --request POST \
-                                        --data-raw "$AUTH_PAYLOAD" \
+                                        --data "$AUTH_PAYLOAD" \
                                         --url $TL_CONSOLE/api/v1/authenticate )
 
 
@@ -32,6 +32,7 @@ HELM_REQUEST_BODY=$(cat <<EOF
   "namespace": "twistlock",
   "orchestration": "kubernetes",
   "selinux": false,
+  "containerRuntime": "containerd",
   "cri": true,
   "privileged": false,
   "serviceAccounts": true,

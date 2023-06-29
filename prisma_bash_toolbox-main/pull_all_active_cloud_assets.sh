@@ -99,17 +99,7 @@ done < "./temp/rql_cloud_account_response.json"
 
 for cloud_account in "${!rql_cloud_account_array[@]}"; do \
 
-# every 600 api requests refresh the JWT so it doesn't timeout. 
-if [ $api_query = 600 ]; then \
 
-PC_JWT_RESPONSE=$(curl --request POST \
-                       --url "$PC_APIURL/login" \
-                       --header 'Accept: application/json; charset=UTF-8' \
-                       --header 'Content-Type: application/json; charset=UTF-8' \
-                       --data "${AUTH_PAYLOAD}")
-
-PC_JWT=$(printf '%s' "$PC_JWT_RESPONSE" | jq -r '.token')
-fi
 
 mkdir -p ./temp/$(printf '%05d' "$cloud_account")
 
@@ -117,7 +107,7 @@ for api_query in "${!rql_api_array[@]}"; do \
 
 rql_request_body=$(cat <<EOF
 {
-  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND api.name = ${rql_api_array[api_query]}",
+  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND api.name = ${rql_api_array[api_query]} AND resource.status = Active",
   "timeRange":{
      "type":"relative",
      "value":{
@@ -129,6 +119,17 @@ rql_request_body=$(cat <<EOF
 EOF
 )
 
+# every 600 api requests refresh the JWT so it doesn't timeout. 
+if [ $api_query = 600 ]; then \
+
+PC_JWT_RESPONSE=$(curl --request POST \
+                       --url "$PC_APIURL/login" \
+                       --header 'Accept: application/json; charset=UTF-8' \
+                       --header 'Content-Type: application/json; charset=UTF-8' \
+                       --data "${AUTH_PAYLOAD}")
+
+PC_JWT=$(printf '%s' "$PC_JWT_RESPONSE" | jq -r '.token')
+fi
 
 curl -s --url "$PC_APIURL/search/config" \
      --header "accept: application/json; charset=UTF-8" \

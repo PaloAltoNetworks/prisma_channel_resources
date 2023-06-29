@@ -149,7 +149,7 @@ printf '%s\n' "assetNumber, service, resourceType, accountId" > "./reports/all_c
 rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
-cat ./temp/finished_*.json | jq -r '.data | { assetNumber: .totalRows, items: .items[0]} | {assetNumber: .assetNumber, service: .items.service, resourceType: .items.resourceType, accountId: .items.accountId}' | jq -r '[.[]] | @csv' >> "./reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.data | { assetNumber: .totalRows, items: .items[0]} | {assetNumber: .assetNumber, service: .items.service, resourceType: .items.resourceType, accountId: .items.accountId}' | jq -r '[.[]] | @csv' | sed 's|0,,,||g' | tr -s '\n' >> "./reports/all_cloud_resources_$date.csv"
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
 

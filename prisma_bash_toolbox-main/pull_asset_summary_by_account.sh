@@ -6,7 +6,7 @@
 # WARNING this will take a while to generate but will pull the most accurate summary
 # data on existing cloud assets by resource type and cloud service and show distribution
 # across cloud accounts. Expect a csv with the following table headers:
-# assetNumber, service, resourceType, accountId
+# resourceCount, cloudType, accountId, accountName, service, resourceType
 
 source ./secrets/secrets
 source ./func/func.sh

@@ -149,7 +149,7 @@ printf '%s\n' "resourceCount, cloudType, cloudAccount, accountName, service, res
 rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
-cat ./temp/finished_*.json | jq -r '.data.items[] | {"cloudType": .cloudType, "accountId": .accountId,  "accountName": .accountName,  "service": .service, "resourceType": .resourceType } | [.[]] |@csv ' | sed 's|0,,,||g' | tr -s '\n' | | sort | uniq -c | awk '{sub($1, "\"&\","); print}' >> "./reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.data.items[] | {"cloudType": .cloudType, "accountId": .accountId,  "accountName": .accountName,  "service": .service, "resourceType": .resourceType } | [.[]] |@csv ' | sed 's|0,,,||g' | tr -s '\n' | sort | uniq -c | awk '{sub($1, "\"&\","); print}' >> "./reports/all_cloud_resources_$date.csv"
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
 

@@ -144,13 +144,13 @@ cat ./temp/$(printf '%05d' "$cloud_account")/*.json > ./temp/finished_$(printf '
 
 done
 
-printf '%s\n' "resourceCount, cloudType, cloudAccount, accountName, service, resourceType" > "./reports/all_cloud_resources_$date.csv"
+printf '%s\n' "resourceCount, cloudType, cloudAccount, accountName, service, resourceType, regionName" > "./reports/all_cloud_resources_$date.csv"
 
 rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
 for finished_file in ./temp/finished_*.json; do \
-cat $finished_file | jq -r '.data.items[] | {"cloudType": .cloudType, "accountId": .accountId,  "accountName": .accountName,  "service": .service, "resourceType": .resourceType } | [.[]] |@csv ' | sed 's|0,,,||g' | tr -s '\n' | sort | uniq -c | awk '{sub($1, "\"&\","); print}' >> "./reports/all_cloud_resources_$date.csv";
+cat $finished_file | jq -r '.data.items[] | {"cloudType": .cloudType, "accountId": .accountId,  "accountName": .accountName,  "service": .service, "resourceType": .resourceType, "regionName": .regionName } | [.[]] |@csv ' | sed 's|0,,,||g' | tr -s '\n' | sort | uniq -c | awk '{sub($1, "\"&\","); print}' >> "./reports/all_cloud_resources_$date.csv";
 done
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"

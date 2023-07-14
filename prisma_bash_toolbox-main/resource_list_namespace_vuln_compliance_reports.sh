@@ -17,7 +17,7 @@ source ./secrets/secrets
 
 date=$(date +%Y%m%d-%H%M)
 
-
+retrieve_token () {
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}
 EOF
@@ -41,7 +41,9 @@ PRISMA_COMPUTE_API_AUTH_RESPONSE=$(curl --header "Content-Type: application/json
 
 
 TL_JWT=$(printf '%s' "$PRISMA_COMPUTE_API_AUTH_RESPONSE" | jq -r '.token')
+}
 
+retrieve_token
 
 # brings down the resource lists from the console
 curl --request GET \
@@ -87,6 +89,7 @@ for resource_list in "${!RESOURCE_LIST_ARRAY[@]}"; do \
     if [ "$namespace" -eq "30" ]; then \
       echo "sleeping for 60 seconds to avoid rate limit";
       sleep 60
+      retrieve_token
     fi
     # determines whether or not the requests need to utilize offset and limit parameters
     if [ "$CONTAINER_COUNT" -gt "50" ]; then \
@@ -96,6 +99,7 @@ for resource_list in "${!RESOURCE_LIST_ARRAY[@]}"; do \
         if [ "$container_offset" -ge "1500" ]; then \
           echo "sleeping for 60 seconds to avoid rate limit";
           sleep 60
+          retrieve_token
         fi
         # request for compliance/config workload data in csv format
         curl --request GET \

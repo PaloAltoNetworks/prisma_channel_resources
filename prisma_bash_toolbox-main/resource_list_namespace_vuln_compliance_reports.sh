@@ -51,7 +51,7 @@ curl --request GET \
      -o ./temp/resource_list.json
 
 # only selects resource lists where the namespaces are defined and creates an array
-RESOURCE_LIST_ARRAY=($(cat ./temp/resource_list.json | jq -r '.[] | select(.members[].namespaces[]? != "*") | .name'))
+RESOURCE_LIST_ARRAY=($(cat ./temp/resource_list.json | jq -r '.[] | select(.members[].namespaces[]? != "*") | .name' | sort | uniq))
 
 # loops through each list with defined namespace(s)
 for resource_list in "${!RESOURCE_LIST_ARRAY[@]}"; do \

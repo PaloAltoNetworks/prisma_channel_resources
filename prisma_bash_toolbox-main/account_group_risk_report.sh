@@ -19,7 +19,7 @@ MINUTE_ET="0"
 # Pick day(s) to send report. For monday and tuesday the value should be "MO,TU" etc. Available options: "MO,SU,TU,WE,TH,FR,SA"
 REPORT_DAY="MO"
 
-# gcp, aws, or azure
+# gcp, aws, azure, oci, or alibaba_cloud
 CLOUD_TYPE="aws"
 
 # account group name exactly as it appears in the Prisma Console

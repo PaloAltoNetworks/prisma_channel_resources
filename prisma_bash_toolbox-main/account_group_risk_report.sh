@@ -30,6 +30,7 @@ EMAIL_ARRAY=( "<email_1>" "<email_2>")
 
 ##############################################################-END OF USER CONFIG-##################################################
 
+REPORT_START_DATE=$(date +%Y%m01T000000)
 
 
 AUTH_PAYLOAD=$(cat <<EOF
@@ -76,7 +77,7 @@ ACCOUNT_GROUP_REPORT_REQUEST_BODY=$(cat <<EOF
     ],
     "regions": [],
     "resourceGroups": [],
-    "schedule": "DTSTART;TZID=America/New_York:20230701T000000\nBYHOUR=$HOUR_ET;BYMINUTE=$MINUTE_ET;BYSECOND=0;FREQ=WEEKLY;INTERVAL=1;BYDAY=$REPORT_DAY",
+    "schedule": "DTSTART;TZID=America/New_York:$REPORT_START_DATE\nBYHOUR=$HOUR_ET;BYMINUTE=$MINUTE_ET;BYSECOND=0;FREQ=WEEKLY;INTERVAL=1;BYDAY=$REPORT_DAY",
     "timeRange": {
       "type": "to_now",
       "value": "epoch"

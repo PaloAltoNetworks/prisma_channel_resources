@@ -86,7 +86,7 @@ for resource_list in "${!RESOURCE_LIST_ARRAY[@]}"; do \
                            --header "authorization: Bearer $TL_JWT")
 
     # handles the 30 req per minute rate limit
-    if [ $(expr $namespace % 30) -eq 0 ]; then \
+    if [ $(( $namespace % 30 )) -eq 0 ]; then \
       echo "sleeping for 60 seconds to avoid rate limit";
       sleep 60
       retrieve_token
@@ -96,7 +96,7 @@ for resource_list in "${!RESOURCE_LIST_ARRAY[@]}"; do \
       # loop to pull all results from the console
       for container_offset in $(seq 0 50 "$CONTAINER_COUNT"); do \
         # handles the 30 req per minute rate limit
-        if [ $(expr $container_offset % 1500) -eq 0 ]; then \
+        if [ $(( $container_offset % 1500 )) -eq 0 ]; then \
           echo "sleeping for 60 seconds to avoid rate limit";
           sleep 60
           retrieve_token

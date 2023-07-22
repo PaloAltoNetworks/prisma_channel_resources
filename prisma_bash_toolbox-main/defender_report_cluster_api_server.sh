@@ -102,6 +102,7 @@ printf '\n\n\n\n%s' "csv report is in the reports directory named defender_repor
 rm "$TEMP_DIR/hosts.json"
 rm "$TEMP_DIR/defenders.json"
 rm "$TEMP_DIR/modified_hosts.json"
+rm "$TEMP_DIR/defenders.csv"
 }
 
 exit

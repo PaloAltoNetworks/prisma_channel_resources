@@ -53,7 +53,7 @@ hosts_array=( $(tail -n +2 $TEMP_DIR/defenders.csv | cut -d ',' -f1) )
 # if there's more than 50 hosts then loop through with limit and offset gathering all the data to a file paying attention to the rate limiting
 if [ "${#hosts_array[@]}" -gt 50 ]; then \
   for host in $(seq 0 50 "${#hosts_array[@]}"); do \
-    if [ "$host" -ge 1500 ]; then \
+    if [ $(expr "$host" % 1500) -eq 0 ]; then \
       echo "sleeping for a minute to avoid rate limiting"
       sleep 60
       retrieve_token

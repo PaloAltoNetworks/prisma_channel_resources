@@ -86,7 +86,7 @@ for resource_list in "${!RESOURCE_LIST_ARRAY[@]}"; do \
                            --header "authorization: Bearer $TL_JWT")
 
     # handles the 30 req per minute rate limit
-    if [ "$namespace" -eq "30" ]; then \
+    if [ $(expr $namespace % 30) -eq 0 ]; then \
       echo "sleeping for 60 seconds to avoid rate limit";
       sleep 60
       retrieve_token

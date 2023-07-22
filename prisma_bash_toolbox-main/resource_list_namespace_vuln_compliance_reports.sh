@@ -96,7 +96,7 @@ for resource_list in "${!RESOURCE_LIST_ARRAY[@]}"; do \
       # loop to pull all results from the console
       for container_offset in $(seq 0 50 "$CONTAINER_COUNT"); do \
         # handles the 30 req per minute rate limit
-        if [ "$container_offset" -ge "1500" ]; then \
+        if [ $(expr $container_offset % 1500) -eq 0 ]; then \
           echo "sleeping for 60 seconds to avoid rate limit";
           sleep 60
           retrieve_token

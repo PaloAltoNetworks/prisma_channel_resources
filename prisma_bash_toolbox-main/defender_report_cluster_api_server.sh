@@ -90,7 +90,7 @@ cat "$TEMP_DIR/hosts.json" | jq '.[] | { apiServerName: .k8sClusterAddr?, cluste
 
 cat "$TEMP_DIR/defenders.json" | jq '[.[] | {hostname, type, version, connected, processMonitoring: .status.process.enabled?, networkMonitoring: .status.process.enabled?, filesystemMonitoring: .status.filesystem.enabled?, appFirewall: .status.appFirewall.enabled?, cloudProvider: .cloudMetadata.provider?, cloudRegion: .cloudMetadata.region?, cloudAccountName: .cloudMetadata.accountID?, cluster: .cluster}] |map({hostname, type, version, connected, processMonitoring, networkMonitoring, filesystemMonitoring, appFirewall, cloudProvider,cloudRegion, cloudAccountName, cluster, clusterApiServer: [(.cluster as $clusterName | $hosts_data | ..|select(.clusterName? and .clusterName == $clusterName ))]})' --slurpfile hosts_data "$TEMP_DIR/modified_hosts.json" | jq '.[] | {hostname, type, version, connected, processMonitoring, networkMonitoring, filesystemMonitoring, appFirewall, cloudProvider,cloudRegion, cloudAccountName, cluster, clusterApiServer: .clusterApiServer[].apiServerName?}' | jq '[inputs]' > "$REPORTS_DIR/defender_data_$date.json"
 
-printf '%s\n' 'hostname, type, version, connected, processMonitoring, networkMonitoring, filesystemMonitoring, appFirewall, cloudProvider,cloudRegion, cloudAccou  ntName, cluster, clusterApiServer' > "$REPORTS_DIR/defender_report_$date.csv"
+printf '%s\n' 'hostname, type, version, connected, processMonitoring, networkMonitoring, filesystemMonitoring, appFirewall, cloudProvider, cloudRegion, cloudAccountName, cluster, clusterApiServer' > "$REPORTS_DIR/defender_report_$date.csv"
 cat "$REPORTS_DATA/defender_data.json" | jq  '.[]' | jq -r '[.[]] | @csv' >> "$REPORTS_DIR/defender_report_$date.csv"
 
 cat "$REPORTS_DIR/defender_data_$date.json"

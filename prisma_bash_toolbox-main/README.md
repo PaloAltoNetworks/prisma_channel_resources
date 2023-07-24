@@ -39,8 +39,6 @@ Each Script Has it's own set of variables which need to be assigned prior to run
 
 # Errors, debugging, and known gotchas
 
-* MacOs uses BRE (Basic RegEx) vs Ubuntu which uses the GNU ERE (Extended RegEx) so the function I wrote to check the validity of the secrets file fails when run on MacOS. 
-   * If you're sure the secrets are entered correctly by checking the ./secrets/secrets file then you can either remove the function from the scripts `pce-var-check` or just hit `y` on your keyboard. 
 * Debugging the scripts. All you need to do to get the RESPONSE code is add `-v` to any `curl` command in the script. 
 
 

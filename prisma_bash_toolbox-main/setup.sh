@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # written by Kyle Butler
-# requires GRE not BRE...sorry no MacOS support. But pretty much every other mainstream linux distro will support
+
 
 
 source ./func/func.sh

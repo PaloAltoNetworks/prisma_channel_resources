@@ -3,7 +3,7 @@
 # to run: `bash ./<script_name>.sh`
 # requires jq to be installed
 
-# Lists out all the vms in prisma cloud by cloud account
+# Lists out all the licensable resources in Prisma Cloud by cloud account
 
 source ./secrets/secrets
 source ./func/func.sh
@@ -107,14 +107,14 @@ cat ./temp/$(printf '%05d' "$cloud_account")/*.json > ./temp/finished_$(printf '
 
 done
 
-printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType" > "./reports/all_cloud_resources_$date.csv"
+printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType" > "./reports/all_cloud_vms_$date.csv"
 
 rm ./temp/rql_cloud_account_response.json
 
 
-cat ./temp/finished_*.json | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "./reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "./reports/all_cloud_vms_$date.csv"
 
-printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
+printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_vms_$date.csv"
 
 {
 rm -rf ./temp/*

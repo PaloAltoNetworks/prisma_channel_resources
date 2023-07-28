@@ -144,12 +144,12 @@ cat ./temp/$(printf '%05d' "$cloud_account")/*.json > ./temp/finished_$(printf '
 
 done
 
-printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType,prismaApiName" > "./reports/all_cloud_resources_$date.csv"
+printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,service,resourceType,prismaApiName" > "./reports/all_cloud_resources_$date.csv"
 
 rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
-cat ./temp/finished_*.json | jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "id": .data.id, "accountId": .data.accountId,  "name": .data.name,  "accountName": .data.accountName,  "regionId": .data.regionId,  "regionName": .data.regionName,  "service": .data.service, "resourceType": .data.resourceType, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||g" >> "./reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "id": .data.id, "accountId": .data.accountId,  "name": .data.name,  "accountName": .data.accountName,  "regionId": .data.regionId, "service": .data.service, "resourceType": .data.resourceType, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||g" >> "./reports/all_cloud_resources_$date.csv"
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
 

@@ -3,12 +3,12 @@
 # to run: `bash ./<script_name>.sh`
 # requires jq to be installed
 
-# WARNING THIS COULD REQUIRE SIGNIFICANT FREE STORAGE TO GENERATE: Example 2 million cloud resources will require roughly 1 GB of free space. 
+# WARNING THIS COULD REQUIRE SIGNIFICANT FREE STORAGE TO GENERATE: Example 2 million cloud resources will require roughly 1 GB of free space.
 # EXCEL HAS LIMITATIONS WHICH MAY MAKE THIS REPORT UNABLE TO BE OPENED
 # https://support.microsoft.com/en-us/office/excel-specifications-and-limits-1672b34d-7043-467e-8e27-269d656771c3
 
 # Splitting the final report into seperate csvs based on the number of lines might be important if you plan to open the report in EXCEL
-# EXAMPLE `split -l 20 report.csv new` will split the report.csv file into new files with 20 lines each in them. 
+# EXAMPLE `split -l 20 report.csv new` will split the report.csv file into new files with 20 lines each in them.
 
 source ./secrets/secrets
 source ./func/func.sh
@@ -119,7 +119,7 @@ rql_request_body=$(cat <<EOF
 EOF
 )
 
-# every 600 api requests refresh the JWT so it doesn't timeout. 
+# every 600 api requests refresh the JWT so it doesn't timeout.
 if [ $api_query = 600 ]; then \
 
 PC_JWT_RESPONSE=$(curl --request POST \
@@ -144,16 +144,17 @@ cat ./temp/$(printf '%05d' "$cloud_account")/*.json > ./temp/finished_$(printf '
 
 done
 
-printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType" > "./reports/all_cloud_resources_$date.csv"
+printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,service,resourceType,prismaApiName" > "./reports/all_cloud_resources_$date.csv"
 
 rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
-cat ./temp/finished_*.json | jq -r '.data.items[] | {"cloudType": .cloudType, "id": .id, "accountId": .accountId,  "name": .name,  "accountName": .accountName,  "regionId": .regionId,  "regionName": .regionName,  "service": .service, "resourceType": .resourceType }' | jq -r '[.[]] | @csv' >> "./reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "accountId": .data.accountId,  "accountName": .data.accountName,  "service": .data.service, "resourceType": .data.resourceType, "regionName": .data.regionName, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||" >> "./reports/all_cloud_resources_$date.csv"
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
 
-
+# clean-up task
 {
 rm -rf ./temp/*
 }
+exit

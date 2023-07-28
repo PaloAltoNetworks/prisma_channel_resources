@@ -150,7 +150,7 @@ rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
 for finished_file in ./temp/finished_*.json; do \
-cat $finished_file |  jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "accountId": .data.accountId,  "accountName": .data.accountName,  "service": .data.service, "resourceType": .data.resourceType, "regionName": .data.regionName, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||g" | sed 's|0,,,||g' | tr -s '\n' | sort | uniq -c | awk '{sub($1, "\"&\","); print}' >> "./reports/all_cloud_resources_$date.csv";
+cat $finished_file |  jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "accountId": .data.accountId,  "accountName": .data.accountName,  "service": .data.service, "resourceType": .data.resourceType, "regionName": .data.regionName, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||g" | tr -s '\n' | sort | uniq -c | awk '{sub($1, "\"&\","); print}' >> "./reports/all_cloud_resources_$date.csv";
 done
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"

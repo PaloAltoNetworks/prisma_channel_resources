@@ -149,7 +149,7 @@ printf '%s\n' "cloudType,id,accountId,name,accountName,regionId,regionName,servi
 rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
-cat ./temp/finished_*.json | jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "id": .data.id, "accountId": .data.accountId,  "accountName": .data.accountName,  "service": .data.service, "resourceType": .data.resourceType, "regionName": .data.regionName, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||g" >> "./reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "id": .id, "accountId": .data.accountId,  "name": .data.name,  "accountName": .data.accountName,  "regionId": .data.regionId,  "regionName": .data.regionName,  "service": .data.service, "resourceType": .data.resourceType, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||g" >> "./reports/all_cloud_resources_$date.csv"
 
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"
 

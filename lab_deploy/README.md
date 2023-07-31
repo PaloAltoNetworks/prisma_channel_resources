@@ -89,8 +89,8 @@ su $USER
 ```bash
 cd $HOME
 mkdir prisma_compute_deploy
-wget https://cdn.twistlock.com/releases/eoTrPDul/prisma_cloud_compute_edition_22_06_234.tar.gz
-tar -xvzf prisma_cloud_compute_edition_22_06_234.tar.gz -C $HOME/prisma_compute_deploy/
+wget https://cdn.twistlock.com/releases/RfwoeSCG/prisma_cloud_compute_edition_30_03_122.tar.gz
+tar -xvzf prisma_cloud_compute_edition_30_03_122.tar.gz -C $HOME/prisma_compute_deploy/
 sudo cp $HOME/prisma_compute_deploy/linux/twistcli /usr/local/bin/
 sudo $HOME/prisma_compute_deploy/twistlock.sh -s onebox
 ```
@@ -276,6 +276,8 @@ sudo chmod -R u+rwx ./volumes/prometheus/
 sudo chown -R 1000:1000 ./volumes/prometheus-storage/
 sudo chmod -R u+rwx ./volumes/prometheus-storage/
 sudo chown -R 1000:1000 ./volumes/grafana/
+sudo chmod -R u+rwx ./volumes/grafana/
+sudo chown -R 1000:1000 ./volumes/grafana-storage/
 sudo chmod -R u+rwx ./volumes/grafana-storage/
 ```
 * Navigate to gitea in your firefox browser and create a new repository named `ci-vuln-scan`. Select a license and check add a READ_ME.md file. 

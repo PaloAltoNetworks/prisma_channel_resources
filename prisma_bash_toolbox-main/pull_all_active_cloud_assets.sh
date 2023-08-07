@@ -119,7 +119,7 @@ for api_query in "${!rql_api_array[@]}"; do \
 # creates a request body for the /search/config endpoint using the elements in both the cloud account array and the api-services array
 rql_request_body=$(cat <<EOF
 {
-  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND api.name = ${rql_api_array[api_query]} AND resource.status = Active",
+  "query":"config from cloud.resource where cloud.account = ${rql_cloud_account_array[cloud_account]} AND resource.status = Active AND api.name = ${rql_api_array[api_query]}",
   "timeRange":{
      "type":"relative",
      "value":{
@@ -171,7 +171,7 @@ rm ./temp/rql_cloud_account_response.json
 rm ./temp/rql_api_response_*
 
 # takes all the finished json files and parses with jq to filter out everything but the data related to: cloudType,id,accountId,name,accountName,regionId,service,resourceType,prismaApiName. Finally the finished json data is formatted with JQ into csv format. sed filter to filter out the rql parts of the query for better readability
-cat ./temp/finished_*.json | jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "id": .data.id, "accountId": .data.accountId,  "name": .data.name,  "accountName": .data.accountName,  "regionId": .data.regionId, "service": .data.service, "resourceType": .data.resourceType, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND api.name =||g" | sed "s|AND resource\.status = Active||g" >> "./reports/all_cloud_resources_$date.csv"
+cat ./temp/finished_*.json | jq -r '.  | {query: .query, data: .data.items[]} | {"cloudType": .data.cloudType, "id": .data.id, "accountId": .data.accountId,  "name": .data.name,  "accountName": .data.accountName,  "regionId": .data.regionId, "service": .data.service, "resourceType": .data.resourceType, "query": .query }| [.[]] |@csv ' | sed "s|config from cloud\.resource where cloud\.account = \'.*\' AND resource.status = Active AND api.name =||g" >> "./reports/all_cloud_resources_$date.csv"
 
 # lets user know report has finished by printing output to the terminal
 printf '\n\n\n%s\n\n' "All done your report is in the reports directory and is named ./reports/all_cloud_resources_$date.csv"

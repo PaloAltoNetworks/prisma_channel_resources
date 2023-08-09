@@ -107,7 +107,7 @@ done
 
 REPORT_DATE=$(date  +%m_%d_%y)
 
-printf '%s\n' "type, description, credAccountId"
+printf '%s\n' "type, description, credAccountId" > "./reports/credentials_in_use_$REPORT_DATE.csv"
 cat ./temp/account_*.json | jq -r '. | [.[]] | @csv' >> "./reports/credentials_in_use_$REPORT_DATE.csv"
 
 {

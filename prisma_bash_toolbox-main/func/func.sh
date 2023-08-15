@@ -168,3 +168,8 @@ function sub_control {
    done
 }
 
+# error handling for array population from cat command
+die-with-error(){
+ printf '\n%s\n'  "$1" & exit 1
+}
+

@@ -70,7 +70,7 @@ for id in "${!ID_ARRAY[@]}"; do \
   then
     printf '\n%s\n' "removing credentials with ID: ${ID_ARRAY[$id]} because of null usage"
     curl --request DELETE \
-         --url "$TL_CONSOLE/api/v1/credentials/${ID_ARRAY[$id]}?project=Central+Console" \
+         --url "$TL_CONSOLE/api/v1/cloud-scan-rules/${ID_ARRAY[$id]}?project=Central+Console" \
          --header 'Accept: application/json, text/plain, */*' \
          --header "Authorization: Bearer $TL_JWT"
   else

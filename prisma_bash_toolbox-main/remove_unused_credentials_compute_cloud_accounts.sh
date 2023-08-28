@@ -4,7 +4,9 @@
 # This will remove unused AWS credentials from the COMPUTE cloud accounts section of the Prisma Cloud Compute Platform. It will also create a report showing where the maunally created credentials are being used.
 
 # I commented out the section of the code which does the next part so no mistakes are made. Please read the next part carefully.
-# The commented out part of the code looks at registry scanning accounts and remove any credentials which were manually created to do registry scanning# This will unassociate the manually created credentials with the registry scanning feature, so that when the script is run again, those credentials can be removed. .
+# The commented out part of the code looks at registry scanning accounts and removes any credentials which were manually created.
+# This will unassociate the manually created credentials with the registry scanning feature, so that when the script is run again, those credentials can be removed.
+
 source ./secrets/secrets
 source ./func/func.sh
 

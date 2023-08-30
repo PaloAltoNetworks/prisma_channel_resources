@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# written by Kyle Butler
+# a couple of notes: if the task doesn't have an entrypoint this won't work. You can add a universal entrypoint to to the task: linux = ["sh","-c"] or for windows containers ["powershell", "-command"]. This won't change the behavior of the container. 
+# additionally (Thank you Lindsay Smith), if you pull the fargate task from using AWS cli AWS adds keys to the task def then complains when they're present if you work directly with the JSON in a new revision. To get around this, save the JSON in original.son and run this jq command:
+# jq 'del(.requiresAttributes, .compatibilities, .taskDefinitionArn, .revision, .status)' original.json > unprotected.json
 
 source ./secrets/secrets
 source ./func/func.sh

@@ -97,7 +97,7 @@ TW_POLICY_REQUEST=$(curl --url "$TL_CONSOLE/api/v1/policies/runtime/serverless/e
 
 TW_POLICY_VALUE=$(printf '%s' "$TW_POLICY_REQUEST" | jq '.data')
 
-printf '\n%s\n' "Your python lambda function has been embedded. You can upload the embedded_function.zip file to aws lambda. Please add in the enviornment variable TW_POLICY and set the value to: $TW_POLICY_VALUE"
+printf '\n%s\n' "Your python lambda function has been embedded. You can upload the embedded_function.zip file to aws lambda. Please add in the environment variable TW_POLICY and set the value to: $TW_POLICY_VALUE"
 
 printf '\n%s\n' "Should you have any issues with the expected behavior of the function you can add TW_DEBUG_ENABLED as an environment variable and set the value to true for more robust logging"
 

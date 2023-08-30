@@ -8,6 +8,7 @@ source ./secrets/secrets
 
 PATH_TO_PYTHON_FUNCTION=./lambda_function.py
 FUNCTION_NAME="kb-test"
+FUNCTION_HANDLER_NAME="<lambda_handler_name>"
 
 ######## end of user config ##################
 
@@ -37,8 +38,14 @@ fi
 # extracts file name from the path
 FUNCTION_FILE_NAME=$(basename $PATH_TO_PYTHON_FUNCTION)
 
-# adds in the twistlock library import after the last occurance of import in the lambda.py file
-awk 'FNR==NR{ if (/import/) p=NR; next} 1; FNR==p{ print "import twistlock.serverless\n@twistlock.serverless.handler" }' "$PATH_TO_PYTHON_FUNCTION" "$PATH_TO_PYTHON_FUNCTION" > "./serverless_temp/$FUNCTION_FILE_NAME"
+# adds in the twistlock library import after the last occurance of import in the lambda.py file puts it into a temp file
+awk 'FNR==NR{ if (/import/) p=NR; next} 1; FNR==p{ print "import twistlock.serverless\n" }' "$PATH_TO_PYTHON_FUNCTION" "$PATH_TO_PYTHON_FUNCTION" > "./serverless_temp/temp_$FUNCTION_FILE_NAME"
+
+# places the annotation above the handler in a finished file
+awk -v function_handler=$FUNCTION_HANDLER_NAME '!found && $0~function_handler { print "@twistlock.serverless.handler"; found=1 } 1' "./serverless_temp/temp_$FUNCTION_FILE_NAME" > "./serverless_temp/$FUNCTION_FILE_NAME"
+
+# removes the temp file
+rm "./serverless_temp/temp_$FUNCTION_FILE_NAME"
 
 # request body for the defender serverless bundle
 SERVERLESS_BUNDLE_REQUEST_BODY=$(cat <<EOF

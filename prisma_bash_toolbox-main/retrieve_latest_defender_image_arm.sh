@@ -31,6 +31,6 @@ DEFENDER_RESPONSE=$(curl --url "$TL_CONSOLE/api/v1/defenders/image-name" \
                          --header "Authorization: Bearer $TL_JWT" \
                          --header 'Content-Type: application/json')
 
-printf '\n%s\n%s\n%s' "To retrieve the amd64 version of the defender run:" \
+printf '\n%s\n%s\n%s' "To retrieve the arm64 version of the defender run:" \
                       "docker pull $DEFENDER_RESPONSE --platform=linux/arm64" \
-                      "then tag it so that it can be referenced and differentiated from the x86_"
+                      "then tag it so that it can be referenced and differentiated from the x86_64"

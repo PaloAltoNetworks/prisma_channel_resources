@@ -38,5 +38,5 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 * [BridgeCrew Terraform Provider](https://github.com/PaloAltoNetworks/terraform-provider-bridgecrew)
 * [PANW + Hashi](https://pan.dev/terraform/)
 * [An excellent test container for cloud security - Thank you McKinsey Engineer - Petr Ruzicka](https://github.com/ruzickap/malware-cryptominer-container/blob/main/README.md)
-* [Prisma Cloud API Utils - example code (python) and helper methods for Auth. (https://github.com/tmprender/prisma_cloud_utils)
+* [Prisma Cloud API Utils - example code (python) and helper methods for Auth.] (https://github.com/tmprender/prisma_cloud_utils)
 

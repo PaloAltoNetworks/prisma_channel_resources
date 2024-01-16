@@ -96,12 +96,12 @@ ERROR_FILE_PATH_PAYLOAD=$(cat <<EOF
 EOF
 )
 
-for offset in $(seq 0 10 "${FILE_ERROR_COUNT_ARRAY[file_path]}"); do
+for offset in $(seq 0 100 "${FILE_ERROR_COUNT_ARRAY[file_path]}"); do
 
 echo "${FILE_ERROR_COUNT_ARRAY[file_path]} total errors in ${FILE_PATH_ARRAY[file_path]}. Request offset: $offset"
 
 curl -s --request POST \
-     --url "$PC_APIURL/code/api/v1/errors/file?limit=10&offset=$offset" \
+     --url "$PC_APIURL/code/api/v1/errors/file?limit=100&offset=$offset" \
      --header "authorization: $PC_JWT" \
      --header 'content-type: application/json' \
      --data "$ERROR_FILE_PATH_PAYLOAD" > "./temp/$(printf '%05d' "$index")/$(printf '%05d%05d' "$file_path" "$offset").json" &
@@ -116,8 +116,6 @@ if [ -d "./temp/$(printf '%05d' $index)" ]
 then
   if [ "$(ls -A ./temp/$(printf '%05d' $index))" ]; then
    cat ./temp/$(printf '%05d' $index)/*.json | jq --arg REPO "${REPOSITORY_LIST_ARRAY[$index]}" '.data[] | {repo: $REPO, filePath, sourceType, frameworkType, status, author, date, runtimeId, errorId, scannerType}' > "./temp/finished_$(printf '%05d' "$index").json"
-  else
-    echo "${REPOSITORY_LIST_ARRAY[repo]} has no errors"
  fi
 else
  echo "Directory ./temp/$repo not found."

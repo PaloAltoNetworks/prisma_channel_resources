@@ -2,7 +2,7 @@
 # Written by Kyle Butler
 # Pulls a de-aggregated vulnerability report and config/compliance report for deployed container images
 # This allows for pivoting and drilling down into the data from the CSP Account -> Cluster -> Namespace -> Node -> Pod
-# Huge shout out to SR for all the assistance developing this
+# Huge shout out to Scott R from UA for all the assistance developing this!
 # Works with both defender secured workloads (EKS K8S Docker OpenShift ECS/Fargate ECS EC2) and agentless
 # Functionality in Prisma Cloud
 # Access key requires at min read permissions to the runtime security section of the platform

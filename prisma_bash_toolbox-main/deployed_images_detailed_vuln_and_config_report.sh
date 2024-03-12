@@ -20,7 +20,6 @@ REPORT_DATE=$(date  +%m_%d_%y)
 
 
 
-
 # Ensures proper formatting of json in bash
 AUTH_PAYLOAD=$(cat <<EOF
 {
@@ -86,13 +85,142 @@ printf '\n%s\n' "Formatting image response data, please wait."
 
 # Loops through the IMAGE_RESPONSE_FILE_ARR and parses the json from the requests for vulnerability data
 for image_response_index in "${!IMAGE_RESPONSE_FILE_ARR[@]}"; do \
-  cat ${IMAGE_RESPONSE_FILE_ARR[$image_response_index]} |  jq '[.[]? | {id, cloudMetadata, registry: .repoTag.registry, repository: .repoTag.repo, tag: .repoTag.tag, distro: .osDistro, distroRelease: .osDistroRelease, distroVersion: .osDistroVersion, vulnerabilityData: .vulnerabilities[]?, hosts} | {id, cloudMetadata, registry, repository, tag, distro, distroRelease, distroVersion, cve: .vulnerabilityData.cve, cvss: .vulnerabilityData.cvss, cveStatus: .vulnerabilityData.status, vulnerabilityTitle: .vulnerabilityData.title, vulnerabilityText: .vulnerabilityData.text, vectorStr: .vulnerabilityData.vecStr, exploit: .vulnerabilityData.exploit, riskFactors: (.vulnerabilityData.riskFactors | keys | @sh), vulnerabilityDesc: .vulnerabilityData.description, severity: .vulnerabilityData.severity, vulnerabilityLink: .vulnerabilityData.link, vulnerabilityType: .vulnerabilityData.type, packageName: .vulnerabilityData.packageName, packageVersion: .vulnerabilityData.packageVersion, discovered: .vulnerabilityData.discovered, fixDate: .vulnerabilityData.fixDate, published: .vulnerabilityData.published, hostnames: (.hosts? | keys), hostData: .hosts} | .hostnames as $hostnames | . + { "hostname": $hostnames[] } | del(.hostnames) |  {id, registry, repository, tag, distro, distroRelease, distroVersion, cve, cvss, cveStatus, vulnerabilityTitle, vulnerabilityText, vectorStr, exploit, riskFactors, vulnerabilityDesc, severity, vulnerabilityLink, vulnerabilityType, packageName, packageVersion, discovered, fixDate, published, hostname, cluster: .hostData[.hostname].cluster?, namespace: .hostData[.hostname].namespaces[]?, accountID: .hostData[.hostname].accountID?, cspProvider: .cloudMetadata.provider, cspResourceID: .cloudMetadata.resourceID, cspRegion: .cloudMetadata.region, cspVMimageID: .cloudMetadata.image }] | unique | select(length > 0)' > ./temp/finished_vuln_$(printf '%08d' "$image_response_index").json&
+  cat ${IMAGE_RESPONSE_FILE_ARR[$image_response_index]} | jq '[
+    .[]
+    | .vulnerabilities[] as $vuln
+    | { 
+        id: .id,
+        hosts: .hosts?,
+        hostnames: (.hosts? | keys // ""),
+        cloudMetadata: (.cloudMetadata? | del(.labels) // ""),
+        registry: .repoTag.registry?, 
+        repository: .repoTag.repo?, 
+        tag: .repoTag.tag?, 
+        distro: .osDistro?, 
+        distroRelease: .osDistroRelease?, 
+        distroVersion: .osDistroVersion?, 
+        collections: (.collections? | @sh // ""),         
+        vulnerability: $vuln,
+        path: (
+            .binaries
+            | map(select(.name == $vuln.packageName) | .path)
+            | if length > 0 then .[0] else "" end
+          )
+      }
+    | .hostnames as $hostnames 
+    | . + { "hostname": $hostnames[] } 
+    | del(.hostnames) 
+    | {
+        id: .id?,
+        registry: .registry?,
+        repository: .repository?,
+        tag: .tag?,
+        distro: .distro?,
+        distroRelease: .distroRelease?,
+        distroVersion: .distroVersion?,
+        cve: .vulnerability.cve?,
+        cvss: .vulnerability.cvss?,
+        cveStatus: .vulnerability.status?,
+        vulnerabilityTitle: .vulnerability.title?,
+        vulnerabilityText: .vulnerability.text?,
+        vectorStr: .vulnerability.vecStr?,
+        exploit: .vulnerability.exploit?,
+        riskFactors: (.vulnerability.riskFactors? 
+          | keys 
+          | @sh // ""),
+        vulnerabilityDesc: .vulnerability.description?,
+        severity: .vulnerability.severity?,
+        vulnerabilityLink: .vulnerability.link?,
+        vulnerabilityType: .vulnerability.type?,
+        vulnID: .vulnerability.id?,
+        sourcePackageName: .vulnerability.packageName?,
+        path: (.path // ""),
+        packages: (
+          (.vulnerability.binaryPkgs? 
+            | values 
+            | @sh) // ""),
+        packageVersion: .vulnerability.packageVersion?,
+        discovered: .vulnerability.discovered?,
+        fixDate: .vulnerability.fixDate?,
+        published: .vulnerability.published?,
+        hostname: .hostname?,
+        cluster: .hosts[.hostname].cluster?,
+        namespace: (.hosts[.hostname].namespaces[]? // ""),
+        accountID: .cloudMetadata.accountID?,
+        cspProvider: .cloudMetadata.provider?,
+        cspResourceID: .cloudMetadata.resourceID?,
+        cspRegion: .cloudMetadata.region?,
+        cspVMimageID: .cloudMetadata.image?,
+        collections: .collections?
+    }
+] ' > ./temp/finished_vuln_$(printf '%08d' "$image_response_index").json&
+
 done
+
 wait
 
 # Loops through the IMAGE_RESPONSE_FILE_ARR and parses the json from the requests for config/compliance issues
 for image_response_index in "${!IMAGE_RESPONSE_FILE_ARR[@]}"; do \
-  cat ${IMAGE_RESPONSE_FILE_ARR[$image_response_index]} | jq '[.[]?  | {id, cloudMetadata,registry: .repoTag.registry, repository: .repoTag.repo, tag: .repoTag.tag, distro: .osDistro, distroRelease: .osDistroRelease, distroVersion: .osDistroVersion, configData: .complianceIssues[]?, hosts}| {id, cloudMetadata,registry, repository, tag, distro, distroRelease, distroVersion, configPolicyTitle: .configData.title, configDescription: .configData.description, severity: .configData.severity, configPolicyType: .configData.type, configCause: .configData.cause, complianceID: .configData.id, hostnames: (.hosts? | keys), hostData: .hosts} | .hostnames as $hostnames | . + { "hostname": $hostnames[] } | del(.hostnames) | {id, registry, repository, tag, distro, distroRelease, distroVersion, configPolicyTitle, complianceID,configDescription, severity, configPolicyType, configCause, hostname, cluster: .hostData[.hostname].cluster?, namespace: .hostData[.hostname].namespaces[]?, accountID: .hostData[.hostname].accountID?, cspProvider: .cloudMetadata.provider, cspResourceID: .cloudMetadata.resourceID, cspRegion: .cloudMetadata.region, cspVMimageID: .cloudMetadata.image}] | unique | select(length > 0)' > ./temp/finished_config_$(printf '%08d' "$image_response_index").json&
+  cat ${IMAGE_RESPONSE_FILE_ARR[$image_response_index]} | jq '[
+        .[]?  
+      |{
+        id, 
+        cloudMetadata,
+        registry: .repoTag.registry, 
+        repository: .repoTag.repo, 
+        tag: .repoTag.tag, 
+        distro: .osDistro, 
+        distroRelease: .osDistroRelease, 
+        distroVersion: .osDistroVersion, 
+        configData: .complianceIssues[]?, 
+        hosts
+       }
+      |{
+        id, 
+        cloudMetadata,
+        registry, 
+        repository, 
+        tag, 
+        distro, 
+        distroRelease, 
+        distroVersion, 
+        configPolicyTitle: .configData.title, 
+        configDescription: .configData.description, 
+        severity: .configData.severity, 
+        configPolicyType: .configData.type, 
+        configCause: .configData.cause, 
+        complianceID: .configData.id, 
+        hostnames: (.hosts? | keys), 
+        hostData: .hosts} 
+      | .hostnames as $hostnames 
+      | . + { "hostname": $hostnames[] } 
+      | del(.hostnames) 
+      |{
+        id, 
+        registry, 
+        repository, 
+        tag, 
+        distro, 
+        distroRelease, 
+        distroVersion, 
+        configPolicyTitle, 
+        complianceID,
+        configDescription, 
+        severity, 
+        configPolicyType, 
+        configCause, 
+        hostname, 
+        cluster: .hostData[.hostname].cluster?, 
+        namespace: .hostData[.hostname].namespaces[]?, 
+        accountID: .hostData[.hostname].accountID?, 
+        cspProvider: .cloudMetadata.provider, 
+        cspResourceID: .cloudMetadata.resourceID, 
+        cspRegion: .cloudMetadata.region, 
+        cspVMimageID: .cloudMetadata.image
+        }
+      ] 
+    | unique 
+    | select(length > 0)' > ./temp/finished_config_$(printf '%08d' "$image_response_index").json&
 
 done
 wait
@@ -101,7 +229,7 @@ wait
 printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,configPolicyTitle,complianceID,configDescription,severity,configPolicyType,configCause,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID" > ./reports/config_report_containers_$REPORT_DATE.csv
 
 # provides headers for vulnerability report
-printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,packageName,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID" > ./reports/vulnerability_report_containers_$REPORT_DATE.csv
+printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections" > ./reports/vulnerability_report_containers_$REPORT_DATE.csv
 
 
 # formats the vulnerability data into csv

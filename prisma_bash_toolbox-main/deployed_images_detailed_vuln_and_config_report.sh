@@ -8,6 +8,7 @@
 # Access key requires at min read permissions to the runtime security section of the platform
 # No user configuration required
 # Requires jq to be installed
+# Tested with jq-1.7.1
 # Script assumes you have two relative directories: ./temp and ./reports in the directory you run the script from
 
 # brings in the $TL_USER and $TL_PASSWORD values from the secrets file

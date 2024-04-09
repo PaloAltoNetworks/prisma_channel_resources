@@ -59,7 +59,7 @@ for host_results_offset in "${!DEPLOYED_HOST_RESULTS[@]}"; do \
   else
      echo "response is empty"
   fi
-  sleep 1 
+  sleep 2
  
 
 done

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # requires jq
 # written by Kyle Butler
-# shows all the policies mapped to alert rules in the Prisma Cloud Enterprise edition console for alert rule troubleshooting and routing
+# shows all the network anomaly alerts and includes the target host IP as a column
 
 source ./secrets/secrets
 source ./func/func.sh

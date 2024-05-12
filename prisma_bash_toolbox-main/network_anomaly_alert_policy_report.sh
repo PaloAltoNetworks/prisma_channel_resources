@@ -30,8 +30,9 @@ NETWORK_ANOMALY_LIST=$(curl --url "$PC_APIURL/v2/policy?policy.subtype=network&p
 
 echo $NETWORK_ANOMALY_LIST  | jq -c . | while read -r anomaly_report; do
   POLICY_ID=$(echo "$anomaly_report" | jq -r '.policyId')
-  POLICY_NAME=$(echo "$anomaly_report" | jq -r '.name')
-  REPORT_LOCATION="./reports/$POLICY_NAME_report_$REPORT_DATE.csv"
+  POLICY_NAME=$(echo "$anomaly_report" | jq -r '.name' | sed 's/ /_/g')
+  REPORT_LOCATION="./reports/${POLICY_NAME}_report_${REPORT_DATE}.csv"
+  echo $REPORT_LOCATION
   echo "Alert Id, Resource Name, Resource ID, Account Id, Account, Region, Resource Type, Anomalous Public IP" > $REPORT_LOCATION
   curl -L -X GET \
         --url "$PC_APIURL/v2/alert?timeType=relative&timeAmount=2&timeUnit=year&detailed=false&alert.status=open&policy.id=$POLICY_ID" \

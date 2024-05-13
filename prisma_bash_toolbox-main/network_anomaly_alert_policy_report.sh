@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # requires jq
-# written by Kyle Butler
+# written by Teo De Las Heras
 # shows all the network anomaly alerts and includes the target host IP as a column
 
 source ./secrets/secrets

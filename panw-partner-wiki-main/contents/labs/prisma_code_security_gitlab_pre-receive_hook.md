@@ -15,31 +15,52 @@ Refs:
 3. For the instance type, chose m3.medium
 4. Increase the size of storage to 20 GB
 5. Click Launch Instance
-6. Once the instance is deployed, copy the public IP Address
-7. SSH into the GitLab Instance
-8. Update the commands below and then paste them into the GitLab shell session
-
-```
-$ENDPOINT={GitLab_EC2_PUBLIC_IP}
-sudo sed -i \"s,external_url 'http://gitlab.example.com',external_url 'http://$ENDPOINT',g\" /etc/gitlab/gitlab.rb
-sudo gitlab-ctl reconfigure
-sudo cat /etc/gitlab/initial_root_password
-```
-9. Copy GitLabs root password
+6. Once the instance is deployed, browse to the public IP Address
 
 ## Configure GitLab
-1. Log into the GitLab sever by browsing to the Public IP and logging in as root using the password from the previous step
-2. Click to create a new Repo
-3. 
-
+1. Log into the GitLab sever by browsing to the Public IP and logging in as root and using the instance-id as the password
+2. Click on Create Project and Create Blank Project
+3. Create a project named secret-repo
+4. On the left sidebar, at the bottom, select Admin Area.
+5. Select Overview > Projects and select the secret-repo project.
+6. Locate the Relative path field. The value is similar to:
+```
+"@hashed/b1/7e/b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9.git"
+```
+7. Copy this for use later
 
 ## Configure pre-receive Hooks
 1. SSH into the GitLab CE Instance
 2. Install python, pip, and checkov as root
 ```
+sudo apt-get update
 sudo apt-get install pip
 sudo pip install checkov
 ```
-3. Create a directory for the pre-receive hook and copy the pre-receive hook
-4. 
+3. Create a directory for the pre-receive hook, a file for the pre-receive hook, and copy the pre-receive hook code sample
+```
+mkdir custom_hooks
+touch ./custom_hooks/pre-receive
+```
+5. Copy the code from the [Prisma Cloud pre-receive sample](https://docs.prismacloud.io/en/enterprise-edition/content-collections/application-security/get-started/add-pre-receive-hooks#pre-receive-hook-script)
+6. Edit the script and provide your API Keys and Prisma Cloud url. Update the lines in the sample code with the lines below
+```
+REPO_ID=$GL_PROJECT_PATH
 
+CHECKOV_COMMAND='/usr/local/bin/checkov -d'
+
+# cleanup
+echo "GL-HOOK-ERR: Your code contains secrets. Exit code: ${exit_code}" >&2
+```
+8. Update the commands below with the GitLab project relative path and run the commands to register a pre-receive hook
+```
+tar -cf custom_hooks.tar custom_hooks
+cat custom_hooks.tar | sudo /opt/gitlab/embedded/bin/gitaly hooks set --storage default --repository {gitlab-repo-relative-path} --config /var/opt/gitlab/gitaly/config.toml
+```
+
+## Test the pre-receive hook
+1. In your secret-repo create a file called keys
+2. Paste the code below and click on commit
+```
+
+```

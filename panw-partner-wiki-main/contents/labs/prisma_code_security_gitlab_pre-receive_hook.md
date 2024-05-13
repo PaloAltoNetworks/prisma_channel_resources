@@ -12,7 +12,7 @@ Refs:
 ## Provision and GitLab CE Instance
 1. In AWS, deploy a [GitLab Community Edition](https://aws.amazon.com/marketplace/pp/prodview-w6ykryurkesjq?sr=0-3&ref_=beagle&applicationId=AWSMPContessa#pdp-pricing) instance from the marketplace
 2. When prompted to Choose between Launch from Website and Launch through EC2, choose Launch through EC2
-3. For the instance type, chose m3.medium
+3. For the instance type, chose m4.large
 4. Increase the size of storage to 20 GB
 5. Click Launch Instance
 6. Once the instance is deployed, browse to the public IP Address
@@ -41,9 +41,10 @@ sudo pip install checkov
 ```
 mkdir custom_hooks
 touch ./custom_hooks/pre-receive
+chmod +x ./custom_hooks/pre-receive
 ```
 5. Copy the code from the [Prisma Cloud pre-receive sample](https://docs.prismacloud.io/en/enterprise-edition/content-collections/application-security/get-started/add-pre-receive-hooks#pre-receive-hook-script)
-6. Edit the script and provide your API Keys and Prisma Cloud url. Update the lines in the sample code with the lines below
+6. Edit the script and provide your API Keys and Prisma Cloud URL. Update the lines in the sample code with the lines below
 ```
 REPO_ID=$GL_PROJECT_PATH
 
@@ -62,5 +63,14 @@ cat custom_hooks.tar | sudo /opt/gitlab/embedded/bin/gitaly hooks set --storage 
 1. In your secret-repo create a file called keys
 2. Paste the code below and click on commit
 ```
-
+    "AWS-AAKI": {
+      "positive": {
+        "aaki1": "AKIAYPDIK3OCOFEZAOQQ AWS Key",
+        "aaki2": "Access Key ID 022QF06E7MXBSH9DHM02",
+        "aaki3": "022QF06E7MXBSH9DHM02 Key ID",
+        "aaki4": "Amazon Web Services 022QF06E7MXBSH9DHM02"
+      }  
+} 
 ```
+3. You should get the error message: Your code contains secrets Exit code:1.
+Note: An exit code of 127 means checkov was not found / not installed correctly.

@@ -22,13 +22,13 @@ variable "rotation_interval" {
 variable "s3_bucket_for_layer" {
         type = string
         description = "S3 Bucket for the custom lambda layer with the prismacloud-sdk installed"
-        default = "dschmidt-keyroller-blog"
+        default = "rotating-prisma-cloud-access-keys-blog"
 }
 
 variable "s3_key_for_layer" {
         type = string
         description = "S3 object for the custom lambda layer with the prismacloud-sdk installed"
-        default = "lambda/layers/prismacloud-sdk/prismacloud-sdk.zip"
+        default = "aws/lambda/layers/prismacloud-sdk/prismacloud-sdk.zip"
 }
 
 variable "initial_access_key" {

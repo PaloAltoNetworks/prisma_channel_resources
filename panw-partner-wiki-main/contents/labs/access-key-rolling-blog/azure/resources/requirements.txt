@@ -1,0 +1,5 @@
+azure-functions
+azure-identity  
+azure-keyvault  
+azure-keyvault-secrets  
+prismacloud-api

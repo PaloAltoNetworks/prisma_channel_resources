@@ -53,8 +53,6 @@ def main_function():
     
     # the email field is populated with the username even for service accounts
     current_user = pc_api.current_user().get('email')
-    #with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
-    #    print(f'Current user is: {current_user}', file=fh)
     print( f"Current user is: {current_user}" )
     
     ###########################################################################
@@ -111,11 +109,9 @@ def main_function():
     print("successfully disabled current key %s." % (key_id_to_disable))
 
     ###########################################################################
-    # 9. Write the new secret to Github Secrets
+    # 9. Write the new secret to Github
     ###########################################################################  
-    print("Updating the secret in GitHub Secrets")
-    if 'GITHUB_ENVIRONMENT' in os.environ:
-        environment_name = os.environ['GITHUB_ENVIRONMENT']
+    print("Updating the secret in GitHub")
     github_token = os.environ['PERSONAL_ACCESS_TOKEN']
     owner_repository = os.environ['OWNER_REPOSITORY']
 
@@ -132,7 +128,6 @@ def main_function():
         upload_secret(repos, github_secret_pc_secret_key_name, encrypted_secret_key, pub_key_id, github_token)
   
 def encrypt(public_key: str, secret_value: str) -> str:
-    """Encrypt a Unicode string using the public key."""
     public_key = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())
     sealed_box = public.SealedBox(public_key)
     encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
@@ -142,22 +137,13 @@ def encrypt(public_key: str, secret_value: str) -> str:
 def get_pub_key(owner_repo, github_token):
     # get public key for encrypting
     endpoint = f'https://api.github.com/repos/{owner_repo}/actions/secrets/public-key'
-    if 'GITHUB_ENVIRONMENT' in os.environ:
-        environment_name = os.environ['GITHUB_ENVIRONMENT']
-        endpoint = f'https://api.github.com/repos/{owner_repo}/environments/{environment_name}/secrets/public-key'
-
     pub_key_ret = requests.get(
         endpoint,
         headers={'Authorization': f"token {github_token}"}
     )
 
     if not pub_key_ret.status_code == requests.codes.ok:
-        raise Exception(f"github public key request failed, \
-                          status code: {pub_key_ret.status_code}, \
-                          body: {pub_key_ret.text}, \
-                          vars: {owner_repo} {github_token} \
-                        ")
-
+        print( f"github public key request failed: {pub_key_ret.text}")
         sys.exit(1)
 
     # convert to json
@@ -169,16 +155,8 @@ def get_pub_key(owner_repo, github_token):
 
     return (public_key, public_key_id)
 
-
 def upload_secret(owner_repo, key_name, encrypted_value, pub_key_id, github_token):
-    # upload encrypted access key
-
     endpoint = f'https://api.github.com/repos/{owner_repo}/actions/secrets/{key_name}'
-
-    if 'GITHUB_ENVIRONMENT' in os.environ:
-        environment_name = os.environ['GITHUB_ENVIRONMENT']
-        endpoint = f'https://api.github.com/repos/{owner_repo}/environments/{environment_name}/secrets/{key_name}'
-
     updated_secret = requests.put(
         endpoint,
         json={
@@ -187,19 +165,12 @@ def upload_secret(owner_repo, key_name, encrypted_value, pub_key_id, github_toke
         },
         headers={'Authorization': f"token {github_token}"}
     )
-    # status codes github says are valid
-    good_status_codes = [204, 201]
 
-    if updated_secret.status_code not in good_status_codes:
-        print(f'Got status code: {updated_secret.status_code} on updating {key_name} in {owner_repo}')
+    if updated_secret.status_code not in [204, 201]:
+        print(f'Update returned status code: {updated_secret.status_code}')
         sys.exit(1)
 
-    if 'GITHUB_ENVIRONMENT' in os.environ:
-        environment_name = os.environ['GITHUB_ENVIRONMENT']
-        print(f'Updated: {key_name} in {owner_repo} for {environment_name}')
-    else:
-        print(f'Updated: {key_name} in {owner_repo}')
-        
+    print(f'Updated: {key_name} in {owner_repo}')    
         
 # run it!
 main_function()

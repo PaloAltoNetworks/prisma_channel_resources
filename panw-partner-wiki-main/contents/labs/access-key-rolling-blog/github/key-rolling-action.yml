@@ -1,0 +1,37 @@
+name: Roll Prisma Cloud Access Key
+
+on:
+  schedule:
+    - cron: '0 0 15 * *'
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Roll the access keys
+      env:
+          PRISMA_CLOUD_USER: ${{ secrets.PRISMA_CLOUD_USER }}
+          PRISMA_CLOUD_PASS: ${{ secrets.PRISMA_CLOUD_PASS }}
+          PRISMA_CLOUD_CONSOLE_URL: ${{ secrets.PRISMA_CLOUD_CONSOLE_URL }}
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          OWNER_REPOSITORY: ${{ github.repository }}
+          PRISMA_CLOUD_ACCESS_KEY_SECRET_NAME: ${{ secrets.PRISMA_CLOUD_ACCESS_KEY_SECRET_NAME }}
+          PRISMA_CLOUD_SECRET_KEY_SECRET_NAME: ${{ secrets.PRISMA_CLOUD_SECRET_KEY_SECRET_NAME }}
+      run: |
+        python main.py

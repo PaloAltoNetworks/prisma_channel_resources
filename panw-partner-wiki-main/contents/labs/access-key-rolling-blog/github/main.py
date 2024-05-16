@@ -1,5 +1,3 @@
-#https://github.com/kneemaa/github-action-rotate-aws-secrets/blob/master/rotate_keys.py
-
 import os
 import sys
 import json
@@ -10,8 +8,6 @@ from datetime import datetime
 from base64 import b64encode
 from nacl import encoding, public
 
-
-# need to figure out where this goes...
 logger = logging.getLogger()
 
 def main_function():

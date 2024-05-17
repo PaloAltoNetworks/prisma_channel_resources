@@ -20,22 +20,6 @@ def main(event: func.EventGridEvent):
     })
 
     logger.info('Python EventGrid trigger processed an event: %s', result)
-
-    #Python EventGrid trigger processed an event: 
-    #{  "id": "80555aad-50b7-4302-859e-3b5581843ee1", 
-    #    "data": {
-    #       "Id": "https://dschmidtkv032820243.vault.azure.net/secrets/test-secret/29c64370d7224ec09b51bb4ec942a44e", 
-    #       "VaultName": "dschmidtkv032820243", 
-    #       "ObjectType": "Secret", 
-    #       "ObjectName": "test-secret", 
-    #       "Version": "29c64370d7224ec09b51bb4ec942a44e", 
-    #       "NBF": null, 
-    #       "EXP": null
-    #   }, 
-    #   "topic": "/subscriptions/ce991a0d-c98d-4132-8218-b78c5c614444/resourceGroups/key-vault-test/providers/Microsoft.KeyVault/vaults/dschmidtkv032820243", 
-    #   "subject": "test-secret", 
-    #   "event_type": "Microsoft.KeyVault.SecretNewVersionCreated"
-    #}
     
     secret_name = event.get_json()['ObjectName']
     key_vault_name = event.get_json()['VaultName']
@@ -45,13 +29,10 @@ def main(event: func.EventGridEvent):
     credential = ManagedIdentityCredential()
     az_secret_client = SecretClient(vault_url=key_vault_uri, credential=credential)
 
-
     # Get the current secret
     logger.info(f"Retrieving your secret from {key_vault_name}.")
     raw_secret = az_secret_client.get_secret(secret_name)
     current_secret = json.loads(raw_secret.value)
-    logger.info(f"Secret value: {current_secret}" )
-    
     
     # let's figure out what we have to do
     if event.event_type == "Microsoft.KeyVault.SecretNewVersionCreated":   
@@ -113,5 +94,3 @@ def main(event: func.EventGridEvent):
     current_secret['PRISMA_CLOUD_USER'] = new_pc_key['id']
     current_secret['PRISMA_CLOUD_PASS'] = new_pc_key['secretKey']
     az_secret_client.set_secret(secret_name, json.dumps(current_secret))
-    
-    # should we delete/disable the old version?  probably

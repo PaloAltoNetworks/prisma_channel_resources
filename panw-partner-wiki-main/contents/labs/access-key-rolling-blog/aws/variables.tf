@@ -1,7 +1,5 @@
 variable "region" { 
         type = string
-        default = "us-east-1"
-
         validation {
                 condition = can(regex("[a-z][a-z]-[a-z]+-[1-9]", var.region))
                 error_message = "Must be valid AWS region name."
@@ -11,8 +9,6 @@ variable "region" {
 variable "rotation_interval" {
         type = number
         description = "The number of days between automatic scheduled rotations of the secret"
-        default = 90
-
         validation {
                 condition     = var.rotation_interval >= 1 && var.rotation_interval <= 365 && floor(var.rotation_interval) == var.rotation_interval
                 error_message = "Value must be in the range: 1-365"
@@ -22,13 +18,11 @@ variable "rotation_interval" {
 variable "s3_bucket_for_layer" {
         type = string
         description = "S3 Bucket for the custom lambda layer with the prismacloud-sdk installed"
-        default = "rotating-prisma-cloud-access-keys-blog"
 }
 
 variable "s3_key_for_layer" {
         type = string
         description = "S3 object for the custom lambda layer with the prismacloud-sdk installed"
-        default = "aws/lambda/layers/prismacloud-sdk/prismacloud-sdk.zip"
 }
 
 variable "initial_access_key" {

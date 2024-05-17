@@ -1,1 +1,2 @@
 prismacloud-api
+google-cloud-secret-manager==2.10.0

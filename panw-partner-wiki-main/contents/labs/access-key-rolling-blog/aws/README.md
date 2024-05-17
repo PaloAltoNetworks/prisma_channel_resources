@@ -2,7 +2,7 @@
 
 Use the following procedure described below to implement rolling a Prisma Cloud Service Account access key in AWS Secrets Manager.
 
-Note that the the solution requires a Secret in AWS Secrets Manager, and the execution of a Lambda function - both of which will incur cost.  To remove the solution from your environment, follow the steps in "Cleanup" below.
+Note that the the solution requires a Secret in AWS Secrets Manager, and the execution of a Lambda function - both of which will incur cost.  To remove the solution from your environment, follow the steps in [Cleanup](./README.md#cleanup) below.
 # Solution
 ![AWS Example Solution](../images/access_key_blog-aws.png?raw=true "AWS Example Solution")
 

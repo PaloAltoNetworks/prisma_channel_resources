@@ -50,13 +50,13 @@ The deployment will roll the access key and disable the existing key. The new ke
 # Testing / Manually Rolling the key
 Azure Key Vault does not provide a facility to roll the secret manually.  To roll the key:
 
-1. Create a new version of the current (valid) secret in the Azure console.
+1. Create a new version of the current (valid) secret in the Azure console. Note that the key will be stored in JSON format, as such:
+   {"PRISMA_CLOUD_CONSOLE_URL": "https://apiX.prismacloud.io", "PRISMA_CLOUD_PASS": "xxxxxxxxx", "PRISMA_CLOUD_USER": "xxxxxxxxxxxxxxxx"}
 2. Add the tag "ROTATE_ON_INITAL" and set the value to true
 
 # Cleanup
 To remove the sample solution from your environment:
-
-
-# Extending the solution
+1. Delete the terraform deployment by navigating to the directory you ran the "terraform apply" from (that is, where the state files are) and execute: terraform destroy
+2. Delete the Service Account and Access Keys from Prisma Cloud - while these don't incur cost, but best practice is to remove the credentials/accounts if you're not using them
 
 

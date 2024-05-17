@@ -47,11 +47,9 @@ Because this is just a testing/sample deployment, we'll make use of Google Cloud
 To deploy the sample solution, execute the following procedure:
 1. Open a Cloud Shell
 2. Download the code
-4. cd to ./gcp
+4. Navigate to the gcp directory
 5. Run: terraform init && terraform apply
-7. Enter the variables:
-   - initial_access_key - The service account access key id
-   - initial_secret_key - The service account secret key id
+7. Enter the variables when prompted
 8. Review and approve the deployment
 
 After several minutes, the deployment should succeed. Be sure to record the output containing pubsub_topic_name and secret_id for later use.

@@ -81,6 +81,6 @@ To remove the sample solution from your environment:
 2. Delete the Service Account and Access Keys from Prisma Cloud - while these don't incur cost, but best practice is to remove the credentials/accounts if you're not using them
 
 # Extending the solution
-The pubsub topic and Cloud Function are able to handle multiple secrets, and the solution can be easily extended by creating and configuring rotation on a new secret manually.
+The pubsub topic and Cloud Function are able to handle multiple secrets, and the solution can be extended by creating and configuring rotation on a new secret manually.
 
 

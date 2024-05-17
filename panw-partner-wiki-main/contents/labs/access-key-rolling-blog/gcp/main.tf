@@ -1,18 +1,3 @@
-terraform {
-        required_providers {
-                google = {
-                  source = "hashicorp/google"
-                  version = "5.22.0"
-                }
-        }
-        required_version = ">= 1.3.6"
-}
-
-provider "google" { 
-  project = var.project_id
-  region  = var.region
-}
-
 resource "google_pubsub_topic" "key_rolling_topic" {
   name = "${var.pubsub_topic_name}"
   message_retention_duration = "86600s"

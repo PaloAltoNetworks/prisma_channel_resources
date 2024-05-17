@@ -29,12 +29,10 @@ def main(event: func.EventGridEvent):
     credential = ManagedIdentityCredential()
     az_secret_client = SecretClient(vault_url=key_vault_uri, credential=credential)
 
-
     # Get the current secret
     logger.info(f"Retrieving your secret from {key_vault_name}.")
     raw_secret = az_secret_client.get_secret(secret_name)
     current_secret = json.loads(raw_secret.value)
-    logger.info(f"Secret value: {current_secret}" )
     
     # let's figure out what we have to do
     if event.event_type == "Microsoft.KeyVault.SecretNewVersionCreated":   

@@ -16,7 +16,7 @@ Each of the solutions provided require that a Prisma Cloud Service Account with 
 4. Click on Add at the top of the page and select "Service Account"
 5. Select Service Account
 6. Enter a name for the account
-7. Select a Role for the account
+7. Select the appropriate role for the account
 8. Enter a name for the access key
 9. Optionally, enable expiration and select a date
 10. Click "Save & Create (1 of 2)"

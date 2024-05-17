@@ -45,7 +45,7 @@ The workflow will trigger at the predefined time based on the cron schedule, how
 To remove the sample solution from your environment:
 1. Delete the file .github/workflows/key-rolling-action.yml
 2. Delete the repository secrets created in [Repository Secrets]
-3. Optionally, delete the Service Account and Access Keys from Prisma Cloud
+3. Delete the Service Account and Access Keys from Prisma Cloud - while these don't incur cost, but best practice is to remove the credentials/accounts if you're not using them
 
 # Extending the solution
 ## Organizational Secrets

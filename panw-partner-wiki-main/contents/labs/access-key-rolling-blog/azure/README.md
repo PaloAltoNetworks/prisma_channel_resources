@@ -57,7 +57,7 @@ Azure Key Vault does not provide a facility to roll the secret manually.  To rol
 
 # Cleanup
 To remove the sample solution from your environment:
-1. Delete the terraform deployment by navigating to the directory you ran the "terraform apply" from (that is, where the state files are) and execute: terraform destroy
+1. Delete the terraform deployment by navigating to the directory you ran the "terraform apply" from (that is, where the state files are) and execute: `terraform destroy`. If you used some other mechanism to deploy the terraform, then destroy the created resources accordingly.
 2. Delete the Service Account and Access Keys from Prisma Cloud - while these don't incur cost, but best practice is to remove the credentials/accounts if you're not using them
 
 

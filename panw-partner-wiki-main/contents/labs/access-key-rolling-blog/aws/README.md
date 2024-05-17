@@ -20,11 +20,11 @@ Because this is just a testing/sample deployment, we'll make use of AWS CloudShe
 
 1. Open a CloudShell
 2. Install terraform - if you are unfamiliar, here is a [tutorial](https://dev.to/aws-builders/how-to-install-terraform-on-aws-cloudshell-5had)
-3. Create a lambda layer with the prismacloud_sdk and boto3, or [use the one we built](https://rotating-prisma-cloud-access-keys-blog.s3.amazonaws.com/aws/lambda/layers/prismacloud-sdk/prismacloud-sdk.zip) 
-6. Download the code
-7. Change directories into aws
-8. Run: terraform init && terraform apply
-9. Enter the variables:
+3. Create a lambda layer with the prismacloud_sdk and boto3, or [use the one we built](https://rotating-prisma-cloud-access-keys-blog.s3.amazonaws.com/aws/lambda/layers/prismacloud-sdk/prismacloud-sdk.zip). **NOTE:** If you are going to test this in a region other than us-east-1, you will need to copy the Lambda layer to a bucket in your region.
+4. Download the code
+5. Change directories into aws
+6. Run: terraform init && terraform apply
+7. Enter the variables:
    - region - AWS region, eg. "us-east-1"
    - rotation_interval - The number of days (1-365) between automatic scheduled rotations of the secret
    - s3_bucket_for_layer - S3 Bucket for the custom lambda layer with the prismacloud-sdk installed
@@ -33,7 +33,7 @@ Because this is just a testing/sample deployment, we'll make use of AWS CloudShe
    - initial_secret_key - The initial secret key to import into the Secret
    - prisma_cloud_console_url - The Prisma Cloud console URL (for example - https://api.prismacloud.io)
    - secret_name - Name of the Secret to store - recommend using the Prisma Cloud Service Account name
-10. Approve the deployment
+8. Approve the deployment
      
 # Validating the deployment
 Once deployed, you should see output similar to the following:
@@ -52,13 +52,13 @@ AWS Secrets Manager provides a facility to immediately roll the key.  To do so:
 2. Navigate to the Secret you are using to store the Prisma Cloud credentials
 3. Click on the Rotation tab
 4. Click Rotate secret immediately
-5. Click "Rotate"
+5. Click Rotate
 6. In a few moments, ensure that the secret value has changed and that the new key exists in Prisma Cloud
 
 # Cleanup
 To remove the sample solution from your environment:
 1. Delete the terraform deployment by navigating to the directory you ran the "terraform apply" from (that is, where the state files are) and execute: terraform destroy
-2. Optionally, delete the Service Account and Access Keys from Prisma Cloud
+2. Delete the Service Account and Access Keys from Prisma Cloud - while these don't incur cost, but best practice is to remove the credentials/accounts if you're not using them
 
 # Extending the solution
 ## Lambda Layers

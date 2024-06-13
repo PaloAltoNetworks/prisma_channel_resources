@@ -23,6 +23,7 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 
 ### Prisma Cloud Dev Community Highlights
 
+* [Prisma Cloud Helper Scripts - Thanks Stephen Gordon](https://github.com/PaloAltoNetworks/pcs-platform-helper-scripts)
 * [Pro-Serv Ryan Haney's version of Prisma Cloud Golang SDK - Thank you Ryan!](https://github.com/thathaneydude/prisma-cloud-sdk)
 * [Python CLI Tool - Thank you Steven de Boer](https://pypi.org/project/prismacloud-cli/)
 * [Prisma Universal Serverless Syslog to SIEM project - Thanks Eddie Beuerlein and Marc Hobson!](https://github.com/PaloAltoNetworks/pcs-serverless-syslog)

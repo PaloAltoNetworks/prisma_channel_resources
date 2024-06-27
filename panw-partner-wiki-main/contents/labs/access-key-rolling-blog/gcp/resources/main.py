@@ -89,9 +89,9 @@ def process_secret( secret_name ):
     ###########################################################################
     
     settings = {
-        "url":     current_secret_value['PRISMA_CLOUD_CONSOLE_URL'],
+        "url": current_secret_value['PRISMA_CLOUD_CONSOLE_URL'],
         "identity": current_secret_value['PRISMA_CLOUD_USER'],
-        "secret":   current_secret_value['PRISMA_CLOUD_PASS']
+        "secret": current_secret_value['PRISMA_CLOUD_PASS']
     }
     pc_api.configure(settings)
     pc_api.logger = logger
@@ -143,9 +143,9 @@ def process_secret( secret_name ):
     # log in with the new key
     pc_api.token = None
     settings = {
-        "url":     current_secret_value['PRISMA_CLOUD_CONSOLE_URL'],
+        "url": current_secret_value['PRISMA_CLOUD_CONSOLE_URL'],
         "identity": new_pc_key['id'],
-        "secret":   new_pc_key['secretKey']
+        "secret": new_pc_key['secretKey']
     }
     pc_api.configure(settings)
     pc_api.logger = logger

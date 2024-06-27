@@ -79,9 +79,9 @@ def main(event: func.EventGridEvent):
     # log in with the new key
     pc_api.token = None
     settings = {
-        "url":     current_secret['PRISMA_CLOUD_CONSOLE_URL'],
+        "url": current_secret['PRISMA_CLOUD_CONSOLE_URL'],
         "identity": new_pc_key['id'],
-        "secret":   new_pc_key['secretKey']
+        "secret": new_pc_key['secretKey']
     }
     pc_api.configure(settings)
     pc_api.logger = logger

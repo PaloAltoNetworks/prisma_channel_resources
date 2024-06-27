@@ -4,6 +4,7 @@ import logging
 import base64
 import urllib.request
 import functions_framework
+from urllib.parse import urlparse
 from prismacloud.api import pc_api
 from datetime import datetime
 from cloudevents.http import CloudEvent
@@ -175,6 +176,17 @@ def process_secret( secret_name ):
   
 def get_project_id():
     url = "http://metadata.google.internal/computeMetadata/v1/project/project-id"
+    parsed_url = urlparse(url)
+
+    allowed_schemes = ['http','https']
+    if parsed_url.scheme not in allowed_schemes:
+        raise ValueError(f"Disallowed scheme in URL: {parsed_url.scheme}")
+        
     req = urllib.request.Request(url)
     req.add_header("Metadata-Flavor", "Google")
-    return urllib.request.urlopen(req).read().decode()  
+    try:
+        response = urllib.request.urlopen(req)
+        return response.read().decode()
+    except urllib.error.URLError as e:
+        print(f"Failed to retrieve project ID: {e}")
+        return None

@@ -66,9 +66,9 @@ def create_secret(service_client, arn, token):
         # use the current secret to connect to PC
         pc_admin_credentials = json.loads(get_secret_value_response['SecretString'])
         settings = {
-            "url":     pc_admin_credentials['PRISMA_CLOUD_CONSOLE_URL'],
+            "url": pc_admin_credentials['PRISMA_CLOUD_CONSOLE_URL'],
             "identity": pc_admin_credentials['PRISMA_CLOUD_USER'],
-            "secret":   pc_admin_credentials['PRISMA_CLOUD_PASS']
+            "secret": pc_admin_credentials['PRISMA_CLOUD_PASS']
         }
         
         # reset the pc_api token
@@ -128,9 +128,9 @@ def set_secret(service_client, arn, token):
     pc_api.token = None
     
     settings = {
-        "url":     new_credentials['PRISMA_CLOUD_CONSOLE_URL'],
+        "url": new_credentials['PRISMA_CLOUD_CONSOLE_URL'],
         "identity": new_credentials['PRISMA_CLOUD_USER'],
-        "secret":   new_credentials['PRISMA_CLOUD_PASS']
+        "secret": new_credentials['PRISMA_CLOUD_PASS']
     }
     pc_api.configure(settings)
     pc_api.logger = logger
@@ -141,9 +141,9 @@ def test_secret(service_client, arn, token):
     get_secret_value_response = service_client.get_secret_value(SecretId=arn, VersionId=token, VersionStage="AWSPENDING")
     pc_admin_credentials = json.loads(get_secret_value_response['SecretString'])
     settings = {
-        "url":     pc_admin_credentials['PRISMA_CLOUD_CONSOLE_URL'],
+        "url": pc_admin_credentials['PRISMA_CLOUD_CONSOLE_URL'],
         "identity": pc_admin_credentials['PRISMA_CLOUD_USER'],
-        "secret":   pc_admin_credentials['PRISMA_CLOUD_PASS']
+        "secret": pc_admin_credentials['PRISMA_CLOUD_PASS']
     }
     
     # reset the pc_api token

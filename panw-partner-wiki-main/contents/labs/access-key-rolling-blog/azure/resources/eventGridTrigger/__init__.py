@@ -43,9 +43,9 @@ def main(event: func.EventGridEvent):
     
     # Create a PC API client
     settings = {
-        "url":     current_secret['PRISMA_CLOUD_CONSOLE_URL'],
+        "url": current_secret['PRISMA_CLOUD_CONSOLE_URL'],
         "identity": current_secret['PRISMA_CLOUD_USER'],
-        "secret":   current_secret['PRISMA_CLOUD_PASS']
+        "secret": current_secret['PRISMA_CLOUD_PASS']
     }
     pc_api.configure(settings)
     pc_api.logger = logger

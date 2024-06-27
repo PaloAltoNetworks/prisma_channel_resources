@@ -40,9 +40,9 @@ def main_function():
     ###########################################################################
     
     settings = {
-        "url":     pc_console_url,
+        "url": pc_console_url,
         "identity": current_pc_access_key,
-        "secret":   current_pc_secret_key
+        "secret": current_pc_secret_key
     }
     pc_api.configure(settings)
     pc_api.logger = logger
@@ -94,9 +94,9 @@ def main_function():
     # log in with the new key
     pc_api.token = None
     settings = {
-        "url":     pc_console_url,
+        "url": pc_console_url,
         "identity": new_pc_key['id'],
-        "secret":   new_pc_key['secretKey']
+        "secret": new_pc_key['secretKey']
     }
     pc_api.configure(settings)
     pc_api.logger = logger

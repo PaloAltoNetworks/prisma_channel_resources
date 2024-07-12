@@ -78,7 +78,7 @@ POLICY_ID_ARRAY=( $(printf %s "$COMPLIANCE_SECTION_RESPONSE" | jq -r '.associate
 
 REPORT_LOCATION="./reports/detailed_compliance_alert_report_$COMPLIANCE_STD_NAME-$REPORT_DATE.csv"
 
-printf '%s\n' "account,cloudAccountOwners,cloudType,firstSeen,lastSeen,lastUpdated,policyName,policyRecommendation,policySeverity,policyType,prismaResourceApiName,region,requirementId,requirementName,resourceId,resourceName,resourceTagKeys,resourceTagValues,resourceType,sectionDescription,sectionId,sectionLabel,standardDescription,standardName,url" > "$REPORT_LOCATION" 
+printf '%s\n' "cloudType,cloudAccountOwners,account,region,resourceType,resourceName,resourceId,resourceTagKeys,resourceTagValues,url,policyName,policyType,policySeverity,policyRecommendation,standardName,standardDescription,requirementId,requirementName,sectionId,sectionDescription,sectionLabel,firstSeen,lastSeen,lastUpdated,prismaResourceApiName" > "$REPORT_LOCATION" 
 
 
 for POLICY_ID in "${POLICY_ID_ARRAY[@]}"; do

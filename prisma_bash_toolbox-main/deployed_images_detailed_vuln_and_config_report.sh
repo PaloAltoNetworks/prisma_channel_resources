@@ -90,18 +90,18 @@ for image_response_index in "${!IMAGE_RESPONSE_FILE_ARR[@]}"; do \
   cat ${IMAGE_RESPONSE_FILE_ARR[$image_response_index]} | jq '[
     .[]
     | .vulnerabilities[] as $vuln
-    | { 
+    | {
         id: .id,
         hosts: .hosts?,
         hostnames: (.hosts? | keys // ""),
         cloudMetadata: (.cloudMetadata? | del(.labels) // ""),
-        registry: .repoTag.registry?, 
-        repository: .repoTag.repo?, 
-        tag: .repoTag.tag?, 
-        distro: .osDistro?, 
-        distroRelease: .osDistroRelease?, 
-        distroVersion: .osDistroVersion?, 
-        collections: (.collections? | @sh // ""),         
+        registry: .repoTag.registry?,
+        repository: .repoTag.repo?,
+        tag: .repoTag.tag?,
+        distro: .osDistro?,
+        distroRelease: .osDistroRelease?,
+        distroVersion: .osDistroVersion?,
+        collections: (.collections? | @sh // ""),
         vulnerability: $vuln,
         path: (
             .binaries
@@ -109,9 +109,9 @@ for image_response_index in "${!IMAGE_RESPONSE_FILE_ARR[@]}"; do \
             | if length > 0 then .[0] else "" end
           )
       }
-    | .hostnames as $hostnames 
-    | . + { "hostname": $hostnames[] } 
-    | del(.hostnames) 
+    | .hostnames as $hostnames
+    | . + { "hostname": $hostnames[] }
+    | del(.hostnames)
     | {
         id: .id?,
         registry: .registry?,
@@ -127,8 +127,8 @@ for image_response_index in "${!IMAGE_RESPONSE_FILE_ARR[@]}"; do \
         vulnerabilityText: .vulnerability.text?,
         vectorStr: .vulnerability.vecStr?,
         exploit: .vulnerability.exploit?,
-        riskFactors: (.vulnerability.riskFactors? 
-          | keys 
+        riskFactors: (.vulnerability.riskFactors?
+          | keys
           | @sh // ""),
         vulnerabilityDesc: .vulnerability.description?,
         severity: .vulnerability.severity?,
@@ -138,8 +138,8 @@ for image_response_index in "${!IMAGE_RESPONSE_FILE_ARR[@]}"; do \
         sourcePackageName: .vulnerability.packageName?,
         path: (.path // ""),
         packages: (
-          (.vulnerability.binaryPkgs? 
-            | values 
+          (.vulnerability.binaryPkgs?
+            | values
             | @sh) // ""),
         packageVersion: .vulnerability.packageVersion?,
         discovered: .vulnerability.discovered?,
@@ -164,71 +164,71 @@ wait
 # Loops through the IMAGE_RESPONSE_FILE_ARR and parses the json from the requests for config/compliance issues
 for image_response_index in "${!IMAGE_RESPONSE_FILE_ARR[@]}"; do \
   cat ${IMAGE_RESPONSE_FILE_ARR[$image_response_index]} | jq '[
-        .[]?  
+        .[]?
       |{
-        id, 
+        id,
         cloudMetadata,
-        registry: .repoTag.registry, 
-        repository: .repoTag.repo, 
-        tag: .repoTag.tag, 
-        distro: .osDistro, 
-        distroRelease: .osDistroRelease, 
-        distroVersion: .osDistroVersion, 
-        configData: .complianceIssues[]?, 
+        registry: .repoTag.registry,
+        repository: .repoTag.repo,
+        tag: .repoTag.tag,
+        distro: .osDistro,
+        distroRelease: .osDistroRelease,
+        distroVersion: .osDistroVersion,
+        configData: .complianceIssues[]?,
         hosts
        }
       |{
-        id, 
+        id,
         cloudMetadata,
-        registry, 
-        repository, 
-        tag, 
-        distro, 
-        distroRelease, 
-        distroVersion, 
-        configPolicyTitle: .configData.title, 
-        configDescription: .configData.description, 
-        severity: .configData.severity, 
-        configPolicyType: .configData.type, 
-        configCause: .configData.cause, 
-        complianceID: .configData.id, 
-        hostnames: (.hosts? | keys), 
-        hostData: .hosts} 
-      | .hostnames as $hostnames 
-      | . + { "hostname": $hostnames[] } 
-      | del(.hostnames) 
+        registry,
+        repository,
+        tag,
+        distro,
+        distroRelease,
+        distroVersion,
+        configPolicyTitle: .configData.title,
+        configDescription: .configData.description,
+        severity: .configData.severity,
+        configPolicyType: .configData.type,
+        configCause: .configData.cause,
+        complianceID: .configData.id,
+        hostnames: (.hosts? | keys),
+        hostData: .hosts}
+      | .hostnames as $hostnames
+      | . + { "hostname": $hostnames[] }
+      | del(.hostnames)
       |{
-        id, 
-        registry, 
-        repository, 
-        tag, 
-        distro, 
-        distroRelease, 
-        distroVersion, 
-        configPolicyTitle, 
+        id,
+        registry,
+        repository,
+        tag,
+        distro,
+        distroRelease,
+        distroVersion,
+        configPolicyTitle,
         complianceID,
-        configDescription, 
-        severity, 
-        configPolicyType, 
-        configCause, 
-        hostname, 
-        cluster: .hostData[.hostname].cluster?, 
-        namespace: .hostData[.hostname].namespaces[]?, 
-        accountID: .hostData[.hostname].accountID?, 
-        cspProvider: .cloudMetadata.provider, 
-        cspResourceID: .cloudMetadata.resourceID, 
-        cspRegion: .cloudMetadata.region, 
+        configDescription,
+        severity,
+        configPolicyType,
+        configCause,
+        hostname,
+        cluster: .hostData[.hostname].cluster?,
+        namespace: .hostData[.hostname].namespaces[]?,
+        accountID: .hostData[.hostname].accountID?,
+        cspProvider: .cloudMetadata.provider,
+        cspResourceID: .cloudMetadata.resourceID,
+        cspRegion: .cloudMetadata.region,
         cspVMimageID: .cloudMetadata.image
         }
-      ] 
-    | unique 
+      ]
+    | unique
     | select(length > 0)' > ./temp/finished_config_$(printf '%08d' "$image_response_index").json&
 
 done
 wait
 
 
-printf '\n%s\n' "gathering epss scores please wait" 
+printf '\n%s\n' "gathering epss scores please wait"
 
 CVE_ARRAY_FOR_RISK=($(cat ./temp/finished_vuln_* | jq -r '.[].cve' | sort | uniq))
 mkdir -p ./temp/epss
@@ -244,8 +244,22 @@ cat ./temp/epss/*.json | jq '[.data[]| {cve, epss, percentile, epssPulldate: .da
 
 printf '\n%s\n' "adding epss scores, this may take a moment"
 
-cat ./temp/finished_vuln* | jq ' .[] |{id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,epss_data: [(.cve as $cve | $epss_data |..|select( .cve? and .cve==$cve ))]} | {id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections, cveEpss: .epss_data[].cve, epss: .epss_data[].epss, percentile: .epss_data[].percentile, epssPulldate: .epss_data[].epssPulldate}' --slurpfile epss_data ./temp/finished_epss.json > ./temp/completed_vuln_and_epss.json
+for vuln_response_file in ./temp/finished_vuln_*; do \
+  printf '%s\n' "$vuln_response_file" >> ./temp/for_vuln_array.txt
+done
 
+# Reads those file paths into a bash array
+VULN_FILE_ARRAY=()
+while IFS= read -r line; do
+  VULN_FILE_ARRAY+=("$line")
+done < ./temp/for_vuln_array.txt
+
+for vuln_file in "${!VULN_FILE_ARRAY[@]}"; do \
+ cat ${VULN_FILE_ARRAY[$vuln_file]} | jq ' .[] |{id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,epss_data: [(.cve as $cve | $epss_data |..|select( .cve? and .cve==$cve ))]} | {id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections, cveEpss: .epss_data[].cve, epss: .epss_data[].epss, percentile: .epss_data[].percentile, epssPulldate: .epss_data[].epssPulldate}' --slurpfile epss_data ./temp/finished_epss.json > ./temp/completed_vuln_and_epss_$(printf '%05d' $vuln_file).json&
+
+done
+
+wait
 
 # provides headers for config/compliance report
 printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,configPolicyTitle,complianceID,configDescription,severity,configPolicyType,configCause,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID" > ./reports/config_report_containers_$REPORT_DATE.csv
@@ -255,14 +269,13 @@ printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,cve
 
 
 # formats the vulnerability data into csv
-cat ./temp/completed_vuln_and_epss.json | jq -r ' . | [inputs] | map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'>> ./reports/vulnerability_report_containers_$REPORT_DATE.csv
+cat ./temp/completed_vuln_and_epss_* | jq -r ' . | [inputs] | map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'>> ./reports/vulnerability_report_containers_$REPORT_DATE.csv
 
 # formats the config compliance data into csv
 cat ./temp/finished_config_* | jq -r ' . |map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./reports/config_report_containers_$REPORT_DATE.csv
 
 # user notification
 printf '\n%s\n' "Reports are done, they can be retrieved from the following locations: ./reports/vulnerability_report_containers_$REPORT_DATE.csv and ./reports/config_report_containers_$REPORT_DATE.csv"
-
 
 
 # remove the lines below if you want to keep the response data

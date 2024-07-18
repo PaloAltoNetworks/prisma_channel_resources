@@ -218,7 +218,22 @@ cat ./temp/epss/*.json | jq '[.data[]| {cve, epss, percentile, epssPulldate: .da
 
 
 printf '\n%s\n' "adding epss scores, this may take a moment"
+for vuln_response_file in ./temp/finished_vuln_*; do \
+  printf '%s\n' "$vuln_response_file" >> ./temp/for_vuln_array.txt
+done
 
+# Reads those file paths into a bash array
+VULN_FILE_ARRAY=()
+while IFS= read -r line; do
+  VULN_FILE_ARRAY+=("$line")
+done < ./temp/for_vuln_array.txt
+
+for vuln_file in "${!VULN_FILE_ARRAY[@]}"; do \
+ cat ${VULN_FILE_ARRAY[$vuln_file]} | jq ' .[] |{id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,epss_data: [(.cve as $cve | $epss_data |..|select( .cve? and .cve==$cve ))]} | {id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections, cveEpss: .epss_data[].cve, epss: .epss_data[].epss, percentile: .epss_data[].percentile, epssPulldate: .epss_data[].epssPulldate}' --slurpfile epss_data ./temp/finished_epss.json > ./temp/completed_vuln_and_epss_$(printf '%05d' $vuln_file).json&
+
+done
+
+wait
 
 # provides headers for config/compliance report
 printf '%s\n' "id,distro,distroRelease,distroVersion,configPolicyTitle,complianceID,configDescription,severity,configPolicyType,configCause,accountID,cluster,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections" > ./reports/config_report_hosts_$REPORT_DATE.csv
@@ -227,13 +242,8 @@ printf '%s\n' "id,distro,distroRelease,distroVersion,configPolicyTitle,complianc
 printf '%s\n' "id,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,accountID,cluster,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,cveEpss,epss,percentile,epssPulldate" > ./reports/vulnerability_report_hosts_$REPORT_DATE.csv
 
 
-cat ./temp/finished_vuln* | jq ' .[] |{id,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,accountID,cluster,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,epss_data: [( .cve as $cve | $epss_data |..|select( .cve? and .cve==$cve ))]} | { id,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,accountID,cluster,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,cveEpss: .epss_data[].cve, epss: .epss_data[].epss, percentile: .epss_data[].percentile, epssPulldate: .epss_data[].epssPulldate}' --slurpfile epss_data ./temp/finished_epss.json > ./temp/completed_vuln_and_epss.json
-
-
-
-
 # formats the vulnerability data into csv
-cat ./temp/completed_vuln_and_epss.json | jq -r ' . | [inputs] | map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'>> ./reports/vulnerability_report_hosts_$REPORT_DATE.csv
+cat ./temp/completed_vuln_and_epss* | jq -r ' . | [inputs] | map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'>> ./reports/vulnerability_report_hosts_$REPORT_DATE.csv
 
 # formats the config compliance data into csv
 cat ./temp/finished_config_* | jq -r ' . |map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./reports/config_report_hosts_$REPORT_DATE.csv

@@ -129,6 +129,8 @@ wait
 cat ./temp/finished_* > ./temp/all_errors_$REPORT_DATE.json
 
 mkdir ./temp/policy
+
+# TO-DO update endpiont to Policies
 curl --request GET \
      --url "$PC_APIURL/code/api/v1/policies/table/data" \
      --header "Accept: application/json" \

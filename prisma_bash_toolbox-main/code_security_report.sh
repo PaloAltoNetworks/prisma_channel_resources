@@ -333,7 +333,9 @@ cat ./temp/completed_combined_data.json | jq -n -r '[inputs] | map({sourceType, 
 
 printf '\n%s\n' "All done your report is in the reports directory saved as: code_security_report_$REPORT_DATE.csv"
 
-
+{
+rm -rf ./temp/*
+}
 
 
 

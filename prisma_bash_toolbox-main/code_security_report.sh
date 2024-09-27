@@ -4,6 +4,7 @@
 # Retrieves all errors 
 # No user configuration needed
 # Updated with the new CAS APIs
+# Retrieves secrets, iac misconfigs, license issues, vulnerabilities, and other errors from onboarded projects/repos
 # Utilizes multiprocessing without flock
 
 source ./secrets/secrets

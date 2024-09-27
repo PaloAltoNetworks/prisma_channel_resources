@@ -49,6 +49,7 @@ function fetch_pages() {
   local LIMIT=100
   local STEP=$(( NUM_WORKERS * LIMIT ))
 
+ # scans default "main branch" TO DO: update branch to read .defaultBranch key in ./temp/repo_response.json file 
   while true; do
     VCS_SCAN_ISSUES_PAYLOAD=$(jq -n \
       --argjson repositories "$(printf '%s\n' "${REPOSITORY_ID_ARRAY[@]}" | jq -R . | jq -s .)" \

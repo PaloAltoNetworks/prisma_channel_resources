@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 # Written by Kyle Butler
 # Requires jq to be installed
-# Retrieves all errors 
+# Retrieves all errors (suppressed, passed) for Prisma Cloud Code Security across all onboarded projects and creates a report in CSV format
 # No user configuration needed
-# Updated with the new CAS APIs
-# Retrieves secrets, iac misconfigs, license issues, vulnerabilities, and other errors from onboarded projects/repos
 # Utilizes multiprocessing without flock
+
+set -e
+set -o pipefail
+
+# Ensure necessary directories exist
+mkdir -p ./temp
+mkdir -p ./reports
+mkdir -p ./secrets
+mkdir -p ./func
 
 source ./secrets/secrets
 source ./func/func.sh
@@ -17,48 +24,60 @@ AUTH_PAYLOAD=$(cat <<EOF
 EOF
 )
 
-
 retrieve_prisma_jwt() {
-
-PC_JWT_RESPONSE=$(curl --silent --request POST \
+    PC_JWT_RESPONSE=$(curl --silent --request POST \
                        --url "$PC_APIURL/login" \
                        --header 'Accept: application/json; charset=UTF-8' \
                        --header 'Content-Type: application/json; charset=UTF-8' \
                        --data "${AUTH_PAYLOAD}")
 
-PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
+    PC_JWT=$(printf %s "$PC_JWT_RESPONSE" | jq -r '.token' )
 }
 
-
 retrieve_prisma_jwt
-
 
 curl --silent --url "$PC_APIURL/code/api/v1/repositories" \
      --header 'Accept: application/json' \
      --header "authorization: $PC_JWT" > ./temp/repo_response.json
 
-REPOSITORY_ID_ARRAY=($(jq -r '.[].id' ./temp/repo_response.json))
+# Extract unique, non-null default branches
+DEFAULT_BRANCH_ARRAY=($(jq -r '.[] | .defaultBranch' ./temp/repo_response.json | grep -v null | sort -u))
 
-# Number of parallel workers
+# Number of workers per branch
 NUM_WORKERS=5
 
-# Function to fetch pages assigned to each worker
-function fetch_pages() {
-  local WORKER_ID=$1
-  local OFFSET=$(( (WORKER_ID - 1) * 100 ))
-  local LIMIT=100
-  local STEP=$(( NUM_WORKERS * LIMIT ))
+# Maximum number of parallel jobs
+MAX_PARALLEL_JOBS=10
 
- # scans default "main branch" TO DO: update branch to read .defaultBranch key in ./temp/repo_response.json file 
+# Function to fetch pages assigned to each worker
+fetch_pages() {
+  local WORKER_ID=$1
+  local BRANCH=$2
+  local repositories_json=$3
+  local OFFSET=0
+  local LIMIT=100
+
+  if [[ -z "$repositories_json" || "$repositories_json" == "[]" ]]; then
+    echo "Worker $WORKER_ID: No repositories assigned. Skipping."
+    return
+  fi
+
+  if [[ -z "$BRANCH" || "$BRANCH" == "null" ]]; then
+    echo "Worker $WORKER_ID: Branch is null or empty. Skipping."
+    return
+  fi
+
+  # Sanitize the BRANCH variable
+  SANITIZED_BRANCH=$(echo "$BRANCH" | sed 's/[^a-zA-Z0-9._-]/_/g')
+
   while true; do
     VCS_SCAN_ISSUES_PAYLOAD=$(jq -n \
-      --argjson repositories "$(printf '%s\n' "${REPOSITORY_ID_ARRAY[@]}" | jq -R . | jq -s .)" \
-      --arg branch "main" \
+      --argjson repositories "$repositories_json" \
+      --arg branch "$BRANCH" \
       --arg checkStatus "Error" \
       --argjson offset "$OFFSET" \
       --argjson limit "$LIMIT" \
       --argjson codeCategories '["IacMisconfiguration","Vulnerabilities","Licenses","Secrets","Weaknesses"]' \
-      --argjson sortBy '[{"key": "Severity","direction": "DESC"},{"key": "Count","direction": "DESC"}]' \
       '{
         filters: {
           repositories: $repositories,
@@ -72,13 +91,16 @@ function fetch_pages() {
           term: ""
         },
         limit: $limit,
-        sortBy: $sortBy
+        sortBy: []
       }'
     )
 
-    echo "Worker $WORKER_ID fetching offset $OFFSET"
+    echo "Worker $WORKER_ID fetching offset $OFFSET for branch $BRANCH"
 
-    RESPONSE_FILE="./temp/vcs_response_$(printf '%06d' "${OFFSET}").json"
+    RESPONSE_FILE="./temp/vcs_response_worker${WORKER_ID}_$(printf '%06d_%s' "${OFFSET}" "${SANITIZED_BRANCH}").json"
+
+    # Debug: Print the filename being written
+    # echo "Worker $WORKER_ID writing to $RESPONSE_FILE"
 
     curl --silent --url "$PC_APIURL/bridgecrew/api/v2/errors/branch_scan/resources" \
          --header "Authorization: $PC_JWT" \
@@ -86,26 +108,77 @@ function fetch_pages() {
          --header 'Content-Type: application/json' \
          --data-raw "$VCS_SCAN_ISSUES_PAYLOAD" > "$RESPONSE_FILE"
 
+    # Check for API errors
+    if grep -q '"error"' "$RESPONSE_FILE"; then
+      echo "Error in API response for Worker $WORKER_ID at offset $OFFSET:"
+      cat "$RESPONSE_FILE"
+      break
+    fi
+
     ITEMS=$(jq -r '.data | length' "$RESPONSE_FILE")
     HAS_NEXT=$(jq -r '.hasNext' "$RESPONSE_FILE")
 
     if [[ "$ITEMS" -eq 0 ]]; then
-      echo "Worker $WORKER_ID found no items at offset $OFFSET. Exiting."
+      echo "Worker $WORKER_ID found no items at offset $OFFSET for branch $BRANCH. Exiting."
       break
     fi
 
     if [[ "$HAS_NEXT" != "true" ]]; then
-      echo "Worker $WORKER_ID has no more pages after offset $OFFSET. Exiting."
+      echo "Worker $WORKER_ID has no more pages after offset $OFFSET for branch $BRANCH. Exiting."
       break
     fi
 
-    OFFSET=$(( OFFSET + STEP ))
+    OFFSET=$(( OFFSET + LIMIT ))
   done
 }
 
-# Start multiple worker processes
-for (( WORKER_ID=1; WORKER_ID<=NUM_WORKERS; WORKER_ID++ )); do
-  fetch_pages "$WORKER_ID" &
+# Global worker counter to ensure unique WORKER_IDs
+WORKER_COUNTER=1
+
+for DEFAULT_BRANCH in "${DEFAULT_BRANCH_ARRAY[@]}"; do
+  # Get repositories for this branch
+  repositories=()
+  while IFS= read -r repo_id; do
+    repositories+=("$repo_id")
+  done < <(jq -r --arg BRANCH "$DEFAULT_BRANCH" '.[] | select(.defaultBranch == $BRANCH) | .id' ./temp/repo_response.json)
+
+  num_repos=${#repositories[@]}
+  if (( num_repos == 0 )); then
+    echo "No repositories found for branch $DEFAULT_BRANCH. Skipping."
+    continue
+  fi
+
+  # Adjust NUM_WORKERS if fewer repositories than workers
+  adjusted_num_workers=$(( num_repos < NUM_WORKERS ? num_repos : NUM_WORKERS ))
+
+  # Calculate how many repositories each worker should process
+  repos_per_worker=$(( (num_repos + adjusted_num_workers - 1) / adjusted_num_workers ))  # Ceiling division
+
+  # Start workers with their assigned repositories
+  for (( i=0; i<adjusted_num_workers; i++ )); do
+    start_index=$(( i * repos_per_worker ))
+    end_index=$(( start_index + repos_per_worker ))
+    if (( start_index >= num_repos )); then
+      break  # No more repositories to assign
+    fi
+    worker_repos=("${repositories[@]:$start_index:$repos_per_worker}")
+
+    # Convert worker_repos array to JSON array
+    worker_repos_json=$(printf '%s\n' "${worker_repos[@]}" | jq -R . | jq -s .)
+
+    # Start the worker
+    fetch_pages "$WORKER_COUNTER" "$DEFAULT_BRANCH" "$worker_repos_json" &
+
+    WORKER_COUNTER=$(( WORKER_COUNTER + 1 ))
+
+    # Control the number of background processes
+    while (( $(jobs -rp | wc -l) >= MAX_PARALLEL_JOBS )); do
+      sleep 0.1
+    done
+  done
+
+  # Wait for workers to finish before moving to the next branch
+  wait
 done
 
 # Wait for all background processes to finish
@@ -335,10 +408,10 @@ cat ./temp/completed_combined_data.json | jq -n -r '[inputs] | map({sourceType, 
 
 printf '\n%s\n' "All done your report is in the reports directory saved as: code_security_report_$REPORT_DATE.csv"
 
+
 {
 rm -rf ./temp/*
 }
-
 
 
 

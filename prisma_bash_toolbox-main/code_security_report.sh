@@ -205,7 +205,7 @@ MAX_PARALLEL_JOBS=10
 
 
 # Function to process each item with pagination support
-function process_item() {
+process_item() {
   local i=$1
 
 # Refresh JWT every 100 requests so it doesn't timeout

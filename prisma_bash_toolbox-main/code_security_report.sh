@@ -328,23 +328,46 @@ echo "All items have been processed."
 
 echo "Combining group files into combined JSON files..."
 
-# Loop through the group_* directories
-for group_dir in ./temp/group_*; do
+process_group_directory() {
+  local group_dir=$1
+  local group_name
+  local combined_file
+
   if [ -d "$group_dir" ]; then
     group_name=$(basename "$group_dir")
-    group_number=${group_name#group_}
     combined_file="./temp/combined_${group_name}.json"
 
     echo "Combining files in $group_dir into $combined_file"
 
-    # Combine all 'data' arrays from the JSON files into one array
-    find "$group_dir" -type f -name '*.json' -print0 | \
-      xargs -0 jq -s '[.[] | .data[]]' > "$combined_file"
+    # Create an empty array to hold valid JSON file paths
+    valid_json_files=()
+
+    # Check each file to ensure it's valid JSON before adding it to the list
+    for json_file in "$group_dir"/*.json; do
+      if jq empty "$json_file" >/dev/null 2>&1; then
+        valid_json_files+=("$json_file")
+      else
+        echo "Skipping invalid JSON file: $json_file"
+      fi
+    done
+
+    # Combine all 'data' arrays from the valid JSON files into one array
+    if [ ${#valid_json_files[@]} -gt 0 ]; then
+      jq -s '[.[] | .data[]?]' "${valid_json_files[@]}" > "$combined_file"
+      echo "Combined JSON saved to $combined_file"
+    else
+      echo "No valid JSON files found in $group_dir."
+    fi
   fi
+}
+
+# Loop through the group_* directories and process each in parallel
+for group_dir in ./temp/group_*; do
+  process_group_directory "$group_dir" &
 done
 
-
-echo "All group files have been combined."
+# Wait for all background processes to complete
+wait
 
 echo "Combining all combined_group_*.json files into finished_group_errors.json..."
 

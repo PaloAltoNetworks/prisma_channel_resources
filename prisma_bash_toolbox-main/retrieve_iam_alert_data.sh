@@ -29,13 +29,43 @@ fi
 
 
 # gets alerts from the last year related to IAM
-curl --url "$PC_APIURL/v2/alert?timeType=relative&timeAmount=1&timeUnit=year&detailed=true&policy.type=iam&alert.status=open" \
+ALERT_URL="$PC_APIURL/v2/alert?timeType=relative&timeAmount=1&timeUnit=year&detailed=true&policy.type=iam&alert.status=open"
+
+
+gather_iam_alerts () {
+  local iam_alert_url=$1
+  local file_name=$2
+
+curl --url "$iam_alert_url" \
      --header 'Accept: application/json' \
-     --header "x-redlock-auth: $PC_JWT" > ./iam_alert_response.json
+     --header "x-redlock-auth: $PC_JWT" > "$file_name"
+}
+
+IAM_ALERT_RESPONSE_FILE="./temp/iam_alert_response.json"
+
+gather_iam_alerts "$ALERT_URL" "$IAM_ALERT_RESPONSE_FILE"
+
+
+while true; do
+
+  NEXT_PAGE_TOKEN=$(jq -r '.nextPageToken // empty' "$IAM_ALERT_RESPONSE_FILE")
+
+  if [[ -z "$NEXT_PAGE_TOKEN" ]]; then
+    echo "no more alerts. exiting loop"
+    break
+  fi
+  ((FILE_COUNTER++))
+
+  NEXT_URL="$ALERT_URL&pageToken=$NEXT_PAGE_TOKEN"
+  IAM_ALERT_RESPONSE_FILE="./temp/iam_alert_response_$FILE_COUNTER.json"
+
+  echo "gathering next page: $NEXT_URL"
+  gather_iam_alerts "$NEXT_URL" "$IAM_ALERT_RESPONSE_FILE"
+done
 
 
 # parses the response and gets a single alert id for each policy
-IAM_ALERTS=( $(cat ./iam_alert_response.json | jq -r '[.items[] | {alertId: .id, policyName: .policy.name}] | group_by(.policyName) | map({policyName: .[0].policyName, alertIds: map(.alertId)}) |sort | .[] | {policyName: .policyName, alertId: .alertIds[0]} | .alertId') )
+IAM_ALERTS=( $(cat ./temp/iam_alert_response*.json | jq -r '[.items[] | {alertId: .id, policyName: .policy.name}] | group_by(.policyName) | map({policyName: .[0].policyName, alertIds: map(.alertId)}) |sort | .[] | {policyName: .policyName, alertId: .alertIds[0]} | .alertId') )
 
 
 
@@ -100,9 +130,6 @@ cat ./temp/alert_* > ./reports/finished_combined_alert.json
 echo "all IAM alert data is in the ./reports/finished_combined_alert.json file"
 
 ## Remove to keep temp
-{
-rm -rf ./temp/*
-}
 
 
 exit

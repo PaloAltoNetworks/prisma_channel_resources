@@ -130,6 +130,8 @@ cat ./temp/alert_* > ./reports/finished_combined_alert.json
 echo "all IAM alert data is in the ./reports/finished_combined_alert.json file"
 
 ## Remove to keep temp
-
+{
+rm -rf ./temp/*
+}
 
 exit

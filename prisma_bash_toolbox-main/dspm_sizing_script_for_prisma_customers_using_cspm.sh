@@ -40,7 +40,6 @@ SERVICE_ARRAY=(
 'aws-emr-describe-cluster'
 'aws-redshift-describe-clusters'
 'aws-dax-cluster'
-'aws-fsx-file-system'
 'aws-efs-describe-file-systems'
 'aws-es-describe-elasticsearch-domain'
 'aws-opensearch-list-domain-names'

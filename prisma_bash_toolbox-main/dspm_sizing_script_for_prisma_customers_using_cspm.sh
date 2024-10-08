@@ -6,6 +6,21 @@
 # Load secrets
 source ./secrets/secrets
 
+# function to check directories
+directory_check () {
+DIR_PATH=$1
+if [ ! -d "$DIR_PATH" ]; then
+  # Create the directory
+  mkdir -p "$DIR_PATH"
+  echo "Directory '$DIR_PATH' created."
+else
+  echo "Directory '$DIR_PATH' exists."
+fi
+}
+
+directory_check "./temp"
+directory_check "./reports"
+
 # Authentication payload
 AUTH_PAYLOAD=$(cat <<EOF
 {"username": "$PC_ACCESSKEY", "password": "$PC_SECRETKEY"}

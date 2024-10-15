@@ -233,16 +233,39 @@ printf '\n%s\n' "gathering epss scores please wait"
 CVE_ARRAY_FOR_RISK=($(cat ./temp/finished_vuln_* | jq -r '.[].cve' | sort | uniq))
 mkdir -p ./temp/epss
 
-for cve in "${!CVE_ARRAY_FOR_RISK[@]}"; do \
-  curl -s "https://api.first.org/data/v1/epss?cve=${CVE_ARRAY_FOR_RISK[$cve]}" > ./temp/epss/$(printf '%05d' $cve).json&
-done
+os_name=$(uname)
 
-wait
+if [[ "$os_name" == "Darwin" ]]; then
+    # macOS
+    yesterday=$(date -v-1d +%Y-%m-%d)
+elif [[ "$os_name" == "Linux" ]]; then
+    # Ubuntu/Linux
+    yesterday=$(date -d "yesterday" +%Y-%m-%d)
+else
+    echo "Unsupported operating system: $os_name"
+    exit 1
+fi
 
-cat ./temp/epss/*.json | jq '[.data[]| {cve, epss, percentile, epssPulldate: .date}]' > ./temp/finished_epss.json
+
+echo "gathering epss scores"
+curl --url https://epss.cyentia.com/epss_scores-$yesterday.csv.gz -o ./temp/epss.csv.gz
 
 
-printf '\n%s\n' "adding epss scores, this may take a moment"
+gzip -d ./temp/epss.csv.gz
+tail -n +2 ./temp/epss.csv > ./temp/temp_csv && mv ./temp/temp_csv ./temp/epss.csv
+
+echo "converting epss to json"
+cat ./temp/epss.csv | jq -R --arg yesterday $yesterday '. |split("\n") | map(split(",")) | map({"cve": .[0], "epss": .[1], "percent": .[2], "epssPulldate": $yesterday})' > ./temp/epss.json
+
+epss_filter=$(printf '"%s", ' "${CVE_ARRAY_FOR_RISK[@]}" | sed 's/, $//')
+
+echo "filtering epss.json"
+jq --argjson cves "[$epss_filter]" 'map(select(.cve | IN($cves[]))) | .[] | [.]' ./temp/epss.json > ./temp/filtered_epss.json
+
+
+
+
+printf '\n%s\n' "adding epss scores to vuln data, this may take a moment"
 
 for vuln_response_file in ./temp/finished_vuln_*; do \
   printf '%s\n' "$vuln_response_file" >> ./temp/for_vuln_array.txt
@@ -255,7 +278,7 @@ while IFS= read -r line; do
 done < ./temp/for_vuln_array.txt
 
 for vuln_file in "${!VULN_FILE_ARRAY[@]}"; do \
- cat ${VULN_FILE_ARRAY[$vuln_file]} | jq ' .[] |{id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,epss_data: [(.cve as $cve | $epss_data |..|select( .cve? and .cve==$cve ))]} | {id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections, cveEpss: .epss_data[].cve, epss: .epss_data[].epss, percentile: .epss_data[].percentile, epssPulldate: .epss_data[].epssPulldate}' --slurpfile epss_data ./temp/finished_epss.json > ./temp/completed_vuln_and_epss_$(printf '%05d' $vuln_file).json&
+ cat ${VULN_FILE_ARRAY[$vuln_file]} | jq ' .[] |{id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,epss_data: [(.cve as $cve | $epss_data |..|select( .cve? and .cve==$cve ))]} | {id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections, cveEpss: .epss_data[].cve, epss: .epss_data[].epss, percentile: .epss_data[].percent, epssPulldate: .epss_data[].epssPulldate}' --slurpfile epss_data ./temp/filtered_epss.json > ./temp/completed_vuln_and_epss_$(printf '%05d' $vuln_file).json&
 
 done
 

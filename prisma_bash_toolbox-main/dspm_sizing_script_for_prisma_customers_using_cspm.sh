@@ -123,7 +123,7 @@ for CLOUD_ACCOUNT in "${!RQL_CLOUD_ACCOUNT_ARRAY[@]}"; do
         # Request body for RQL
         RQL_REQUEST_BODY=$(cat <<EOF
 {
-  "query":"config from cloud.resource where cloud.account = ${RQL_CLOUD_ACCOUNT_ARRAY[$CLOUD_ACCOUNT]} AND resource.status = Active AND api.name = ${SERVICE_ARRAY[$SERVICE]}",
+  "query":"config from cloud.resource where cloud.account = ${RQL_CLOUD_ACCOUNT_ARRAY[$CLOUD_ACCOUNT]} AND resource.status = Active AND api.name = '${SERVICE_ARRAY[$SERVICE]}'",
   "timeRange":{
      "type":"relative",
      "value":{

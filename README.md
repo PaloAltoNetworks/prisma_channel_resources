@@ -23,6 +23,7 @@ Please take the time to review the [support policy](https://github.com/PaloAltoN
 
 ### Prisma Cloud Dev Community Highlights
 
+* [Prisma Cloud Agentless API Scripts](https://github.com/PaloAltoNetworks/pcs-cwp-agentless)
 * [Prisma Cloud DeamonSet Defender Auto Updater](https://github.com/PaloAltoNetworks/pcs-cwp-defender-updater)
 * [Prisma Cloud Helper Scripts - Thanks Stephen Gordon](https://github.com/PaloAltoNetworks/pcs-platform-helper-scripts)
 * [Pro-Serv Ryan Haney's version of Prisma Cloud Golang SDK - Thank you Ryan!](https://github.com/thathaneydude/prisma-cloud-sdk)

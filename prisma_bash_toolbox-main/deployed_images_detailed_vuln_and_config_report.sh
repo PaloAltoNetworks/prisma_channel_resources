@@ -247,25 +247,22 @@ else
 fi
 
 
-echo "gathering epss scores"
+
 curl --url https://epss.cyentia.com/epss_scores-$yesterday.csv.gz -o ./temp/epss.csv.gz
 
 
 gzip -d ./temp/epss.csv.gz
 tail -n +2 ./temp/epss.csv > ./temp/temp_csv && mv ./temp/temp_csv ./temp/epss.csv
-
-echo "converting epss to json"
 cat ./temp/epss.csv | jq -R --arg yesterday $yesterday '. |split("\n") | map(split(",")) | map({"cve": .[0], "epss": .[1], "percent": .[2], "epssPulldate": $yesterday})' > ./temp/epss.json
 
 epss_filter=$(printf '"%s", ' "${CVE_ARRAY_FOR_RISK[@]}" | sed 's/, $//')
 
-echo "filtering epss.json"
 jq --argjson cves "[$epss_filter]" 'map(select(.cve | IN($cves[]))) | .[] | [.]' ./temp/epss.json > ./temp/filtered_epss.json
 
 
 
 
-printf '\n%s\n' "adding epss scores to vuln data, this may take a moment"
+printf '\n%s\n' "adding epss scores, this may take a moment"
 
 for vuln_response_file in ./temp/finished_vuln_*; do \
   printf '%s\n' "$vuln_response_file" >> ./temp/for_vuln_array.txt
@@ -284,21 +281,41 @@ done
 
 wait
 
-# provides headers for config/compliance report
-printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,configPolicyTitle,complianceID,configDescription,severity,configPolicyType,configCause,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID" > ./reports/config_report_containers_$REPORT_DATE.csv
+# provides headers for config/compliance report for host level report
+printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,configPolicyTitle,complianceID,configDescription,severity,configPolicyType,configCause,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID" > ./reports/config_report_containers_host_level_$REPORT_DATE.csv
 
-# provides headers for vulnerability report
-printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,cveEpss,epss,percentile,epssPulldate" > ./reports/vulnerability_report_containers_$REPORT_DATE.csv
+# provides headers for vulnerability report for host level report
+printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,hostname,cluster,namespace,accountID,cspProvider,cspResourceID,cspRegion,cspVMimageID,collections,cveEpss,epss,percentile,epssPulldate" > ./reports/vulnerability_report_containers_host_level_$REPORT_DATE.csv
 
 
-# formats the vulnerability data into csv
-cat ./temp/completed_vuln_and_epss_* | jq -r ' . | [inputs] | map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'>> ./reports/vulnerability_report_containers_$REPORT_DATE.csv
+# formats the vulnerability data into csv for host level report
+cat ./temp/completed_vuln_and_epss_* | jq -r ' . | [inputs] | map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'>> ./reports/vulnerability_report_containers_host_level_$REPORT_DATE.csv
 
-# formats the config compliance data into csv
-cat ./temp/finished_config_* | jq -r ' . |map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./reports/config_report_containers_$REPORT_DATE.csv
+# formats the config compliance data into csv for host level report
+cat ./temp/finished_config_* | jq -r ' . |map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./reports/config_report_containers_host_level_$REPORT_DATE.csv
+
+# formats the vulnerability data into csv for cluster level report
+cat ./temp/completed_vuln_and_epss* | jq '. | {id, registry, repository, tag, distro, distroRelease, distroVersion, cve, cvss, cveStatus, vulnerabilityTitle, vulnerabilityText, vectorStr, exploit, riskFactors, vulnerabilityDesc, severity, vulnerabilityLink, vulnerabilityType, vulnID, sourcePackageName, path, packages, packageVersion, discovered, fixDate, published, cluster,namespace,accountID, cspProvider, collections, cveEpss, epss, percentile, epssPulldate }' > ./temp/cluster_report_ready_vuln_epss.json
+
+# formats the vulnerability data into csv for cluster level report
+cat ./temp/finished_config* | jq '.[] | {id, registry, repository, tag, distro, distroRelease, distroVersion, configPolicyTitle, complianceID, configDescription, severity, configPolicyType, configCause, cluster, namespace, accountID, cspProvider}' > ./temp/cluster_report_ready_config.json
+
+# provides headers for config/compliance report at cluster level
+printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,configPolicyTitle,complianceID,configDescription,severity,configPolicyType,configCause,cluster,namespace,accountID,cspProvider" > ./reports/config_report_containers_cluster_level_$REPORT_DATE.csv
+
+# provides headers for vulnerability report at cluster level
+printf '%s\n' "id,registry,repository,tag,distro,distroRelease,distroVersion,cve,cvss,cveStatus,vulnerabilityTitle,vulnerabilityText,vectorStr,exploit,riskFactors,vulnerabilityDesc,severity,vulnerabilityLink,vulnerabilityType,vulnID,sourcePackageName,path,packages,packageVersion,discovered,fixDate,published,cluster,namespace,accountID,cspProvider,collections,cveEpss,epss,percentile,epssPulldate" > ./reports/vulnerability_report_containers_cluster_level_$REPORT_DATE.csv
+
+
+# formats the vulnerability data into csv for cluster level
+cat ./temp/cluster_report_ready_vuln_epss.json | jq -r ' . | [inputs] | unique | map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv'>> ./reports/vulnerability_report_containers_cluster_level_$REPORT_DATE.csv
+
+# formats the config compliance data into csv for cluster level
+cat ./temp/cluster_report_ready_config.json | jq -r ' . | [inputs] | unique |map(.) | (first | keys_unsorted) as $keys | map([to_entries[] | .value]) as $rows | $rows[] | @csv' >> ./reports/config_report_containers_cluster_level_$REPORT_DATE.csv
 
 # user notification
-printf '\n%s\n' "Reports are done, they can be retrieved from the following locations: ./reports/vulnerability_report_containers_$REPORT_DATE.csv and ./reports/config_report_containers_$REPORT_DATE.csv"
+printf '\n%s\n' "Reports are done, they can be retrieved from the following locations: ./reports/vulnerability_report_containers_host_level_$REPORT_DATE.csv and ./reports/config_report_containers_host_level_$REPORT_DATE.csv & ./reports/vulnerability_report_containers_cluster_level_$REPORT_DATE.csv ./reports/config_report_containers_cluster_level_$REPORT_DATE.csv"
+
 
 
 # remove the lines below if you want to keep the response data

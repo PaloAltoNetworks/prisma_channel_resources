@@ -27,7 +27,7 @@ fi
 
 if ! command -v curl -V > /dev/null 2>&1; then
       printf '\n%s\n%s\n' "ERROR: curl is not available." \
-                          "These scripts require jq, please install and try again."
+                          "These scripts require curl, please install and try again."
       exit 1
 fi
 

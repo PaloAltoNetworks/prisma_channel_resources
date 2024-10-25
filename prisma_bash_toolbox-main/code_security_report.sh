@@ -198,6 +198,8 @@ jq '. | {counter, fixableIssuesCount, resourceName, resourceUuid, filePath, code
 # De-duplicate data
 cat ./temp/combined_vcs_repo.json | jq '. | [inputs] |map({resourceUuid, repoId, scanBranch, counter, codeCategory}) | unique' > ./temp/de_duped_vcs_repo.json
 
+retrieve_prisma_jwt
+
 FILE_ERROR_INDEX_LENGTH=$(jq 'length' ./temp/de_duped_vcs_repo.json | tr -d '\n')
 
 # Set the maximum number of parallel jobs

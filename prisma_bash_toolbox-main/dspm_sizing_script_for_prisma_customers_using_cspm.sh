@@ -44,39 +44,28 @@ retrieve_prisma_jwt
 REPORT_DATE=$(date +%Y%m%d-%H%M)
 
 # Array of licensable services
+#TODO - Account for RDS MYSQL MARIEDB AURORA & POSTGRES
+#TODO - Account for OPENSEARCH SERVERLESS
+#TOD0 - Account for NoSQL and Mongo under cosmos
+
 SERVICE_ARRAY=(
-'aws-elasticache-cache-clusters'
 'aws-rds-describe-db-instances'
 'aws-rds-db-cluster'
 'aws-s3api-get-bucket-acl'
 'aws-dynamodb-describe-table'
-'aws-docdb-db-cluster'
-'aws-emr-instance'
-'aws-emr-describe-cluster'
 'aws-redshift-describe-clusters'
-'aws-dax-cluster'
 'aws-efs-describe-file-systems'
-'aws-es-describe-elasticsearch-domain'
-'aws-opensearch-list-domain-names'
-'azure-storage-account-list'
+'azure-storage-account-blob-diagnostic-settings'
+'azure-storage-account-file-diagnostic-settings'
 'azure-cosmos-db'
-'azure-database-maria-db-server'
-'azure-documentdb-cassandra-clusters'
+'azure-netappfiles-account'
 'azure-sql-db-list'
 'azure-sql-managed-instance'
 'azure-sql-server-list'
-'azure-cache-redis'
-'azure-mysql-flexible-server'
-'azure-postgres-flexible-server'
-'azure-synapse-workspace'
-'gcloud-filestore-instance'
-'gcloud-memorystore-memcached-instance'
-'gcloud-redis-instances-list'
 'gcloud-bigtable-instance-list'
-'gcloud-sql-instances-list'
 'gcloud-bigquery-dataset-list'
 'gcloud-storage-buckets-list'
-'gcloud-cloud-spanner-database'
+'gcloud-sql-instances-list'
 )
 
 # Account request body

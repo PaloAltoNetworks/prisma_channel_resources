@@ -116,4 +116,4 @@ for POLICY_ID in $policy_ids; do
   echo "Policy ID: $POLICY_ID, Total Findings: $TOTAL"
 done
 
-echo ""All done! Your report is in the ./reports directory saved as prisma_ci_cd_risks.csv"
+echo "All done! Your report is in the ./reports directory saved as prisma_ci_cd_risks.csv"

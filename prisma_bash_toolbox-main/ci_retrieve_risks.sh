@@ -22,7 +22,7 @@
 # 6. Outputs results into a structured CSV file for further analysis.
 
 # Variables
-outputfile="/.reports/prisma_ci_cd_risks.csv" # Output file
+outputfile="./reports/prisma_ci_cd_risks.csv" # Output file
 
 BASE_URL="https://api3.prismacloud.io"     # Base URL for Prisma Cloud API
 
@@ -56,14 +56,12 @@ PC_AUTH_TOKEN=$(echo "$PC_JWT_RESPONSE" | jq -r '.token')
 
 # Fetch the array of policy IDs
 policy_ids=$(curl -s "$BASE_URL/bridgecrew/api/v1/pipeline-risks" \
-  -X 'POST' \
-  -H 'Accept: application/json, text/plain, */*' \
-  -H 'Accept-Language: en-US,en;q=0.9' \
-  -H "Authorization: ${PC_AUTH_TOKEN}" \
-  -H 'Connection: keep-alive' \
-  -H 'Content-Length: 0' \
-  -H 'Origin: https://app3.prismacloud.io' \
-  -H 'Referer: https://app3.prismacloud.io/' | jq -r '.data[].policyId')
+                  -X 'POST' \
+                  -H 'Accept: application/json, text/plain, */*' \
+                  -H 'Accept-Language: en-US,en;q=0.9' \
+                  -H "Authorization: ${PC_AUTH_TOKEN}" \
+                  -H 'Connection: keep-alive' \
+                  -H 'Content-Length: 0'  | jq -r '.data[].policyId')
 
 # Create or clear the output CSV file
 echo "PolicyID,Name,Severity,System,Category,Description,Steps_to_solve,Title,Details,DetectedOn" > ${outputfile}
@@ -74,14 +72,12 @@ for POLICY_ID in $policy_ids; do
 
   # Fetch policy details
   policy_details=$(curl -s "$BASE_URL/bridgecrew/api/v1/pipeline-risks/$POLICY_ID/details" \
-    -H 'Accept: application/json, text/plain, */*' \
-    -H 'Accept-Language: en-US,en;q=0.9' \
-    -H "Authorization: ${PC_AUTH_TOKEN}" \
-    -H 'Connection: keep-alive' \
-    -H 'Content-Type: application/json' \
-    -H 'Origin: https://app3.prismacloud.io' \
-    -H 'Referer: https://app3.prismacloud.io/' \
-    --data-raw '{}')
+                        -H 'Accept: application/json, text/plain, */*' \
+                        -H 'Accept-Language: en-US,en;q=0.9' \
+                        -H "Authorization: ${PC_AUTH_TOKEN}" \
+                        -H 'Connection: keep-alive' \
+                        -H 'Content-Type: application/json' \
+                        --data-raw '{}')
 
   # Extract policy details
   policy_id=$(echo "$policy_details" | jq -r '.data.policyId')
@@ -106,8 +102,6 @@ for POLICY_ID in $policy_ids; do
       -H "Authorization: ${PC_AUTH_TOKEN}" \
       -H 'Connection: keep-alive' \
       -H 'Content-Type: application/json' \
-      -H 'Origin: https://app3.prismacloud.io' \
-      -H 'Referer: https://app3.prismacloud.io/' \
       --data-raw '{"status":"open"}')
 
     # Extract findings and append to CSV

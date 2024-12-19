@@ -2,7 +2,7 @@
 
 # Author: Naman Shah
 
-# REQUIREMENTS: 
+# REQUIREMENTS:
 # Requires jq to be installed: 'sudo apt-get install jq'
 
 # SET-UP:
@@ -24,7 +24,6 @@
 # Variables
 outputfile="./reports/prisma_ci_cd_risks.csv" # Output file
 
-BASE_URL="https://api3.prismacloud.io"     # Base URL for Prisma Cloud API
 
 # Ensure necessary directories exist
 mkdir -p ./temp
@@ -46,7 +45,7 @@ EOF
 
 # Authenticate and obtain a JWT token
 PC_JWT_RESPONSE=$(curl --request POST \
-                       --url "$BASE_URL/login" \
+                       --url "$PC_APIURL/login" \
                        --header 'Accept: application/json; charset=UTF-8' \
                        --header 'Content-Type: application/json; charset=UTF-8' \
                        --data "${AUTH_PAYLOAD}")
@@ -55,7 +54,7 @@ PC_JWT_RESPONSE=$(curl --request POST \
 PC_AUTH_TOKEN=$(echo "$PC_JWT_RESPONSE" | jq -r '.token')
 
 # Fetch the array of policy IDs
-policy_ids=$(curl -s "$BASE_URL/bridgecrew/api/v1/pipeline-risks" \
+policy_ids=$(curl -s "$PC_APIURL/bridgecrew/api/v1/pipeline-risks" \
                   -X 'POST' \
                   -H 'Accept: application/json, text/plain, */*' \
                   -H 'Accept-Language: en-US,en;q=0.9' \
@@ -71,7 +70,7 @@ for POLICY_ID in $policy_ids; do
   echo "Processing Policy ID: $POLICY_ID"
 
   # Fetch policy details
-  policy_details=$(curl -s "$BASE_URL/bridgecrew/api/v1/pipeline-risks/$POLICY_ID/details" \
+  policy_details=$(curl -s "$PC_APIURL/bridgecrew/api/v1/pipeline-risks/$POLICY_ID/details" \
                         -H 'Accept: application/json, text/plain, */*' \
                         -H 'Accept-Language: en-US,en;q=0.9' \
                         -H "Authorization: ${PC_AUTH_TOKEN}" \
@@ -96,7 +95,7 @@ for POLICY_ID in $policy_ids; do
 
   # Fetch all data for the policy
   while $HAS_NEXT; do
-    response=$(curl -s "$BASE_URL/bridgecrew/api/v1/pipeline-risks/$POLICY_ID/alerts?limit=$LIMIT&offset=$OFFSET" \
+    response=$(curl -s "$PC_APIURL/bridgecrew/api/v1/pipeline-risks/$POLICY_ID/alerts?limit=$LIMIT&offset=$OFFSET" \
       -H 'Accept: application/json, text/plain, */*' \
       -H 'Accept-Language: en-US,en;q=0.9' \
       -H "Authorization: ${PC_AUTH_TOKEN}" \
